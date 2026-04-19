@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  /* --- Surfaces (warm paper palette) ----------------------------------- */
+  --color-canvas: #f7f4ee;
+  --color-surface: #ffffff;
+  --color-subtle: #efeae1;
+  --color-muted: #e6dfd2;
+
+  /* --- Borders --------------------------------------------------------- */
+  --color-border: #d9d1c1;
+  --color-border-strong: #b8ae9a;
+
+  /* --- Text ------------------------------------------------------------ */
+  --color-ink: #1f1b16;
+  --color-ink-muted: #55504a;
+  --color-ink-soft: #8a8378;
+  --color-ink-inverse: #f7f4ee;
+
+  /* --- Brand (terracotta) --------------------------------------------- */
+  --color-brand: #b8603c;
+  --color-brand-hover: #a4502e;
+  --color-brand-soft: #f4e4db;
+
+  /* --- Accent (olive) ------------------------------------------------- */
+  --color-accent: #6b7a4f;
+  --color-accent-soft: #e8eadc;
+
+  /* --- Semantic ------------------------------------------------------- */
+  --color-success: #6b7a4f;
+  --color-success-bg: #e8eadc;
+  --color-warning: #c28840;
+  --color-warning-bg: #f5e9d5;
+  --color-danger: #a44a3f;
+  --color-danger-bg: #f0dbd6;
+  --color-info: #5a6f7d;
+  --color-info-bg: #dce3e7;
+
+  /* --- Shadows -------------------------------------------------------- */
+  --shadow-editorial: 0 20px 50px -12px rgba(31, 27, 22, 0.08);
+  --shadow-soft: 0 4px 20px -10px rgba(31, 27, 22, 0.05);
+}
+
+html,
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-brand-soft);
+  color: var(--color-ink);
+}
+
+.font-serif {
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+}
+.font-mono {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Shiki — strip inline background and padding; our wrapper provides them. */
+.shiki-wrapper pre.shiki {
+  background-color: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.shiki-wrapper pre.shiki code {
+  background-color: transparent !important;
+}
