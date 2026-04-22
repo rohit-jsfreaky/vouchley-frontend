@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 import { BalanceCard } from "@/components/dashboard/billing/balance-card";
-import { BillingContactForm } from "@/components/dashboard/billing/billing-contact-form";
 import { CreditPacks } from "@/components/dashboard/billing/credit-packs";
 import { InvoiceHistory } from "@/components/dashboard/billing/invoice-history";
 import { PaymentMethodCard } from "@/components/dashboard/billing/payment-method-card";
@@ -72,34 +71,28 @@ export function BillingClient() {
         subtitle="Manage credits, payment methods, and invoices."
       />
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        <div className="space-y-8 lg:col-span-2">
-          <BalanceCard
-            data={overview}
-            loading={loading}
-            onBuyClick={scrollToPacks}
-          />
+      <div className="space-y-8">
+        <BalanceCard
+          data={overview}
+          loading={loading}
+          onBuyClick={scrollToPacks}
+        />
 
-          <CreditPacks
-            ref={packsRef}
-            subscription={overview?.subscription ?? null}
-          />
+        <CreditPacks
+          ref={packsRef}
+          subscription={overview?.subscription ?? null}
+        />
 
-          <PaymentMethodCard
-            hasDodoCustomer={overview?.has_dodo_customer ?? false}
-            loading={loading}
-          />
+        <PaymentMethodCard
+          hasDodoCustomer={overview?.has_dodo_customer ?? false}
+          loading={loading}
+        />
 
-          <InvoiceHistory
-            invoices={invoices}
-            loading={loading}
-            onOpenPortal={handleOpenPortal}
-          />
-        </div>
-
-        <div className="lg:col-span-1">
-          <BillingContactForm profile={overview?.profile ?? null} loading={loading} />
-        </div>
+        <InvoiceHistory
+          invoices={invoices}
+          loading={loading}
+          onOpenPortal={handleOpenPortal}
+        />
       </div>
     </div>
   );

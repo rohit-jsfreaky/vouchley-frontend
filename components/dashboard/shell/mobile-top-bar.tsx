@@ -1,23 +1,40 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 import {
   DASHBOARD_NAV,
   DASHBOARD_NAV_FOOTER,
 } from "@/config/dashboard-nav";
+import { logout } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 
 export function MobileTopBar() {
+  const router = useRouter();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  async function handleLogout() {
+    if (loggingOut) return;
+    setLoggingOut(true);
+    try {
+      await logout();
+      router.push("/");
+      router.refresh();
+    } catch {
+      toast.error("Could not log you out. Try again.");
+      setLoggingOut(false);
+    }
+  }
 
   return (
     <header className="sticky top-0 z-40 flex items-center justify-between border-b border-border/30 bg-canvas/80 px-4 py-3 backdrop-blur md:hidden">
@@ -58,6 +75,17 @@ export function MobileTopBar() {
                 </Link>
               );
             })}
+            <button
+              type="button"
+              onClick={handleLogout}
+              disabled={loggingOut}
+              className="mt-2 flex w-full items-center gap-3 rounded-lg border-t border-border/30 px-3 py-2.5 pt-4 text-sm text-ink-muted disabled:opacity-60"
+            >
+              <LogOut className="size-5" strokeWidth={1.75} aria-hidden />
+              <span className="flex-1 text-left">
+                {loggingOut ? "Logging out..." : "Log out"}
+              </span>
+            </button>
           </nav>
         </div>
       )}

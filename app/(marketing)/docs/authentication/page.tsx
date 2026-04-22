@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   title: `Authentication — ${SITE.name} Docs`,
   description:
     "Secure your Vouchley integration with Bearer tokens. Test vs live keys, rotation, and security best practices.",
+  alternates: { canonical: "/docs/authentication" },
 };
 
 const TOC: TocItem[] = [
@@ -58,7 +59,7 @@ export default function DocsAuthenticationPage() {
           secrets manager before closing the modal.
         </DocP>
         <CodeBlock
-          code={`curl -X POST https://api.vouchley.io/v1/verify \\
+          code={`curl -X POST https://api.vouchley.getrevlio.com/v1/verify \\
   -H "Authorization: Bearer vch_live_abc123def456..." \\
   -H "Content-Type: application/json" \\
   -d '{"email": "john@acme.com"}'`}
@@ -109,10 +110,6 @@ export default function DocsAuthenticationPage() {
           <li>Keep one key per deployment environment (staging, production).</li>
           <li>Rotate keys at least quarterly, and immediately on any suspected leak.</li>
           <li>Use environment-specific labels so the dashboard stays scannable.</li>
-          <li>
-            Enable email alerts on <DocCode>usage_threshold</DocCode> events to
-            catch abuse early.
-          </li>
         </ul>
       </article>
 

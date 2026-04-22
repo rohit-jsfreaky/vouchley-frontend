@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   title: `Quickstart — ${SITE.name} Docs`,
   description:
     "Get your first Vouchley verification response in under five minutes. One API key, one POST request.",
+  alternates: { canonical: "/docs" },
 };
 
 const TOC: TocItem[] = [
@@ -59,7 +60,7 @@ export default function DocsQuickstartPage() {
           name, company name, and source IP for richer signals.
         </DocP>
         <CodeBlock
-          code={`curl -X POST https://api.vouchley.io/v1/verify \\
+          code={`curl -X POST https://api.vouchley.getrevlio.com/v1/verify \\
   -H "Authorization: Bearer $VOUCHLEY_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -131,7 +132,7 @@ export default function DocsQuickstartPage() {
         </DocP>
         <CodeBlock
           code={`async function createUser(signup) {
-  const resp = await fetch("https://api.vouchley.io/v1/verify", {
+  const resp = await fetch("https://api.vouchley.getrevlio.com/v1/verify", {
     method: "POST",
     headers: {
       "Authorization": \`Bearer \${process.env.VOUCHLEY_API_KEY}\`,
@@ -163,8 +164,21 @@ export default function DocsQuickstartPage() {
           >
             Authentication
           </a>{" "}
-          to learn how to rotate keys safely, or jump to the API reference for
-          the full shape of every endpoint.
+          to learn how to rotate keys safely, read about{" "}
+          <a
+            href="/docs/caching-credits"
+            className="font-medium text-brand underline decoration-brand/40 hover:decoration-brand"
+          >
+            Caching &amp; Credits
+          </a>{" "}
+          to understand how billing works, or jump to the{" "}
+          <a
+            href="/docs/api/verify"
+            className="font-medium text-brand underline decoration-brand/40 hover:decoration-brand"
+          >
+            API Reference
+          </a>{" "}
+          for the full shape of every endpoint.
         </DocP>
       </article>
 

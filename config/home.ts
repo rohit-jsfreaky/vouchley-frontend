@@ -14,7 +14,7 @@ export const HERO = {
 export const HERO_CODE_SAMPLE = {
   filename: "verify.sh",
   language: "bash",
-  code: `curl -X POST https://api.vouchley.io/v1/verify \\
+  code: `curl -X POST https://api.vouchley.getrevlio.com/v1/verify \\
   -H "Authorization: Bearer vch_live_..." \\
   -H "Content-Type: application/json" \\
   -d '{

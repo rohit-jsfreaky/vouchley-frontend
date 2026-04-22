@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: `Cookie Policy — ${SITE.name}`,
   description:
     "The small set of cookies Vouchley uses, why each one exists, and how to manage them.",
+  alternates: { canonical: "/cookies" },
 };
 
 const TOC: LegalTocItem[] = [

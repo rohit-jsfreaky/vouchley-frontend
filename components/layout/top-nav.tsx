@@ -8,6 +8,7 @@ import { useState } from "react";
 import { buttonStyles } from "@/components/ui/button";
 import { MARKETING_NAV } from "@/config/nav";
 import { SITE } from "@/config/site";
+import type { User } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 
 function isActive(pathname: string, href: string): boolean {
@@ -15,7 +16,7 @@ function isActive(pathname: string, href: string): boolean {
   return pathname === href || pathname.startsWith(href + "/");
 }
 
-export function TopNav() {
+export function TopNav({ user }: { user: User | null }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const onDocs = pathname.startsWith("/docs");
@@ -59,18 +60,37 @@ export function TopNav() {
         </nav>
 
         <div className="hidden items-center gap-4 md:flex">
-          <Link
-            href="/login"
-            className="font-serif text-lg tracking-tight text-ink-muted transition-colors hover:text-brand"
-          >
-            Login
-          </Link>
-          <Link
-            href="/signup"
-            className={buttonStyles({ variant: "primary", size: "sm" })}
-          >
-            Get Started
-          </Link>
+          {user ? (
+            <>
+              <Link
+                href="/dashboard"
+                className="font-serif text-lg tracking-tight text-ink-muted transition-colors hover:text-brand"
+              >
+                Dashboard
+              </Link>
+              <Link
+                href="/dashboard/keys"
+                className={buttonStyles({ variant: "primary", size: "sm" })}
+              >
+                Open App
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="font-serif text-lg tracking-tight text-ink-muted transition-colors hover:text-brand"
+              >
+                Login
+              </Link>
+              <Link
+                href="/signup"
+                className={buttonStyles({ variant: "primary", size: "sm" })}
+              >
+                Get Started
+              </Link>
+            </>
+          )}
         </div>
 
         <button
@@ -101,25 +121,49 @@ export function TopNav() {
               </Link>
             ))}
             <div className="my-2 h-px bg-border" />
-            <Link
-              href="/login"
-              onClick={() => setOpen(false)}
-              className="rounded-lg px-3 py-2 font-serif text-lg text-ink-muted transition-colors hover:bg-subtle hover:text-brand"
-            >
-              Login
-            </Link>
-            <Link
-              href="/signup"
-              onClick={() => setOpen(false)}
-              className={cn(
-                buttonStyles({ variant: "primary", size: "md" }),
-                "mt-1 w-full",
-              )}
-            >
-              Get Started
-            </Link>
+            {user ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  onClick={() => setOpen(false)}
+                  className="rounded-lg px-3 py-2 font-serif text-lg text-ink-muted transition-colors hover:bg-subtle hover:text-brand"
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  href="/dashboard/keys"
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    buttonStyles({ variant: "primary", size: "md" }),
+                    "mt-1 w-full",
+                  )}
+                >
+                  Open App
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  onClick={() => setOpen(false)}
+                  className="rounded-lg px-3 py-2 font-serif text-lg text-ink-muted transition-colors hover:bg-subtle hover:text-brand"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/signup"
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    buttonStyles({ variant: "primary", size: "md" }),
+                    "mt-1 w-full",
+                  )}
+                >
+                  Get Started
+                </Link>
+              </>
+            )}
           </nav>
-        </div>
+      </div>
       )}
     </header>
   );

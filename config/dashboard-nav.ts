@@ -6,7 +6,6 @@ import {
   HelpCircle,
   Home,
   KeyRound,
-  Radio,
   Settings,
 } from "lucide-react";
 
@@ -22,18 +21,17 @@ export const DASHBOARD_NAV: DashboardNavItem[] = [
   { label: "API Keys", href: "/dashboard/keys", icon: KeyRound },
   { label: "Usage", href: "/dashboard/usage", icon: BarChart3 },
   { label: "Billing", href: "/dashboard/billing", icon: CreditCard },
-  { label: "Settings", href: "/dashboard/settings", icon: Settings, comingSoon: true },
-  { label: "Check Inspector", href: "/dashboard/inspector", icon: FileSearch, comingSoon: true },
+  { label: "Settings", href: "/dashboard/settings", icon: Settings },
+  { label: "Check Inspector", href: "/dashboard/checks", icon: FileSearch },
 ];
 
 export const DASHBOARD_NAV_FOOTER: DashboardNavItem[] = [
   { label: "Support", href: "/contact", icon: HelpCircle },
-  { label: "Status", href: "/status", icon: Radio },
 ];
 
 export const DASHBOARD_BOTTOM_NAV: DashboardNavItem[] = [
   { label: "Home", href: "/dashboard", icon: Home },
   { label: "Keys", href: "/dashboard/keys", icon: KeyRound },
   { label: "Usage", href: "/dashboard/usage", icon: BarChart3 },
-  { label: "Settings", href: "/dashboard/settings", icon: Settings, comingSoon: true },
+  { label: "Settings", href: "/dashboard/settings", icon: Settings },
 ];

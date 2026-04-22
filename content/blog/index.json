@@ -1,0 +1,61 @@
+{
+  "posts": [
+    {
+      "slug": "how-to-detect-fake-signups",
+      "title": "How to Detect Fake Signups in Real Time: A Complete Guide for SaaS Teams",
+      "excerpt": "Fake signups are the silent tax on every growing SaaS. Here's how to detect and block them in real time — without adding friction for legitimate users.",
+      "date": "2026-04-21T09:00:00.000Z",
+      "category": "Engineering",
+      "author": "Rohit",
+      "image": "/blog/fake-signup-detection.jpg",
+      "tags": ["fake signup detection", "signup verification", "SaaS fraud"],
+      "keywords": [
+        "detect fake signups",
+        "fake signup detection",
+        "signup verification API",
+        "SaaS fraud prevention",
+        "block fake accounts"
+      ],
+      "readingTime": 9,
+      "featured": true
+    },
+    {
+      "slug": "disposable-email-detection-guide",
+      "title": "Disposable Email Detection: What Works, What Doesn't, and Why It Matters",
+      "excerpt": "Disposable emails are the #1 indicator of low-intent signups. Here's a practical guide to detecting them — what works in 2026, what doesn't, and how to integrate detection into any stack.",
+      "date": "2026-04-18T09:00:00.000Z",
+      "category": "Engineering",
+      "author": "Rohit",
+      "image": "/blog/disposable-email-guide.jpg",
+      "tags": ["disposable email", "email validation", "signup verification"],
+      "keywords": [
+        "disposable email detection",
+        "temporary email detection",
+        "email validation API",
+        "block disposable emails",
+        "mailinator detection"
+      ],
+      "readingTime": 8,
+      "featured": false
+    },
+    {
+      "slug": "bot-signup-prevention",
+      "title": "Bot Signup Prevention: Why CAPTCHA Isn't Enough in 2026",
+      "excerpt": "CAPTCHA solved 2015. Bot farms solved CAPTCHA. Here's how modern SaaS teams actually stop bot signups — without adding friction for real users.",
+      "date": "2026-04-15T09:00:00.000Z",
+      "category": "Engineering",
+      "author": "Rohit",
+      "image": "/blog/bot-signup-prevention.jpg",
+      "tags": ["bot detection", "signup security", "fraud prevention"],
+      "keywords": [
+        "bot signup prevention",
+        "stop bot signups",
+        "bot detection API",
+        "signup security",
+        "reCAPTCHA alternatives"
+      ],
+      "readingTime": 10,
+      "featured": false
+    }
+  ]
+}

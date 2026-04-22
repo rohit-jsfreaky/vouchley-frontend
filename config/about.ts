@@ -20,7 +20,7 @@ export interface FounderProfile {
 export const FOUNDER: FounderProfile = {
   name: "Rohit",
   role: "Founder · Engineering",
-  bio: "Builds Vouchley solo from India. Previously shipped MailValid — the email-validity API that pays the rent while Vouchley earns its keep. Obsessed with boring infrastructure that just works.",
+  bio: "Builds Vouchley solo from India. Obsessed with boring infrastructure that just works.",
   initials: "R",
 };
 

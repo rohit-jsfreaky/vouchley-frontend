@@ -115,20 +115,20 @@ export const CreditPacks = forwardRef<HTMLElement, Props>(function CreditPacks(
   return (
     <section
       ref={ref}
-      className="rounded-xl bg-surface p-8 shadow-[var(--shadow-soft)]"
+      className="rounded-2xl bg-surface p-8 shadow-[var(--shadow-soft)] md:p-10"
     >
-      <div className="mb-6">
+      <div className="mb-10 max-w-2xl">
         <h3 className="font-serif text-2xl text-ink">
           {activePlan ? "Plans" : "Choose a plan"}
         </h3>
-        <p className="mt-1 text-sm text-ink-muted">
+        <p className="mt-2 text-sm leading-6 text-ink-muted">
           {activePlan
             ? "Change or cancel your plan anytime from the customer portal."
             : "Monthly subscription. Credits roll over and never expire."}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
         {PACKS.map((pack) => {
           const isCurrent = pack.slug === activePlan;
           return (
@@ -170,15 +170,15 @@ function PackCard({
   onOpenPortal: () => void;
 }) {
   const ringClass = isCurrent
-    ? "border-2 border-accent"
+    ? "border-2 border-accent bg-accent-soft/20 shadow-[0_16px_40px_-26px_rgba(107,122,79,0.45)]"
     : pack.highlighted
-      ? "border-2 border-brand"
-      : "border border-border/40";
+      ? "border-2 border-brand bg-brand-soft/20 shadow-[0_18px_42px_-28px_rgba(184,96,60,0.42)]"
+      : "border border-border/40 bg-canvas shadow-[var(--shadow-soft)]";
 
   return (
     <div
       className={cn(
-        "relative flex flex-col rounded-xl bg-canvas p-6",
+        "relative flex min-h-[30rem] flex-col rounded-2xl p-7 md:p-8",
         ringClass,
       )}
     >
@@ -204,7 +204,7 @@ function PackCard({
       >
         {pack.name}
       </h4>
-      <p className="mb-4 text-sm text-ink-muted">{pack.credits}</p>
+      <p className="mb-5 text-sm leading-6 text-ink-muted">{pack.credits}</p>
 
       <div className="mb-4">
         <span className="font-serif text-4xl font-bold text-ink">
@@ -212,14 +212,14 @@ function PackCard({
         </span>
         <span className="ml-1 text-sm text-ink-muted">/ month</span>
       </div>
-      <p className="mb-4 text-xs text-ink-soft">{pack.perCredit}</p>
+      <p className="mb-8 text-sm leading-6 text-ink-soft">{pack.perCredit}</p>
 
       {isCurrent ? (
         <button
           type="button"
           onClick={onOpenPortal}
           disabled={anyBusy}
-          className="mb-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-border bg-surface text-sm font-semibold text-ink hover:bg-subtle disabled:cursor-not-allowed disabled:opacity-60"
+          className="mb-8 inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-border bg-surface text-sm font-semibold text-ink transition-colors hover:bg-subtle disabled:cursor-not-allowed disabled:opacity-60"
         >
           {portalLoading ? (
             <>
@@ -238,7 +238,7 @@ function PackCard({
           type="button"
           onClick={onOpenPortal}
           disabled={anyBusy}
-          className="mb-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-border bg-surface text-sm font-semibold text-ink hover:bg-subtle disabled:cursor-not-allowed disabled:opacity-60"
+          className="mb-8 inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-border bg-surface text-sm font-semibold text-ink transition-colors hover:bg-subtle disabled:cursor-not-allowed disabled:opacity-60"
         >
           Change via portal
           <ExternalLink className="size-4" strokeWidth={1.75} />
@@ -249,7 +249,7 @@ function PackCard({
           onClick={onSubscribe}
           disabled={anyBusy}
           className={cn(
-            "mb-5 inline-flex h-11 w-full items-center justify-center rounded-lg text-sm font-semibold transition-all active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60",
+            "mb-8 inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-lg text-sm font-semibold transition-all active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60",
             pack.highlighted
               ? "bg-brand text-ink-inverse hover:bg-brand-hover"
               : "border border-border bg-surface text-ink hover:bg-subtle",
@@ -266,7 +266,7 @@ function PackCard({
         </button>
       )}
 
-      <ul className="space-y-2 text-sm text-ink-muted">
+      <ul className="mt-auto space-y-3 border-t border-border/30 pt-6 text-sm leading-7 text-ink-muted">
         {pack.features.map((f) => (
           <li key={f} className="flex items-start gap-2">
             <Check

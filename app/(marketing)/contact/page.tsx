@@ -3,13 +3,14 @@ import type { Metadata } from "next";
 import { ContactCards } from "@/components/marketing/contact/contact-cards";
 import { ContactForm } from "@/components/marketing/contact/contact-form";
 import { ContactHero } from "@/components/marketing/contact/hero";
-import { SITE } from "@/config/site";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: `Contact — ${SITE.name}`,
+export const metadata: Metadata = buildMetadata({
+  title: "Contact — Talk to the Vouchley team",
   description:
-    "Get in touch with the Vouchley team. Support, security disclosures, and press requests.",
-};
+    "Get in touch with the Vouchley team. Support, security disclosures, press requests, and partnership inquiries.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

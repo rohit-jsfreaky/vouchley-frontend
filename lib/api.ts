@@ -45,6 +45,18 @@ export async function apiPost<T>(path: string, body: unknown): Promise<T> {
   return (text ? JSON.parse(text) : {}) as T;
 }
 
+export async function apiPatch<T>(path: string, body: unknown): Promise<T> {
+  const resp = await fetch(`${PUBLIC_API_BASE}${path}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: body === undefined ? undefined : JSON.stringify(body),
+    credentials: "include",
+  });
+  if (!resp.ok) await parseError(resp);
+  const text = await resp.text();
+  return (text ? JSON.parse(text) : {}) as T;
+}
+
 export async function apiGet<T>(path: string): Promise<T> {
   const resp = await fetch(`${PUBLIC_API_BASE}${path}`, {
     credentials: "include",

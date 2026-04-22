@@ -1,6 +1,7 @@
 "use client";
 
 import { Globe, ListChecks } from "lucide-react";
+import Link from "next/link";
 
 import { EmptyState } from "@/components/dashboard/shell/empty-state";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -46,7 +47,12 @@ export function RecentVerifications({ data, loading }: Props) {
               {data.map((c) => (
                 <tr key={c.id} className="transition-colors hover:bg-subtle/60">
                   <td className="max-w-[260px] truncate px-6 py-4">
-                    {c.email || "—"}
+                    <Link
+                      href={`/dashboard/checks/${c.id}`}
+                      className="text-ink underline-offset-2 hover:text-brand hover:underline"
+                    >
+                      {c.email || "—"}
+                    </Link>
                   </td>
                   <td className="px-6 py-4">
                     {c.score !== null ? (

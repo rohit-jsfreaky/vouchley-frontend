@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: `Security Overview — ${SITE.name}`,
   description:
     "How we secure your data and API keys, and how to disclose a vulnerability to us.",
+  alternates: { canonical: "/security" },
 };
 
 const TOC: LegalTocItem[] = [
@@ -43,7 +44,7 @@ export default function SecurityPage() {
 
         <DocH2 id="in-transit">Data in transit</DocH2>
         <DocP>
-          All traffic to vouchley.io and api.vouchley.io is served over TLS 1.2+
+          All traffic to vouchley.getrevlio.com and api.vouchley.getrevlio.com is served over TLS 1.2+
           with modern cipher suites. HTTP is redirected to HTTPS, and HSTS is
           enabled. Our reverse proxy (Caddy) automatically provisions and
           renews certificates from Let&rsquo;s Encrypt.
@@ -94,8 +95,8 @@ export default function SecurityPage() {
         <DocP>
           If you believe you&rsquo;ve found a security vulnerability, please
           email{" "}
-          <DocLink href="mailto:security@vouchley.io">
-            security@vouchley.io
+          <DocLink href="mailto:security@vouchley.getrevlio.com">
+            security@vouchley.getrevlio.com
           </DocLink>
           {" "}with details. We&rsquo;ll acknowledge within two business days,
           keep you updated as we investigate, and credit you in the release

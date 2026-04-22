@@ -9,6 +9,7 @@ import { KeyRevealModal } from "@/components/dashboard/keys/key-reveal-modal";
 import { EmptyState } from "@/components/dashboard/shell/empty-state";
 import { PageHeader } from "@/components/dashboard/shell/page-header";
 import { Button } from "@/components/ui/button";
+import { Modal } from "@/components/ui/modal";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ApiError } from "@/lib/api";
 import {
@@ -23,6 +24,7 @@ export function ApiKeysClient() {
   const [creating, setCreating] = useState(false);
   const [revealing, setRevealing] = useState<string | null>(null);
   const [revokingId, setRevokingId] = useState<string | null>(null);
+  const [confirmingKey, setConfirmingKey] = useState<ApiKeyItem | null>(null);
 
   async function reload() {
     try {
@@ -39,14 +41,16 @@ export function ApiKeysClient() {
 
   async function handleRevoke(key: ApiKeyItem) {
     if (key.revoked_at) return;
-    const confirm = window.confirm(
-      `Revoke "${key.label || key.key_prefix}"? Any app still using it will start failing.`,
-    );
-    if (!confirm) return;
-    setRevokingId(key.id);
+    setConfirmingKey(key);
+  }
+
+  async function confirmRevoke() {
+    if (!confirmingKey) return;
+    setRevokingId(confirmingKey.id);
     try {
-      await revokeApiKey(key.id);
+      await revokeApiKey(confirmingKey.id);
       toast.success("Key revoked.");
+      setConfirmingKey(null);
       await reload();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Couldn't revoke.");
@@ -66,6 +70,7 @@ export function ApiKeysClient() {
             variant="primary"
             size="md"
             onClick={() => setCreating(true)}
+            className="cursor-pointer"
           >
             Create new key
           </Button>
@@ -115,6 +120,48 @@ export function ApiKeysClient() {
           onDone={() => setRevealing(null)}
         />
       )}
+
+      <Modal
+        open={!!confirmingKey}
+        onClose={() => setConfirmingKey(null)}
+        title="Revoke API key?"
+        description={
+          confirmingKey
+            ? `Revoking "${confirmingKey.label || confirmingKey.key_prefix}" will immediately break any app still using it.`
+            : undefined
+        }
+        size="sm"
+        dismissible={revokingId === null}
+        footer={
+          <>
+            <Button
+              type="button"
+              variant="secondary"
+              size="md"
+              onClick={() => setConfirmingKey(null)}
+              disabled={revokingId !== null}
+              className="cursor-pointer"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              variant="primary"
+              size="md"
+              onClick={confirmRevoke}
+              disabled={revokingId !== null}
+              className="cursor-pointer"
+            >
+              {revokingId !== null ? "Revoking…" : "Yes, revoke key"}
+            </Button>
+          </>
+        }
+      >
+        <div className="rounded-xl border border-warning/30 bg-warning-bg/40 p-4 text-sm text-ink-muted">
+          This action cannot be undone. If you need uninterrupted access, create and
+          deploy a replacement key before revoking this one.
+        </div>
+      </Modal>
     </div>
   );
 }
@@ -180,7 +227,7 @@ function KeysTable({
                         type="button"
                         onClick={() => onRevoke(k)}
                         disabled={revokingId === k.id}
-                        className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium text-danger transition-colors hover:bg-danger-bg disabled:opacity-60"
+                        className="inline-flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium text-danger transition-colors hover:bg-danger-bg disabled:cursor-not-allowed disabled:opacity-60"
                       >
                         <Trash2 className="size-3.5" strokeWidth={1.75} />
                         {revokingId === k.id ? "Revoking…" : "Revoke"}

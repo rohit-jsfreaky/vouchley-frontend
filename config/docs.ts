@@ -21,25 +21,24 @@ export const DOC_SECTIONS: DocSection[] = [
     pages: [
       { title: "Quickstart", href: "/docs" },
       { title: "Authentication", href: "/docs/authentication" },
-      { title: "Installation", href: "/docs/installation", status: "coming-soon" },
     ],
   },
   {
     title: "Core Concepts",
     pages: [
-      { title: "Verification Flow", href: "/docs/verification-flow", status: "coming-soon" },
-      { title: "Caching & Credits", href: "/docs/caching-credits", status: "coming-soon" },
-      { title: "Webhooks", href: "/docs/webhooks", status: "coming-soon" },
-      { title: "Error Handling", href: "/docs/errors", status: "coming-soon" },
+      { title: "Caching & Credits", href: "/docs/caching-credits" },
+      { title: "Rate Limits", href: "/docs/rate-limits" },
+      { title: "Error Handling", href: "/docs/errors" },
     ],
   },
   {
     title: "API Reference",
     pages: [
-      { title: "POST /v1/verify", href: "/docs/api/verify", status: "coming-soon" },
-      { title: "POST /v1/verify/bulk", href: "/docs/api/verify-bulk", status: "coming-soon" },
-      { title: "GET /v1/usage", href: "/docs/api/usage", status: "coming-soon" },
-      { title: "GET /v1/account", href: "/docs/api/account", status: "coming-soon" },
+      { title: "POST /v1/verify", href: "/docs/api/verify" },
+      { title: "POST /v1/verify/bulk", href: "/docs/api/verify-bulk" },
+      { title: "GET /v1/verify/:id", href: "/docs/api/verify-get" },
+      { title: "GET /v1/usage", href: "/docs/api/usage" },
+      { title: "GET /v1/account", href: "/docs/api/account" },
     ],
   },
 ];

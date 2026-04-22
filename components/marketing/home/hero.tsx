@@ -3,8 +3,9 @@ import Link from "next/link";
 import { HeroCodeSnippet } from "@/components/marketing/home/code-snippet";
 import { buttonStyles } from "@/components/ui/button";
 import { HERO } from "@/config/home";
+import type { User } from "@/lib/auth-client";
 
-export function Hero() {
+export function Hero({ user }: { user: User | null }) {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-canvas to-subtle px-6 pb-24 pt-16 md:px-8">
       <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-16 lg:grid-cols-2">
@@ -17,18 +18,37 @@ export function Hero() {
             {HERO.subheadline}
           </p>
           <div className="flex flex-col gap-4 sm:flex-row">
-            <Link
-              href={HERO.primaryCta.href}
-              className={buttonStyles({ variant: "primary", size: "lg" })}
-            >
-              {HERO.primaryCta.label}
-            </Link>
-            <Link
-              href={HERO.secondaryCta.href}
-              className={buttonStyles({ variant: "secondary", size: "lg" })}
-            >
-              {HERO.secondaryCta.label}
-            </Link>
+            {user ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  className={buttonStyles({ variant: "primary", size: "lg" })}
+                >
+                  Open dashboard
+                </Link>
+                <Link
+                  href="/dashboard/keys"
+                  className={buttonStyles({ variant: "secondary", size: "lg" })}
+                >
+                  Manage API keys
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href={HERO.primaryCta.href}
+                  className={buttonStyles({ variant: "primary", size: "lg" })}
+                >
+                  {HERO.primaryCta.label}
+                </Link>
+                <Link
+                  href={HERO.secondaryCta.href}
+                  className={buttonStyles({ variant: "secondary", size: "lg" })}
+                >
+                  {HERO.secondaryCta.label}
+                </Link>
+              </>
+            )}
           </div>
         </div>
 

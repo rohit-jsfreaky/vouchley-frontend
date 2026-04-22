@@ -1,11 +1,14 @@
 "use client";
 
-import { Plus } from "lucide-react";
+import { LogOut, Plus } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 
 import { buttonStyles } from "@/components/ui/button";
 import { DASHBOARD_NAV, DASHBOARD_NAV_FOOTER } from "@/config/dashboard-nav";
+import { logout } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 
 export function DashboardSidebar() {
@@ -46,9 +49,42 @@ export function DashboardSidebar() {
           {DASHBOARD_NAV_FOOTER.map((item) => (
             <NavLink key={item.href} item={item} active={false} small />
           ))}
+          <LogoutLink />
         </div>
       </div>
     </aside>
+  );
+}
+
+function LogoutLink() {
+  const router = useRouter();
+  const [pending, setPending] = useState(false);
+
+  async function handleLogout() {
+    if (pending) return;
+    setPending(true);
+    try {
+      await logout();
+      router.push("/");
+      router.refresh();
+    } catch {
+      toast.error("Could not log you out. Try again.");
+      setPending(false);
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={handleLogout}
+      disabled={pending}
+      className="flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2 font-sans text-[11px] font-semibold uppercase tracking-widest text-ink-muted transition-colors hover:bg-muted hover:text-ink disabled:cursor-not-allowed disabled:opacity-60"
+    >
+      <LogOut className="size-[18px]" strokeWidth={1.75} aria-hidden />
+      <span className="flex-1 text-left">
+        {pending ? "Logging out..." : "Log out"}
+      </span>
+    </button>
   );
 }
 

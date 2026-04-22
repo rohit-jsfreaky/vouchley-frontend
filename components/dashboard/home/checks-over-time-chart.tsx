@@ -38,7 +38,7 @@ export function ChecksOverTimeChart({ data, loading }: Props) {
 function LineChartSvg({ points }: { points: ChecksOverTimePoint[] }) {
   const width = 1000;
   const height = 260;
-  const padding = 20;
+  const padding = 22;
   const max = Math.max(1, ...points.map((p) => p.count));
 
   const coords = points.map((p, i) => {
@@ -47,9 +47,20 @@ function LineChartSvg({ points }: { points: ChecksOverTimePoint[] }) {
     return { x, y };
   });
 
-  const path = coords
-    .map((c, i) => (i === 0 ? `M ${c.x},${c.y}` : `L ${c.x},${c.y}`))
-    .join(" ");
+  const path =
+    coords.length < 2
+      ? `M ${coords[0]?.x ?? padding},${coords[0]?.y ?? height - padding}`
+      : coords
+          .map((c, i) => {
+            if (i === 0) return `M ${c.x},${c.y}`;
+            const prev = coords[i - 1];
+            const cp1x = prev.x + (c.x - prev.x) / 2;
+            const cp1y = prev.y;
+            const cp2x = prev.x + (c.x - prev.x) / 2;
+            const cp2y = c.y;
+            return `C ${cp1x},${cp1y} ${cp2x},${cp2y} ${c.x},${c.y}`;
+          })
+          .join(" ");
   const areaPath = `${path} L ${coords[coords.length - 1]?.x ?? padding},${height - padding} L ${coords[0]?.x ?? padding},${height - padding} Z`;
 
   return (
@@ -64,6 +75,16 @@ function LineChartSvg({ points }: { points: ChecksOverTimePoint[] }) {
           <stop offset="100%" stopColor="var(--color-brand)" stopOpacity="0" />
         </linearGradient>
       </defs>
+
+      <rect
+        x={padding}
+        y={padding}
+        width={width - padding * 2}
+        height={height - padding * 2}
+        rx="12"
+        fill="var(--color-canvas)"
+        fillOpacity="0.55"
+      />
 
       {[0.25, 0.5, 0.75].map((frac) => (
         <line
@@ -87,6 +108,16 @@ function LineChartSvg({ points }: { points: ChecksOverTimePoint[] }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+
+      {coords.map((point, index) => (
+        <circle
+          key={`${point.x}-${point.y}-${index}`}
+          cx={point.x}
+          cy={point.y}
+          r={index === coords.length - 1 ? 4.5 : 0}
+          fill="var(--color-brand)"
+        />
+      ))}
     </svg>
   );
 }

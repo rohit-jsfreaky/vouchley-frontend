@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: `Privacy Policy — ${SITE.name}`,
   description:
     "What data Vouchley collects, why, who processes it, and how long we keep it.",
+  alternates: { canonical: "/privacy" },
 };
 
 const TOC: LegalTocItem[] = [
@@ -221,8 +222,8 @@ export default function PrivacyPage() {
             {LEGAL_CONTACT_EMAIL}
           </DocLink>
           . Abuse or security reports go to{" "}
-          <DocLink href="mailto:security@vouchley.io">
-            security@vouchley.io
+          <DocLink href="mailto:security@vouchley.getrevlio.com">
+            security@vouchley.getrevlio.com
           </DocLink>
           .
         </DocP>

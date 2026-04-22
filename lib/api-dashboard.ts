@@ -2,9 +2,30 @@
  * Typed fetchers for every session-authenticated dashboard endpoint.
  * All use credentials: "include" via apiGet / apiPost.
  */
-import { apiGet, apiPost } from "./api";
+import { apiGet, apiPatch, apiPost } from "./api";
 
 export type Period = "7d" | "30d" | "mtd" | "all";
+
+export interface DashboardDateRange {
+  startDate: string;
+  endDate: string;
+}
+
+function buildDashboardQuery(params: {
+  period?: Period;
+  range?: DashboardDateRange;
+  limit?: number;
+}) {
+  const query = new URLSearchParams();
+  if (params.range) {
+    query.set("start_date", params.range.startDate);
+    query.set("end_date", params.range.endDate);
+  } else if (params.period) {
+    query.set("period", params.period);
+  }
+  if (params.limit !== undefined) query.set("limit", String(params.limit));
+  return query.toString();
+}
 
 // ---------- Dashboard home ----------
 export interface KpiValue {
@@ -38,25 +59,25 @@ export interface RecentCheckItem {
   created_at: string;
 }
 
-export function fetchKpis(period: Period) {
-  return apiGet<DashboardKpis>(`/dashboard/kpis?period=${period}`);
+export function fetchKpis(range: DashboardDateRange) {
+  return apiGet<DashboardKpis>(`/dashboard/kpis?${buildDashboardQuery({ range })}`);
 }
 
-export function fetchChecksOverTime(period: Period) {
+export function fetchChecksOverTime(range: DashboardDateRange) {
   return apiGet<{ points: ChecksOverTimePoint[] }>(
-    `/dashboard/checks-over-time?period=${period}`,
+    `/dashboard/checks-over-time?${buildDashboardQuery({ range })}`,
   );
 }
 
-export function fetchScoreDistribution(period: Period) {
+export function fetchScoreDistribution(range: DashboardDateRange) {
   return apiGet<ScoreDistribution>(
-    `/dashboard/score-distribution?period=${period}`,
+    `/dashboard/score-distribution?${buildDashboardQuery({ range })}`,
   );
 }
 
-export function fetchRecentChecks(limit = 10) {
+export function fetchRecentChecks(limit = 10, range?: DashboardDateRange, period?: Period) {
   return apiGet<{ checks: RecentCheckItem[] }>(
-    `/dashboard/recent-checks?limit=${limit}`,
+    `/dashboard/recent-checks?${buildDashboardQuery({ limit, range, period })}`,
   );
 }
 
@@ -149,4 +170,42 @@ export function fetchUsageByEndpoint(period: Period) {
   return apiGet<{ items: UsageByEndpointItem[] }>(
     `/dashboard/usage/by-endpoint?period=${period}`,
   );
+}
+
+// ---------- Profile ----------
+export interface UserProfile {
+  id: string;
+  email: string;
+  name: string | null;
+  created_at: string;
+}
+
+export function fetchProfile() {
+  return apiGet<UserProfile>("/dashboard/profile");
+}
+
+export function updateProfile(data: { name?: string | null }) {
+  return apiPatch<UserProfile>("/dashboard/profile", data);
+}
+
+// ---------- Check detail ----------
+export interface CheckDetail {
+  id: string;
+  email: string | null;
+  name: string | null;
+  company_name: string | null;
+  ip_address: string | null;
+  score: number | null;
+  recommendation: string | null;
+  full_response: Record<string, unknown> | null;
+  processed_in_ms: number | null;
+  cached: boolean;
+  credits_charged: number;
+  api_key_prefix: string | null;
+  api_key_label: string | null;
+  created_at: string;
+}
+
+export function fetchCheckDetail(checkId: string) {
+  return apiGet<CheckDetail>(`/dashboard/checks/${checkId}`);
 }

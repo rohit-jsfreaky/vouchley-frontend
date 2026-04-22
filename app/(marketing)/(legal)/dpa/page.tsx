@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: `Data Processing Addendum — ${SITE.name}`,
   description:
     "Our DPA is available on request for business customers with GDPR or similar obligations.",
+  alternates: { canonical: "/dpa" },
 };
 
 export default function DpaPage() {
