@@ -78,7 +78,7 @@ export default function TermsPage() {
           <strong>non-refundable once the credits have been used</strong>, except
           where required by law. If you purchased a pack by mistake and have
           not consumed any credits, email{" "}
-          <DocLink href="mailto:hello@vouchley.getrevlio.com">hello@vouchley.getrevlio.com</DocLink>
+          <DocLink href="mailto:hello@getrevlio.com">hello@getrevlio.com</DocLink>
           {" "}within 14 days and we&rsquo;ll reverse the charge through Dodo.
         </DocP>
         <DocP>

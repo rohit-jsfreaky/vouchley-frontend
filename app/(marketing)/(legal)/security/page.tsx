@@ -95,8 +95,8 @@ export default function SecurityPage() {
         <DocP>
           If you believe you&rsquo;ve found a security vulnerability, please
           email{" "}
-          <DocLink href="mailto:security@vouchley.getrevlio.com">
-            security@vouchley.getrevlio.com
+          <DocLink href="mailto:security@getrevlio.com">
+            security@getrevlio.com
           </DocLink>
           {" "}with details. We&rsquo;ll acknowledge within two business days,
           keep you updated as we investigate, and credit you in the release

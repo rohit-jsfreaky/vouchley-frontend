@@ -14,4 +14,4 @@ export const LEGAL_DOCS: LegalDoc[] = [
   { slug: "dpa", shortTitle: "Data Processing Addendum", title: "Data Processing Addendum", href: "/dpa", docId: "DPA-2026-04" },
 ];
 
-export const LEGAL_CONTACT_EMAIL = "privacy@vouchley.getrevlio.com";
+export const LEGAL_CONTACT_EMAIL = "privacy@getrevlio.com";

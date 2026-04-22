@@ -10,19 +10,19 @@ export const CONTACT_METHODS: ContactMethod[] = [
     icon: "mail",
     title: "Editorial Support",
     description: "General inquiries, account help, and verification questions.",
-    email: "hello@vouchley.getrevlio.com",
+    email: "hello@getrevlio.com",
   },
   {
     icon: "shield",
     title: "Security & Trust",
     description: "Report vulnerabilities or trust-related concerns.",
-    email: "security@vouchley.getrevlio.com",
+    email: "security@getrevlio.com",
   },
   {
     icon: "newspaper",
     title: "Press & Media",
     description: "Interviews, media kits, and announcements.",
-    email: "press@vouchley.getrevlio.com",
+    email: "press@getrevlio.com",
   },
 ];
 

@@ -222,8 +222,8 @@ export default function PrivacyPage() {
             {LEGAL_CONTACT_EMAIL}
           </DocLink>
           . Abuse or security reports go to{" "}
-          <DocLink href="mailto:security@vouchley.getrevlio.com">
-            security@vouchley.getrevlio.com
+          <DocLink href="mailto:security@getrevlio.com">
+            security@getrevlio.com
           </DocLink>
           .
         </DocP>
