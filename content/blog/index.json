@@ -1,6 +1,63 @@
 {
   "posts": [
     {
+      "slug": "prevent-free-trial-abuse-saas",
+      "title": "How to Prevent Free Trial Abuse in SaaS (Without Blocking Real Customers)",
+      "excerpt": "Free trial abuse silently burns your infrastructure and margins. Here's how to stop repeat signups and throwaway accounts in 2026 — without adding friction that hurts your conversion rate.",
+      "date": "2026-04-24T09:00:00.000Z",
+      "category": "Engineering",
+      "author": "Rohit",
+      "image": "/blog/prevent-free-trial-abuse.jpg",
+      "tags": ["free trial abuse", "SaaS fraud", "signup verification"],
+      "keywords": [
+        "prevent free trial abuse",
+        "free trial abuse prevention",
+        "stop trial abuse saas",
+        "block multiple trial accounts",
+        "trial fraud detection"
+      ],
+      "readingTime": 9,
+      "featured": false
+    },
+    {
+      "slug": "vpn-proxy-detection-signups",
+      "title": "VPN and Proxy Detection for Signups: A Practical Guide for SaaS Teams",
+      "excerpt": "VPN signups aren't always bad — but they're disproportionately risky. Here's how to detect and risk-rank VPN, proxy, and Tor traffic on signup without losing legitimate privacy-conscious users.",
+      "date": "2026-04-23T09:00:00.000Z",
+      "category": "Engineering",
+      "author": "Rohit",
+      "image": "/blog/vpn-proxy-detection.jpg",
+      "tags": ["VPN detection", "proxy detection", "signup verification"],
+      "keywords": [
+        "VPN detection signup",
+        "block VPN signups",
+        "proxy detection API",
+        "Tor detection SaaS",
+        "IP reputation signup"
+      ],
+      "readingTime": 10,
+      "featured": false
+    },
+    {
+      "slug": "email-validation-vs-signup-verification",
+      "title": "Email Validation vs Signup Verification: What's the Difference and Why It Matters",
+      "excerpt": "Email validation checks if an address can receive mail. Signup verification asks whether the person behind that address is legitimate. Understand the difference and stop paying for the wrong problem.",
+      "date": "2026-04-22T09:00:00.000Z",
+      "category": "Engineering",
+      "author": "Rohit",
+      "image": "/blog/email-validation-vs-verification.jpg",
+      "tags": ["email validation", "signup verification", "API comparison"],
+      "keywords": [
+        "email validation vs signup verification",
+        "email verification API",
+        "signup verification API",
+        "email validation API comparison",
+        "what is signup verification"
+      ],
+      "readingTime": 8,
+      "featured": false
+    },
+    {
       "slug": "how-to-detect-fake-signups",
       "title": "How to Detect Fake Signups in Real Time: A Complete Guide for SaaS Teams",
       "excerpt": "Fake signups are the silent tax on every growing SaaS. Here's how to detect and block them in real time — without adding friction for legitimate users.",
