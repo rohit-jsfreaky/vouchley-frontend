@@ -73,6 +73,14 @@ export const metadata: Metadata = {
   verification: {
     google: "b6f7c2enVZ4-58O3JBgrGgON1pqkkd_RCIXRngee2M4",
   },
+  // Reinforces the "Vouchley" brand name to crawlers/preview tools that
+  // otherwise default to the parent domain (getrevlio.com) on subdomains.
+  other: {
+    "twitter:domain": "vouchley.getrevlio.com",
+    "twitter:url": SITE.url,
+    "apple-mobile-web-app-title": SITE.name,
+    "application-name": SITE.name,
+  },
 };
 
 export const viewport: Viewport = {
