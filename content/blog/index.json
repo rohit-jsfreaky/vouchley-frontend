@@ -1,6 +1,63 @@
 {
   "posts": [
     {
+      "slug": "ai-bot-signups-2026",
+      "title": "AI Bot Signups in 2026: Why Your Existing Defenses Are About to Fail",
+      "excerpt": "AI agents now mimic human signup behavior — typing cadence, mouse jitter, even dwell time — at a cost of cents per account. Here's why traditional bot defenses break against agentic signup fraud, and the new layered approach SaaS teams need.",
+      "date": "2026-04-26T09:00:00.000Z",
+      "category": "Engineering",
+      "author": "Rohit",
+      "image": "/blog/ai-bot-signups-2026.jpg",
+      "tags": ["AI bots", "signup fraud", "bot detection"],
+      "keywords": [
+        "AI bot signup detection",
+        "agentic AI fraud",
+        "stop AI bot signups",
+        "AI fraud prevention SaaS",
+        "bot signup detection 2026"
+      ],
+      "readingTime": 9,
+      "featured": true
+    },
+    {
+      "slug": "fake-signups-email-deliverability",
+      "title": "How Fake Signups Quietly Destroy Your Email Deliverability",
+      "excerpt": "Fake signups don't just waste compute — they wreck your sender reputation. Here's how Gmail and Outlook decide whether your transactional email lands in the inbox or the spam folder, and how fake accounts move that needle in the wrong direction.",
+      "date": "2026-04-25T09:00:00.000Z",
+      "category": "Engineering",
+      "author": "Rohit",
+      "image": "/blog/fake-signups-email-deliverability.jpg",
+      "tags": ["email deliverability", "fake signups", "sender reputation"],
+      "keywords": [
+        "fake signups email deliverability",
+        "sender reputation SaaS",
+        "Gmail deliverability bot signups",
+        "email reputation drop",
+        "transactional email deliverability"
+      ],
+      "readingTime": 8,
+      "featured": false
+    },
+    {
+      "slug": "what-is-signup-verification-api",
+      "title": "What Is a Signup Verification API? A Practical Guide for Product Teams",
+      "excerpt": "Signup verification APIs sit between your signup form and your database, scoring every new account in real time. Here's what they actually do, what they don't do, and how to evaluate one for your SaaS.",
+      "date": "2026-04-24T18:00:00.000Z",
+      "category": "Product",
+      "author": "Rohit",
+      "image": "/blog/what-is-signup-verification-api.jpg",
+      "tags": ["signup verification API", "product", "fraud prevention"],
+      "keywords": [
+        "what is signup verification API",
+        "signup verification API",
+        "signup fraud API",
+        "user verification API",
+        "real-time signup verification"
+      ],
+      "readingTime": 7,
+      "featured": false
+    },
+    {
       "slug": "prevent-free-trial-abuse-saas",
       "title": "How to Prevent Free Trial Abuse in SaaS (Without Blocking Real Customers)",
       "excerpt": "Free trial abuse silently burns your infrastructure and margins. Here's how to stop repeat signups and throwaway accounts in 2026 — without adding friction that hurts your conversion rate.",
@@ -74,7 +131,7 @@
         "block fake accounts"
       ],
       "readingTime": 9,
-      "featured": true
+      "featured": false
     },
     {
       "slug": "disposable-email-detection-guide",
