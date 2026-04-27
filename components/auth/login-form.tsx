@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { toast } from "sonner";
 
@@ -12,8 +12,21 @@ import { Button } from "@/components/ui/button";
 import { ApiError } from "@/lib/api";
 import { loginWithPassword } from "@/lib/auth-client";
 
+/**
+ * Returns a safe in-app destination after login. Honors `?redirectTo=`
+ * (set by the api.ts 401 interceptor) but rejects anything that isn't a
+ * relative same-origin path, to prevent open redirects.
+ */
+function safeRedirectTarget(raw: string | null): string {
+  if (!raw) return "/dashboard";
+  // Only accept same-origin paths starting with a single slash
+  if (!raw.startsWith("/") || raw.startsWith("//")) return "/dashboard";
+  return raw;
+}
+
 export function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -24,7 +37,7 @@ export function LoginForm() {
     setSubmitting(true);
     try {
       await loginWithPassword({ email, password });
-      router.push("/dashboard");
+      router.push(safeRedirectTarget(searchParams.get("redirectTo")));
     } catch (err) {
       if (err instanceof ApiError && err.status === 403) {
         toast.error("Email not verified. Check your inbox for the code.");
