@@ -28,11 +28,12 @@ const serif = Instrument_Serif({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: SITE.title,
+    // Brand once at the end, keyword phrase first. Pages that override via
+    // buildMetadata() get the same `— Vouchley` suffix via the template.
+    default: `${SITE.title} — ${SITE.name}`,
     template: `%s — ${SITE.name}`,
   },
   description: SITE.description,
-  keywords: SITE.keywords.join(", "),
   applicationName: SITE.name,
   authors: [{ name: SITE.name, url: SITE.url }],
   creator: SITE.name,
@@ -53,7 +54,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: SITE.url,
-    title: SITE.title,
+    title: `${SITE.title} — ${SITE.name}`,
     description: SITE.description,
     siteName: SITE.name,
     locale: "en_US",
@@ -61,7 +62,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: SITE.title,
+    title: `${SITE.title} — ${SITE.name}`,
     description: SITE.description,
     images: [SITE.defaultOgImage],
     creator: SITE.twitter,

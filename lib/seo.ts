@@ -130,6 +130,27 @@ export function softwareAppJsonLd() {
   };
 }
 
+/**
+ * FAQPage schema — Google + Bing + Perplexity + ChatGPT-Search use this to
+ * surface answers directly in SERPs and AI overviews. Pass the same Q&A
+ * array used in the on-page FAQ component so the schema can never drift
+ * out of sync with what the user sees.
+ */
+export function faqJsonLd(faqs: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.answer,
+      },
+    })),
+  };
+}
+
 export function breadcrumbJsonLd(
   items: { name: string; url: string }[],
 ) {

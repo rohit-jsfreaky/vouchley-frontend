@@ -1,12 +1,16 @@
 import type { MetadataRoute } from "next";
 
+import { COMPARISONS } from "@/config/comparisons";
+import { DISPOSABLE_DOMAINS } from "@/config/disposable-domains";
 import { SITE } from "@/config/site";
 import { getAllPosts } from "@/lib/blog";
 
 /**
  * Dynamic sitemap. Regenerated automatically on every `next build` — no
  * separate script needed. Every blog post added to content/blog/index.json
- * is included automatically on the next deploy.
+ * is included automatically on the next deploy. Same goes for new
+ * comparison entries (config/comparisons.ts) and disposable-domain entries
+ * (config/disposable-domains.ts).
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -30,6 +34,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.url}/docs/api/verify-get`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE.url}/docs/api/usage`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE.url}/docs/api/account`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    // Programmatic SEO — disposable email database index
+    { url: `${SITE.url}/disposable-emails`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     // Legal
     { url: `${SITE.url}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE.url}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
@@ -45,5 +51,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...blogRoutes];
+  // Comparison pages — high-intent, mid-funnel SEO targets
+  const comparisonRoutes: MetadataRoute.Sitemap = COMPARISONS.map((c) => ({
+    url: `${SITE.url}/vs/${c.slug}`,
+    lastModified: new Date(c.lastVerified),
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  // Per-domain disposable email pages
+  const disposableRoutes: MetadataRoute.Sitemap = DISPOSABLE_DOMAINS.map((d) => ({
+    url: `${SITE.url}/disposable-emails/${d.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [
+    ...staticRoutes,
+    ...blogRoutes,
+    ...comparisonRoutes,
+    ...disposableRoutes,
+  ];
 }
