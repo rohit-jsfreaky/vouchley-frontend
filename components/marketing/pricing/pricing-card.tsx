@@ -5,7 +5,35 @@ import { buttonStyles } from "@/components/ui/button";
 import type { PricingPlan } from "@/config/pricing";
 import { cn } from "@/lib/utils";
 
-export function PricingCard({ plan }: { plan: PricingPlan }) {
+/**
+ * For logged-in users we skip the signup detour and route to the dashboard
+ * billing flow with the chosen pack pre-selected. The free plan just lands
+ * on the dashboard since "free" is already what they have.
+ */
+function resolveCta(plan: PricingPlan, isLoggedIn: boolean): {
+  href: string;
+  label: string;
+} {
+  if (!isLoggedIn) {
+    return { href: plan.cta.href, label: plan.cta.label };
+  }
+  if (plan.slug === "free") {
+    return { href: "/dashboard", label: "Go to dashboard" };
+  }
+  return {
+    href: `/dashboard/billing?pack=${plan.slug}`,
+    label: `Buy ${plan.name}`,
+  };
+}
+
+export function PricingCard({
+  plan,
+  isLoggedIn = false,
+}: {
+  plan: PricingPlan;
+  isLoggedIn?: boolean;
+}) {
+  const cta = resolveCta(plan, isLoggedIn);
   return (
     <article
       className={cn(
@@ -44,13 +72,13 @@ export function PricingCard({ plan }: { plan: PricingPlan }) {
       </div>
 
       <Link
-        href={plan.cta.href}
+        href={cta.href}
         className={cn(
           buttonStyles({ variant: plan.cta.variant, size: "md" }),
           "mb-8 w-full",
         )}
       >
-        {plan.cta.label}
+        {cta.label}
       </Link>
 
       <ul className="flex-grow space-y-4 text-sm text-ink-muted">
