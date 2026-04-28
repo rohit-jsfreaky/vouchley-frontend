@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { Toaster } from "sonner";
 
+import { PostHogProvider } from "@/components/analytics/posthog-provider";
 import { JsonLd } from "@/components/seo/json-ld";
 import { SITE } from "@/config/site";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
@@ -103,7 +104,7 @@ export default function RootLayout({
         <JsonLd data={websiteJsonLd()} />
       </head>
       <body>
-        {children}
+        <PostHogProvider>{children}</PostHogProvider>
         <Toaster
           position="bottom-right"
           toastOptions={{
