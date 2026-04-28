@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { CompareTable } from "@/components/marketing/compare-table";
 import { FinalCta } from "@/components/marketing/home/cta";
 import { Faq } from "@/components/marketing/home/faq";
 import { Features } from "@/components/marketing/home/features";
@@ -31,6 +32,7 @@ export default async function HomePage() {
       <Features />
       <HowItWorks />
       <WhatWeDetect />
+      <CompareTable />
       <Faq />
       <Founder />
       <FinalCta user={user} />

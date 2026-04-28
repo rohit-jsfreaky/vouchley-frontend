@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { CompareTable } from "@/components/marketing/compare-table";
 import { PricingGrid } from "@/components/marketing/pricing/pricing-grid";
 import { PricingHeader } from "@/components/marketing/pricing/pricing-header";
 import { buildMetadata } from "@/lib/seo";
@@ -21,6 +22,7 @@ export default function PricingPage() {
     <>
       <PricingHeader />
       <PricingGrid />
+      <CompareTable />
     </>
   );
 }
