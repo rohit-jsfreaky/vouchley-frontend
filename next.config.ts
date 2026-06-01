@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
         source: "/.well-known/api-catalog",
         destination: "/api/api-catalog",
       },
+      {
+        source: "/.well-known/oauth-authorization-server",
+        destination: "/api/oauth-authorization-server",
+      },
     ];
   },
 };
