@@ -23,6 +23,10 @@ const nextConfig: NextConfig = {
         source: "/.well-known/http-message-signatures-directory",
         destination: "/api/http-message-signatures-directory",
       },
+      {
+        source: "/.well-known/mcp/server-card.json",
+        destination: "/api/mcp-server-card",
+      },
     ];
   },
 };
