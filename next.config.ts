@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
         source: "/.well-known/oauth-protected-resource",
         destination: "/api/oauth-protected-resource",
       },
+      {
+        source: "/.well-known/http-message-signatures-directory",
+        destination: "/api/http-message-signatures-directory",
+      },
     ];
   },
 };
