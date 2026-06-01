@@ -41,6 +41,25 @@ export async function GET() {
     scopes_supported: ["verify", "read", "write"],
     ui_locales_supported: ["en-US"],
 
+    // WorkOS auth.md — agent registration metadata block.
+    // (https://github.com/workos/auth.md)
+    agent_auth: {
+      auth_md_uri: `${SITE.url}/auth.md`,
+      register_uri: `${SITE.url}/signup`,
+      claim_uri: `${SITE.url}/dashboard/keys`,
+      revocation_uri: `${SITE.url}/dashboard/keys`,
+      documentation_uri: `${SITE.url}/docs/authentication`,
+      identity_types_supported: ["user"],
+      credential_types_supported: ["api_key"],
+      credential_transport: "http_header",
+      credential_header: "Authorization",
+      credential_scheme: "Bearer",
+      credential_prefix_live: "vch_live_",
+      credential_prefix_test: "vch_test_",
+      credential_lifetime: "indefinite",
+      programmatic_registration_supported: false,
+    },
+
     // Non-standard extensions that describe what Vouchley actually does.
     // Per RFC 8414 §2, extension fields are allowed and SHOULD be
     // namespaced; we prefix with `x-vouchley-`.
