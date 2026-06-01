@@ -42,6 +42,10 @@ export function middleware(req: NextRequest) {
     "Link",
     '</sitemap.xml>; rel="sitemap"; type="application/xml"',
   );
+  res.headers.append(
+    "Link",
+    '</.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"',
+  );
 
   // Alternate markdown variant of this specific page (per Markdown for Agents).
   const mdAlternate = pathname === "/" ? "/index.md" : `${pathname}.md`;
