@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 
 import { PostHogProvider } from "@/components/analytics/posthog-provider";
 import { JsonLd } from "@/components/seo/json-ld";
+import { WebMcpProvider } from "@/components/web-mcp/web-mcp-provider";
 import { SITE } from "@/config/site";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import "./globals.css";
@@ -105,6 +106,7 @@ export default function RootLayout({
         <JsonLd data={websiteJsonLd()} />
       </head>
       <body>
+        <WebMcpProvider />
         <PostHogProvider>{children}</PostHogProvider>
         <Toaster
           position="bottom-right"
