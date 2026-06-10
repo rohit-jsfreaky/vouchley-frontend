@@ -2,7 +2,7 @@
  * Typed fetchers for every session-authenticated dashboard endpoint.
  * All use credentials: "include" via apiGet / apiPost.
  */
-import { apiGet, apiPatch, apiPost } from "./api";
+import { apiGet, apiPatch, apiPost, PUBLIC_API_BASE } from "./api";
 
 export type Period = "7d" | "30d" | "mtd" | "all";
 
@@ -104,8 +104,7 @@ export function createApiKey(input: { label?: string; environment: "live" | "tes
 }
 
 export async function revokeApiKey(id: string) {
-  const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
-  const resp = await fetch(`${base}/dashboard/api-keys/${id}`, {
+  const resp = await fetch(`${PUBLIC_API_BASE}/dashboard/api-keys/${id}`, {
     method: "DELETE",
     credentials: "include",
   });

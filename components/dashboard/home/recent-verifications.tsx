@@ -4,9 +4,27 @@ import { Globe, ListChecks } from "lucide-react";
 import Link from "next/link";
 
 import { EmptyState } from "@/components/dashboard/shell/empty-state";
+import {
+  RecommendationBadge,
+  ScoreValue,
+} from "@/components/dashboard/shared/status-badges";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import type { RecentCheckItem } from "@/lib/api-dashboard";
-import { cn } from "@/lib/utils";
 
 interface Props {
   data: RecentCheckItem[] | null;
@@ -15,56 +33,61 @@ interface Props {
 
 export function RecentVerifications({ data, loading }: Props) {
   return (
-    <section className="overflow-hidden rounded-xl border border-border/20 bg-surface shadow-[var(--shadow-soft)]">
-      <div className="flex items-center justify-between border-b border-border/30 bg-subtle/70 px-6 py-4">
-        <h3 className="font-serif text-2xl text-ink">Recent Verifications</h3>
-      </div>
-
-      {loading ? (
-        <RecentVerificationsSkeleton />
-      ) : !data || data.length === 0 ? (
-        <EmptyState
-          icon={ListChecks}
-          title="No verifications yet"
-          description="When your app calls POST /v1/verify, the latest checks will stream into this table."
-          cta={{ label: "Read the quickstart", href: "/docs" }}
-          className="border-0 py-16"
-        />
-      ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-left">
-            <thead>
-              <tr className="border-b border-border/30 bg-surface text-xs font-semibold uppercase tracking-widest text-ink-muted">
-                <th className="px-6 py-3">Email / Identifier</th>
-                <th className="px-6 py-3">Score</th>
-                <th className="px-6 py-3">Recommendation</th>
-                <th className="px-6 py-3">IP Country</th>
-                <th className="px-6 py-3">Source</th>
-                <th className="px-6 py-3">Time</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border/30 font-mono text-sm text-ink">
+    <Card className="gap-0 overflow-hidden border-border/20 py-0 shadow-[var(--shadow-soft)]">
+      <CardHeader className="border-b border-border py-4">
+        <CardTitle className="text-lg font-semibold text-ink">
+          Recent Verifications
+        </CardTitle>
+        <CardAction>
+          <Link
+            href="/dashboard/checks"
+            className="text-sm font-medium text-brand hover:underline"
+          >
+            View all
+          </Link>
+        </CardAction>
+      </CardHeader>
+      <CardContent className="p-0">
+        {loading ? (
+          <RecentVerificationsSkeleton />
+        ) : !data || data.length === 0 ? (
+          <EmptyState
+            icon={ListChecks}
+            title="No verifications yet"
+            description="When your app calls POST /v1/verify, the latest checks will stream into this table."
+            cta={{ label: "Read the quickstart", href: "/docs" }}
+            className="border-0 py-16"
+          />
+        ) : (
+          <Table className="[&_td]:px-5 [&_td]:py-3.5 [&_th]:h-11 [&_th]:px-5">
+            <TableHeader>
+              <TableRow className="border-border hover:bg-transparent [&_th]:text-xs [&_th]:font-medium [&_th]:uppercase [&_th]:tracking-wide [&_th]:text-ink-soft">
+                <TableHead>Email / Identifier</TableHead>
+                <TableHead>Score</TableHead>
+                <TableHead>Recommendation</TableHead>
+                <TableHead>IP Country</TableHead>
+                <TableHead>Source</TableHead>
+                <TableHead>Time</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {data.map((c) => (
-                <tr key={c.id} className="transition-colors hover:bg-subtle/60">
-                  <td className="max-w-[260px] truncate px-6 py-4">
+                <TableRow key={c.id} className="border-border/60">
+                  <TableCell className="max-w-[260px] truncate">
                     <Link
                       href={`/dashboard/checks/${c.id}`}
-                      className="text-ink underline-offset-2 hover:text-brand hover:underline"
+                      className="font-medium text-ink underline-offset-2 hover:text-brand hover:underline"
                     >
                       {c.email || "—"}
                     </Link>
-                  </td>
-                  <td className="px-6 py-4">
-                    {c.score !== null ? (
-                      <span className={scoreTone(c.score)}>{c.score}</span>
-                    ) : (
-                      <span className="text-ink-soft">—</span>
-                    )}
-                  </td>
-                  <td className="px-6 py-4">
+                  </TableCell>
+                  <TableCell>
+                    <ScoreValue score={c.score} />
+                  </TableCell>
+                  <TableCell>
                     <RecommendationBadge value={c.recommendation} />
-                  </td>
-                  <td className="px-6 py-4">
+                  </TableCell>
+                  <TableCell>
                     {c.ip_country ? (
                       <span className="flex items-center gap-2 text-ink-muted">
                         <Globe className="size-3.5" strokeWidth={1.75} />
@@ -73,43 +96,20 @@ export function RecentVerifications({ data, loading }: Props) {
                     ) : (
                       <span className="text-ink-soft">—</span>
                     )}
-                  </td>
-                  <td className="px-6 py-4 text-ink-muted">
+                  </TableCell>
+                  <TableCell className="text-ink-muted">
                     {c.api_key_label || "API"}
-                  </td>
-                  <td className="px-6 py-4 text-ink-muted">
+                  </TableCell>
+                  <TableCell className="text-ink-muted">
                     {relativeTime(c.created_at)}
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-    </section>
-  );
-}
-
-function scoreTone(score: number): string {
-  if (score >= 70) return "text-accent";
-  if (score >= 40) return "text-ink-muted";
-  return "text-brand";
-}
-
-function RecommendationBadge({ value }: { value: string | null }) {
-  const label = (value || "—").toUpperCase();
-  const palette =
-    value === "approve"
-      ? "bg-accent-soft text-accent"
-      : value === "block"
-        ? "bg-danger-bg text-danger"
-        : value === "review"
-          ? "bg-muted text-ink-muted"
-          : "bg-subtle text-ink-muted";
-  return (
-    <span className={cn("rounded px-2 py-1 font-mono text-xs font-semibold", palette)}>
-      {label}
-    </span>
+            </TableBody>
+          </Table>
+        )}
+      </CardContent>
+    </Card>
   );
 }
 
@@ -128,12 +128,12 @@ function relativeTime(iso: string): string {
 
 function RecentVerificationsSkeleton() {
   return (
-    <div className="divide-y divide-border/30">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <div key={i} className="grid grid-cols-6 gap-6 px-6 py-4">
+    <div className="divide-y divide-border/60">
+      {Array.from({ length: 6 }).map((_, i) => (
+        <div key={i} className="grid grid-cols-6 gap-6 px-5 py-4">
           <Skeleton className="h-4 w-40" />
           <Skeleton className="h-4 w-8" />
-          <Skeleton className="h-5 w-16 rounded" />
+          <Skeleton className="h-5 w-16 rounded-full" />
           <Skeleton className="h-4 w-10" />
           <Skeleton className="h-4 w-12" />
           <Skeleton className="h-4 w-14" />

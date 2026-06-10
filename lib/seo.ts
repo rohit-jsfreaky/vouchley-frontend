@@ -136,6 +136,33 @@ export function softwareAppJsonLd() {
  * array used in the on-page FAQ component so the schema can never drift
  * out of sync with what the user sees.
  */
+/**
+ * HowTo schema — emits a step-by-step instruction set that AI Overviews,
+ * ChatGPT, and Perplexity use to surface "how do I X" answers. Pass the
+ * canonical step list authored in the blog post frontmatter.
+ */
+export function howToJsonLd(input: {
+  name: string;
+  description?: string;
+  totalTime?: string;
+  steps: { name: string; text: string; url?: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: input.name,
+    description: input.description,
+    totalTime: input.totalTime,
+    step: input.steps.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+      url: step.url,
+    })),
+  };
+}
+
 export function faqJsonLd(faqs: { question: string; answer: string }[]) {
   return {
     "@context": "https://schema.org",

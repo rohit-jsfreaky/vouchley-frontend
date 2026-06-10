@@ -1,44 +1,180 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* radix-nova animation variants. shadcn's overlays use `data-open:` /
+   `data-closed:` for their enter/exit animations, but Radix emits
+   `data-state="open"/"closed"`. These bridge the two so popovers, dialogs,
+   tooltips, dropdowns, sheets, etc. animate in and out. */
+@custom-variant data-open (&:is([data-state="open"], [data-state="active"], [data-state="checked"], [data-state="on"], [data-state="visible"], [data-open], [open]));
+@custom-variant data-closed (&:is([data-state="closed"], [data-state="inactive"], [data-state="unchecked"], [data-state="off"], [data-state="hidden"], [data-closed]));
 
 @theme {
-  /* --- Surfaces (warm paper palette) ----------------------------------- */
-  --color-canvas: #f7f4ee;
+  /* ===================================================================== */
+  /*  Mercury palette                                                      */
+  /*  Cotton (#fff) · Gunmetal (#2b2f38) · RoyalBlue (#3d5afe) ·           */
+  /*  Sonic Silver (#757882) · Dark Gray (#a7aab2). Token NAMES are kept   */
+  /*  from the old editorial theme so every component recolors at once.    */
+  /* ===================================================================== */
+
+  /* --- Surfaces -------------------------------------------------------- */
+  --color-canvas: #f8f9fb;
   --color-surface: #ffffff;
-  --color-subtle: #efeae1;
-  --color-muted: #e6dfd2;
+  --color-subtle: #f1f2f5;
+  --color-muted: #e9eaee;
 
   /* --- Borders --------------------------------------------------------- */
-  --color-border: #d9d1c1;
-  --color-border-strong: #b8ae9a;
+  --color-border: #e8e9ed;
+  --color-border-strong: #cdcfd6;
 
   /* --- Text ------------------------------------------------------------ */
-  --color-ink: #1f1b16;
-  --color-ink-muted: #55504a;
-  --color-ink-soft: #8a8378;
-  --color-ink-inverse: #f7f4ee;
+  --color-ink: #2b2f38;
+  --color-ink-muted: #757882;
+  --color-ink-soft: #a7aab2;
+  --color-ink-inverse: #ffffff;
 
-  /* --- Brand (terracotta) --------------------------------------------- */
-  --color-brand: #b8603c;
-  --color-brand-hover: #a4502e;
-  --color-brand-soft: #f4e4db;
+  /* --- Brand (RoyalBlue) ---------------------------------------------- */
+  --color-brand: #3d5afe;
+  --color-brand-hover: #2e49e8;
+  --color-brand-soft: #ebeeff;
 
-  /* --- Accent (olive) ------------------------------------------------- */
-  --color-accent: #6b7a4f;
-  --color-accent-soft: #e8eadc;
+  /* --- Accent (positive / approve) ----------------------------------- */
+  --color-accent: #16a34a;
+  --color-accent-soft: #e7f6ec;
 
   /* --- Semantic ------------------------------------------------------- */
-  --color-success: #6b7a4f;
-  --color-success-bg: #e8eadc;
-  --color-warning: #c28840;
-  --color-warning-bg: #f5e9d5;
-  --color-danger: #a44a3f;
-  --color-danger-bg: #f0dbd6;
-  --color-info: #5a6f7d;
-  --color-info-bg: #dce3e7;
+  --color-success: #16a34a;
+  --color-success-bg: #e7f6ec;
+  --color-warning: #d9820b;
+  --color-warning-bg: #fbf0dc;
+  --color-danger: #e5484d;
+  --color-danger-bg: #fcecec;
+  --color-info: #2d7ff9;
+  --color-info-bg: #e6f0fe;
 
-  /* --- Shadows -------------------------------------------------------- */
-  --shadow-editorial: 0 20px 50px -12px rgba(31, 27, 22, 0.08);
-  --shadow-soft: 0 4px 20px -10px rgba(31, 27, 22, 0.05);
+  /* --- Shadows (Mercury-soft) ----------------------------------------- */
+  --shadow-editorial: 0 8px 30px -14px rgba(17, 19, 28, 0.14);
+  --shadow-soft: 0 1px 2px rgba(17, 19, 28, 0.05), 0 1px 3px rgba(17, 19, 28, 0.04);
+}
+
+/* ===================================================================== */
+/*  shadcn/ui token layer                                                */
+/*  These raw variables are POINTED AT the editorial palette above so    */
+/*  every shadcn component (Button, Card, Dialog, Sidebar, etc.) renders  */
+/*  in the Vouchley brand — terracotta primary, warm-paper surfaces —     */
+/*  instead of the default neutral theme. The editorial @theme tokens are */
+/*  left untouched, so the marketing site stays pixel-identical. The      */
+/*  three names shadcn shares with editorial (muted / border / accent)    */
+/*  are intentionally reused, not redefined.                              */
+/* ===================================================================== */
+:root {
+  --radius: 0.625rem;
+
+  --background: var(--color-canvas);
+  --foreground: var(--color-ink);
+  --card: var(--color-surface);
+  --card-foreground: var(--color-ink);
+  --popover: var(--color-surface);
+  --popover-foreground: var(--color-ink);
+  --primary: var(--color-brand);
+  --primary-foreground: var(--color-ink-inverse);
+  --secondary: var(--color-subtle);
+  --secondary-foreground: var(--color-ink);
+  --muted-foreground: var(--color-ink-muted);
+  --accent-foreground: var(--color-ink-inverse);
+  --destructive: var(--color-danger);
+  --destructive-foreground: var(--color-ink-inverse);
+  --input: var(--color-border);
+  --ring: var(--color-brand);
+
+  --chart-1: var(--color-brand);
+  --chart-2: var(--color-accent);
+  --chart-3: var(--color-info);
+  --chart-4: var(--color-warning);
+  --chart-5: var(--color-danger);
+
+  --sidebar: var(--color-surface);
+  --sidebar-foreground: var(--color-ink);
+  --sidebar-primary: var(--color-brand);
+  --sidebar-primary-foreground: var(--color-ink-inverse);
+  --sidebar-accent: var(--color-brand-soft);
+  --sidebar-accent-foreground: var(--color-brand);
+  --sidebar-border: var(--color-border);
+  --sidebar-ring: var(--color-brand);
+}
+
+.dark {
+  --background: #1c1813;
+  --foreground: #f3eee4;
+  --card: #262019;
+  --card-foreground: #f3eee4;
+  --popover: #262019;
+  --popover-foreground: #f3eee4;
+  --primary: #cd7551;
+  --primary-foreground: #1c1813;
+  --secondary: #342d24;
+  --secondary-foreground: #f3eee4;
+  --muted-foreground: #b6ab98;
+  --accent-foreground: #f3eee4;
+  --destructive: #c5564a;
+  --destructive-foreground: #f3eee4;
+  --input: rgba(243, 238, 228, 0.15);
+  --ring: #cd7551;
+
+  --sidebar: #262019;
+  --sidebar-foreground: #f3eee4;
+  --sidebar-primary: #cd7551;
+  --sidebar-primary-foreground: #1c1813;
+  --sidebar-accent: #342d24;
+  --sidebar-accent-foreground: #f3eee4;
+  --sidebar-border: rgba(243, 238, 228, 0.12);
+  --sidebar-ring: #cd7551;
+}
+
+/* Map shadcn's `--color-*` utilities to the raw vars above. Only the names
+   the editorial @theme does NOT already define are listed here, so editorial
+   `bg-muted`, `border-border`, `bg-accent` keep their warm values. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before {
+    border-color: var(--color-border);
+  }
 }
 
 html,

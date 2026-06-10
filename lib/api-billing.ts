@@ -1,4 +1,4 @@
-import { apiGet, apiPost } from "./api";
+import { apiGet, apiPost, PUBLIC_API_BASE } from "./api";
 
 export type PackSlug = "starter" | "pro" | "scale";
 
@@ -52,8 +52,7 @@ export function updateBillingProfile(input: BillingProfile) {
     billing_email: input.billing_email || null,
     tax_id: input.tax_id || null,
   };
-  const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
-  return fetch(`${base}/billing/profile`, {
+  return fetch(`${PUBLIC_API_BASE}/billing/profile`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),

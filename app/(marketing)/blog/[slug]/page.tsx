@@ -5,7 +5,13 @@ import { BlogDetail } from "@/components/blog/blog-detail";
 import { JsonLd } from "@/components/seo/json-ld";
 import { SITE } from "@/config/site";
 import { getAllPosts, getPost, getRelatedPosts } from "@/lib/blog";
-import { blogPostingJsonLd, breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
+import {
+  blogPostingJsonLd,
+  breadcrumbJsonLd,
+  buildMetadata,
+  faqJsonLd,
+  howToJsonLd,
+} from "@/lib/seo";
 
 interface Params {
   params: Promise<{ slug: string }>;
@@ -67,6 +73,19 @@ export default async function BlogPostPage({ params }: Params) {
           { name: post.title, url: `${SITE.url}/blog/${post.slug}` },
         ])}
       />
+      {post.faq && post.faq.length > 0 && (
+        <JsonLd data={faqJsonLd(post.faq)} />
+      )}
+      {post.howTo && post.howTo.steps.length > 0 && (
+        <JsonLd
+          data={howToJsonLd({
+            name: post.howTo.name,
+            description: post.howTo.description,
+            totalTime: post.howTo.totalTime,
+            steps: post.howTo.steps,
+          })}
+        />
+      )}
       <BlogDetail post={post} related={related} />
     </>
   );

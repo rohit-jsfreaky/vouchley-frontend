@@ -4,6 +4,9 @@ import { Check, ExternalLink, Loader2 } from "lucide-react";
 import { forwardRef, useState } from "react";
 import { toast } from "sonner";
 
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { ApiError } from "@/lib/api";
 import {
   type PackSlug,
@@ -176,108 +179,106 @@ function PackCard({
       : "border border-border/40 bg-canvas shadow-[var(--shadow-soft)]";
 
   return (
-    <div
-      className={cn(
-        "relative flex min-h-[30rem] flex-col rounded-2xl p-7 md:p-8",
-        ringClass,
-      )}
-    >
-      {isCurrent ? (
-        <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-accent px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-ink-inverse">
-          Current plan
-        </span>
-      ) : pack.badge ? (
-        <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-brand px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-ink-inverse">
-          {pack.badge}
-        </span>
-      ) : null}
+    <Card className={cn("relative min-h-[30rem] rounded-2xl", ringClass)}>
+      <CardContent className="flex h-full flex-col p-7 md:p-8">
+        {isCurrent ? (
+          <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap border-transparent bg-accent px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-ink-inverse">
+            Current plan
+          </Badge>
+        ) : pack.badge ? (
+          <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap border-transparent bg-brand px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-ink-inverse">
+            {pack.badge}
+          </Badge>
+        ) : null}
 
-      <h4
-        className={cn(
-          "mb-1 font-serif text-xl font-semibold",
-          isCurrent
-            ? "text-accent"
-            : pack.highlighted
-              ? "text-brand"
-              : "text-ink",
-        )}
-      >
-        {pack.name}
-      </h4>
-      <p className="mb-5 text-sm leading-6 text-ink-muted">{pack.credits}</p>
-
-      <div className="mb-4">
-        <span className="font-serif text-4xl font-bold text-ink">
-          {pack.price}
-        </span>
-        <span className="ml-1 text-sm text-ink-muted">/ month</span>
-      </div>
-      <p className="mb-8 text-sm leading-6 text-ink-soft">{pack.perCredit}</p>
-
-      {isCurrent ? (
-        <button
-          type="button"
-          onClick={onOpenPortal}
-          disabled={anyBusy}
-          className="mb-8 inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-border bg-surface text-sm font-semibold text-ink transition-colors hover:bg-subtle disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          {portalLoading ? (
-            <>
-              <Loader2 className="size-4 animate-spin" strokeWidth={1.75} />
-              Opening portal…
-            </>
-          ) : (
-            <>
-              Manage plan
-              <ExternalLink className="size-4" strokeWidth={1.75} />
-            </>
-          )}
-        </button>
-      ) : hasActivePlan ? (
-        <button
-          type="button"
-          onClick={onOpenPortal}
-          disabled={anyBusy}
-          className="mb-8 inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-border bg-surface text-sm font-semibold text-ink transition-colors hover:bg-subtle disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          Change via portal
-          <ExternalLink className="size-4" strokeWidth={1.75} />
-        </button>
-      ) : (
-        <button
-          type="button"
-          onClick={onSubscribe}
-          disabled={anyBusy}
+        <h4
           className={cn(
-            "mb-8 inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-lg text-sm font-semibold transition-all active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60",
-            pack.highlighted
-              ? "bg-brand text-ink-inverse hover:bg-brand-hover"
-              : "border border-border bg-surface text-ink hover:bg-subtle",
+            "mb-1 font-serif text-xl font-semibold",
+            isCurrent
+              ? "text-accent"
+              : pack.highlighted
+                ? "text-brand"
+                : "text-ink",
           )}
         >
-          {loading ? (
-            <>
-              <Loader2 className="mr-2 size-4 animate-spin" strokeWidth={1.75} />
-              Redirecting…
-            </>
-          ) : (
-            `Subscribe to ${pack.name}`
-          )}
-        </button>
-      )}
+          {pack.name}
+        </h4>
+        <p className="mb-5 text-sm leading-6 text-ink-muted">{pack.credits}</p>
 
-      <ul className="mt-auto space-y-3 border-t border-border/30 pt-6 text-sm leading-7 text-ink-muted">
-        {pack.features.map((f) => (
-          <li key={f} className="flex items-start gap-2">
-            <Check
-              className="mt-0.5 size-4 shrink-0 text-brand"
-              strokeWidth={2.5}
-              aria-hidden
-            />
-            <span>{f}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+        <div className="mb-4">
+          <span className="font-serif text-4xl font-bold text-ink">
+            {pack.price}
+          </span>
+          <span className="ml-1 text-sm text-ink-muted">/ month</span>
+        </div>
+        <p className="mb-8 text-sm leading-6 text-ink-soft">{pack.perCredit}</p>
+
+        {isCurrent ? (
+          <Button
+            type="button"
+            variant="secondary"
+            size="md"
+            onClick={onOpenPortal}
+            disabled={anyBusy}
+            className="mb-8 w-full"
+          >
+            {portalLoading ? (
+              <>
+                <Loader2 className="size-4 animate-spin" strokeWidth={1.75} />
+                Opening portal…
+              </>
+            ) : (
+              <>
+                Manage plan
+                <ExternalLink className="size-4" strokeWidth={1.75} />
+              </>
+            )}
+          </Button>
+        ) : hasActivePlan ? (
+          <Button
+            type="button"
+            variant="secondary"
+            size="md"
+            onClick={onOpenPortal}
+            disabled={anyBusy}
+            className="mb-8 w-full"
+          >
+            Change via portal
+            <ExternalLink className="size-4" strokeWidth={1.75} />
+          </Button>
+        ) : (
+          <Button
+            type="button"
+            variant={pack.highlighted ? "primary" : "secondary"}
+            size="md"
+            onClick={onSubscribe}
+            disabled={anyBusy}
+            className="mb-8 w-full"
+          >
+            {loading ? (
+              <>
+                <Loader2 className="size-4 animate-spin" strokeWidth={1.75} />
+                Redirecting…
+              </>
+            ) : (
+              `Subscribe to ${pack.name}`
+            )}
+          </Button>
+        )}
+
+        <ul className="mt-auto space-y-3 border-t border-border/30 pt-6 text-sm leading-7 text-ink-muted">
+          {pack.features.map((f) => (
+            <li key={f} className="flex items-start gap-2">
+              <Check
+                className="mt-0.5 size-4 shrink-0 text-brand"
+                strokeWidth={2.5}
+                aria-hidden
+              />
+              <span>{f}</span>
+            </li>
+          ))}
+        </ul>
+      </CardContent>
+    </Card>
   );
 }

@@ -1,10 +1,24 @@
 "use client";
 
 import { Database } from "lucide-react";
+import { Cell, Label, Pie, PieChart } from "recharts";
 
 import { EmptyState } from "@/components/dashboard/shell/empty-state";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { CacheHitRate } from "@/lib/api-dashboard";
+
+const chartConfig = {
+  count: { label: "Checks" },
+  hit: { label: "Hit", color: "var(--color-brand)" },
+  miss: { label: "Miss", color: "var(--color-muted)" },
+} satisfies ChartConfig;
 
 export function CacheHitDonut({
   data,
@@ -13,51 +27,98 @@ export function CacheHitDonut({
   data: CacheHitRate | null;
   loading: boolean;
 }) {
-  return (
-    <section className="flex flex-col rounded-xl border border-border/20 bg-surface p-8 shadow-[var(--shadow-soft)]">
-      <h3 className="mb-2 font-serif text-xl text-ink">Cache hit rate</h3>
+  const slices = data
+    ? [
+        { key: "hit", label: "Hit", count: data.hit, fill: "var(--color-brand)" },
+        { key: "miss", label: "Miss", count: data.miss, fill: "var(--color-muted)" },
+      ]
+    : [];
 
-      {loading ? (
-        <div className="flex flex-1 items-center justify-center py-6">
-          <Skeleton className="size-48 rounded-full" />
-        </div>
-      ) : !data || data.total === 0 ? (
-        <EmptyState
-          icon={Database}
-          title="No cached checks yet"
-          description="Cache hits start counting after the second request for the same input."
-          className="mt-6"
-        />
-      ) : (
-        <>
-          <div className="flex flex-1 items-center justify-center py-4">
-            <div
-              className="relative flex size-48 items-center justify-center rounded-full"
-              style={{
-                background: `conic-gradient(var(--color-brand) 0% ${data.hit_rate_pct}%, var(--color-muted) ${data.hit_rate_pct}% 100%)`,
-              }}
+  return (
+    <Card className="flex flex-col gap-2 border-border/20 shadow-[var(--shadow-soft)]">
+      <CardHeader>
+        <CardTitle className="font-serif text-xl font-normal text-ink">
+          Cache hit rate
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-1 flex-col">
+        {loading ? (
+          <div className="flex flex-1 items-center justify-center py-6">
+            <Skeleton className="size-48 rounded-full" />
+          </div>
+        ) : !data || data.total === 0 ? (
+          <EmptyState
+            icon={Database}
+            title="No cached checks yet"
+            description="Cache hits start counting after the second request for the same input."
+            className="mt-6"
+          />
+        ) : (
+          <>
+            <ChartContainer
+              config={chartConfig}
+              className="mx-auto aspect-square h-56 w-full max-w-[14rem]"
             >
-              <div className="absolute flex size-36 flex-col items-center justify-center rounded-full bg-surface">
-                <span className="font-serif text-3xl text-ink">
-                  {data.hit_rate_pct.toFixed(1)}%
-                </span>
-                <span className="font-mono text-xs text-ink-muted">HIT RATE</span>
-              </div>
+              <PieChart>
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent nameKey="label" hideLabel />}
+                />
+                <Pie
+                  data={slices}
+                  dataKey="count"
+                  nameKey="label"
+                  innerRadius={60}
+                  strokeWidth={2}
+                >
+                  {slices.map((slice) => (
+                    <Cell key={slice.key} fill={slice.fill} />
+                  ))}
+                  <Label
+                    content={({ viewBox }) => {
+                      if (!viewBox || !("cx" in viewBox)) return null;
+                      return (
+                        <text
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          textAnchor="middle"
+                          dominantBaseline="middle"
+                        >
+                          <tspan
+                            x={viewBox.cx}
+                            y={viewBox.cy}
+                            className="fill-ink font-serif text-3xl"
+                          >
+                            {data.hit_rate_pct.toFixed(1)}%
+                          </tspan>
+                          <tspan
+                            x={viewBox.cx}
+                            y={(viewBox.cy ?? 0) + 22}
+                            className="fill-ink-muted font-mono text-xs"
+                          >
+                            HIT RATE
+                          </tspan>
+                        </text>
+                      );
+                    }}
+                  />
+                </Pie>
+              </PieChart>
+            </ChartContainer>
+            <div className="flex justify-center gap-6 text-sm">
+              <Legend
+                color="bg-muted"
+                label={`Miss (${data.miss.toLocaleString()})`}
+              />
+              <Legend
+                color="bg-brand"
+                label={`Hit (${data.hit.toLocaleString()})`}
+              />
             </div>
-          </div>
-          <div className="flex justify-center gap-6 text-sm">
-            <Legend
-              color="bg-muted"
-              label={`Miss (${data.miss.toLocaleString()})`}
-            />
-            <Legend
-              color="bg-brand"
-              label={`Hit (${data.hit.toLocaleString()})`}
-            />
-          </div>
-        </>
-      )}
-    </section>
+          </>
+        )}
+      </CardContent>
+    </Card>
   );
 }
 

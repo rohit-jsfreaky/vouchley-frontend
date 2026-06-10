@@ -2,8 +2,10 @@
 
 import { BarChart3, DollarSign, ReceiptText } from "lucide-react";
 
+import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { UsageSummary } from "@/lib/api-dashboard";
+import { cn } from "@/lib/utils";
 
 export function UsageSummaryTiles({
   data,
@@ -57,30 +59,32 @@ function Tile({
   icon: React.ElementType;
 }) {
   return (
-    <div
-      className={`relative flex flex-col justify-between overflow-hidden rounded-xl border border-border/20 bg-surface p-6 shadow-[var(--shadow-soft)] ${
-        highlight ? "ring-1 ring-brand-soft" : ""
-      }`}
+    <Card
+      className={cn(
+        "relative gap-3 overflow-hidden border-border/20 px-6 py-6 shadow-[var(--shadow-soft)]",
+        highlight && "ring-1 ring-brand-soft",
+      )}
     >
-      <div className="mb-6 flex items-start justify-between">
-        <span className="font-mono text-sm uppercase tracking-wider text-ink-muted">
-          {label}
-        </span>
-        <Icon className="size-5 text-ink-soft" strokeWidth={1.5} aria-hidden />
-      </div>
-      <div>
-        <div
-          className={`mb-1 font-serif text-4xl ${
-            highlight ? "text-brand" : "text-ink"
-          }`}
-        >
-          {value}
-        </div>
-        {caption && (
-          <div className="text-xs font-medium text-ink-muted">{caption}</div>
+      <Icon
+        className="absolute right-4 top-4 size-8 text-ink-soft/30"
+        strokeWidth={1.25}
+        aria-hidden
+      />
+      <p className="font-mono text-xs font-semibold uppercase tracking-widest text-ink-muted">
+        {label}
+      </p>
+      <p
+        className={cn(
+          "font-serif text-4xl",
+          highlight ? "text-brand" : "text-ink",
         )}
-      </div>
-    </div>
+      >
+        {value}
+      </p>
+      {caption && (
+        <p className="text-xs font-medium text-ink-muted">{caption}</p>
+      )}
+    </Card>
   );
 }
 
@@ -88,16 +92,14 @@ function UsageSummarySkeleton() {
   return (
     <section className="grid grid-cols-1 gap-6 md:grid-cols-3">
       {Array.from({ length: 3 }).map((_, i) => (
-        <div
+        <Card
           key={i}
-          className="flex h-36 flex-col justify-between rounded-xl border border-border/20 bg-surface p-6 shadow-[var(--shadow-soft)]"
+          className="gap-3 border-border/20 px-6 py-6 shadow-[var(--shadow-soft)]"
         >
-          <Skeleton className="h-4 w-24" />
-          <div>
-            <Skeleton className="mb-2 h-10 w-28" />
-            <Skeleton className="h-3 w-32" />
-          </div>
-        </div>
+          <Skeleton className="h-3 w-24" />
+          <Skeleton className="h-10 w-28" />
+          <Skeleton className="h-3 w-32" />
+        </Card>
       ))}
     </section>
   );

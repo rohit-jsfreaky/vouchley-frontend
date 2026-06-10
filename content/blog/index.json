@@ -1,6 +1,27 @@
 {
   "posts": [
     {
+      "slug": "2026-saas-signup-fraud-report",
+      "title": "The 2026 State of SaaS Signup Fraud Report",
+      "excerpt": "A directional, evidence-based look at what's actually attacking SaaS signup forms in 2026 — disposable emails, VPN traffic, AI-bot signups, Gmail alias abuse, and free-tier infrastructure mining. Drawn from Vouchley verification telemetry plus the broader industry data.",
+      "date": "2026-06-08T09:00:00.000Z",
+      "category": "Research",
+      "author": "Rohit Kashyap",
+      "image": "/blog/2026-saas-signup-fraud-report.jpg",
+      "tags": ["SaaS fraud", "signup fraud", "annual report", "research"],
+      "keywords": [
+        "SaaS signup fraud report 2026",
+        "free trial abuse statistics 2026",
+        "disposable email statistics",
+        "VPN signup statistics",
+        "AI bot signup statistics",
+        "SaaS fraud trends 2026",
+        "signup verification benchmarks"
+      ],
+      "readingTime": 18,
+      "featured": true
+    },
+    {
       "slug": "ai-bot-signups-2026",
       "title": "AI Bot Signups in 2026: Why Your Existing Defenses Are About to Fail",
       "excerpt": "AI agents now mimic human signup behavior — typing cadence, mouse jitter, even dwell time — at a cost of cents per account. Here's why traditional bot defenses break against agentic signup fraud, and the new layered approach SaaS teams need.",
@@ -63,7 +84,7 @@
       "excerpt": "Free trial abuse silently burns your infrastructure and margins. Here's how to stop repeat signups and throwaway accounts in 2026 — without adding friction that hurts your conversion rate.",
       "date": "2026-04-24T09:00:00.000Z",
       "category": "Engineering",
-      "author": "Rohit",
+      "author": "Rohit Kashyap",
       "image": "/blog/prevent-free-trial-abuse.jpg",
       "tags": ["free trial abuse", "SaaS fraud", "signup verification"],
       "keywords": [
@@ -71,10 +92,14 @@
         "free trial abuse prevention",
         "stop trial abuse saas",
         "block multiple trial accounts",
-        "trial fraud detection"
+        "trial fraud detection",
+        "free trial abuse meaning",
+        "what is free trial abuse",
+        "free trial abuse detection",
+        "stop fake signups saas"
       ],
-      "readingTime": 9,
-      "featured": false
+      "readingTime": 13,
+      "featured": true
     },
     {
       "slug": "vpn-proxy-detection-signups",

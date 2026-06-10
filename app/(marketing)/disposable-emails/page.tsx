@@ -49,6 +49,25 @@ export default function DisposableEmailsIndexPage() {
             </code>{" "}
             flag on every verification.
           </p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-4 rounded-xl border border-border/40 bg-surface p-5">
+            <div className="flex-1 min-w-[200px]">
+              <div className="mb-1 font-serif text-lg text-ink">
+                Free download — disposable domain list (JSON)
+              </div>
+              <p className="text-sm text-ink-muted">
+                Curated 20 services plus the full 5,000+ raw blocklist. Free to
+                use, no email required.
+              </p>
+            </div>
+            <a
+              href="/disposable-domains.json"
+              download="vouchley-disposable-domains.json"
+              className={buttonStyles({ variant: "secondary", size: "md" })}
+            >
+              Download JSON
+            </a>
+          </div>
         </div>
       </section>
 

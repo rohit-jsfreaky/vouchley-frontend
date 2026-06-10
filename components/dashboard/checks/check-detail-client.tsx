@@ -6,17 +6,21 @@ import {
   Check,
   Copy,
   Globe,
-  Info,
   Mail,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
+import {
+  RecommendationBadge,
+  SignalBadge,
+} from "@/components/dashboard/shared/status-badges";
+import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ApiError } from "@/lib/api";
 import { type CheckDetail, fetchCheckDetail } from "@/lib/api-dashboard";
-import { cn } from "@/lib/utils";
 
 interface Props {
   checkId: string;
@@ -138,9 +142,7 @@ export function CheckDetailClient({ checkId }: Props) {
           label="API Key Used"
           value={
             <span className="flex items-center gap-2 font-mono text-sm text-ink-muted">
-              {check.api_key_prefix
-                ? `${check.api_key_prefix}...`
-                : "—"}
+              {check.api_key_prefix ? `${check.api_key_prefix}...` : "—"}
             </span>
           }
         />
@@ -155,14 +157,14 @@ export function CheckDetailClient({ checkId }: Props) {
           </h2>
 
           {reasoning && (
-            <div className="mb-6 rounded-xl border border-border/20 bg-surface p-6 shadow-[var(--shadow-soft)]">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-ink-muted">
+            <Card className="mb-6 gap-3 border-border/20 px-6 py-6 shadow-[var(--shadow-soft)]">
+              <p className="font-mono text-xs font-semibold uppercase tracking-wider text-ink-muted">
                 Reasoning
               </p>
               <p className="font-serif text-base leading-7 text-ink">
                 {reasoning}
               </p>
-            </div>
+            </Card>
           )}
 
           <div className="space-y-4">
@@ -170,9 +172,7 @@ export function CheckDetailClient({ checkId }: Props) {
               icon={Mail}
               title="Email"
               status={emailBadge(emailSignals)}
-              rows={[
-                { label: null, value: check.email ?? "—" },
-              ]}
+              rows={[{ label: null, value: check.email ?? "—" }]}
             />
             <SignalCard
               icon={Building2}
@@ -181,7 +181,10 @@ export function CheckDetailClient({ checkId }: Props) {
               rows={[
                 {
                   label: "Name",
-                  value: check.company_name ?? (companySignals.domain as string) ?? "—",
+                  value:
+                    check.company_name ??
+                    (companySignals.domain as string) ??
+                    "—",
                 },
                 {
                   label: "Domain Age",
@@ -254,12 +257,12 @@ function StatCard({
   value: React.ReactNode;
 }) {
   return (
-    <div className="rounded-xl border border-border/20 bg-surface p-6 shadow-[var(--shadow-soft)]">
-      <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-ink-muted">
+    <Card className="gap-3 border-border/20 px-6 py-6 shadow-[var(--shadow-soft)]">
+      <p className="font-mono text-xs font-semibold uppercase tracking-widest text-ink-muted">
         {label}
       </p>
       <div>{value}</div>
-    </div>
+    </Card>
   );
 }
 
@@ -271,32 +274,26 @@ function SignalCard({
 }: {
   icon: React.ElementType;
   title: string;
-  status: { label: string; tone: string };
+  status: { label: string; tone: "good" | "bad" | "neutral" };
   rows: { label: string | null; value: string }[];
 }) {
   return (
-    <div className="rounded-xl border border-border/20 bg-surface p-5 shadow-[var(--shadow-soft)]">
-      <div className="mb-3 flex items-center justify-between">
+    <Card className="gap-0 border-border/20 px-5 py-5 shadow-[var(--shadow-soft)]">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Icon className="size-4 text-ink-muted" strokeWidth={1.75} />
-          <span className="text-xs font-bold uppercase tracking-wider text-ink">
+          <span className="font-mono text-xs font-bold uppercase tracking-wider text-ink">
             {title}
           </span>
         </div>
-        <span
-          className={cn(
-            "rounded px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider",
-            status.tone,
-          )}
-        >
-          {status.label}
-        </span>
+        <SignalBadge label={status.label} tone={status.tone} />
       </div>
+      <Separator className="my-3 bg-border/30" />
       <div className="grid grid-cols-2 gap-x-6 gap-y-2">
         {rows.map((r, i) => (
           <div key={i}>
             {r.label && (
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-ink-soft">
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-wider text-ink-soft">
                 {r.label}
               </p>
             )}
@@ -304,65 +301,54 @@ function SignalCard({
           </div>
         ))}
       </div>
-    </div>
+    </Card>
   );
 }
 
-function RecommendationBadge({ value }: { value: string | null }) {
-  const label = (value || "—").toUpperCase();
-  const palette =
-    value === "approve"
-      ? "bg-accent-soft text-accent"
-      : value === "block"
-        ? "bg-danger-bg text-danger"
-        : value === "review"
-          ? "bg-muted text-ink-muted"
-          : "bg-subtle text-ink-muted";
-  return (
-    <span
-      className={cn(
-        "inline-flex rounded px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider",
-        palette,
-      )}
-    >
-      {label}
-    </span>
-  );
+function emailBadge(
+  s: Record<string, unknown>,
+): { label: string; tone: "good" | "bad" | "neutral" } {
+  if (s.disposable) return { label: "Disposable", tone: "bad" };
+  if (s.valid === false) return { label: "Invalid", tone: "bad" };
+  if (s.valid === true) return { label: "Valid", tone: "good" };
+  return { label: "Unknown", tone: "neutral" };
 }
 
-function emailBadge(s: Record<string, unknown>) {
-  if (s.disposable) return { label: "Disposable", tone: "bg-danger-bg text-danger" };
-  if (s.valid === false) return { label: "Invalid", tone: "bg-danger-bg text-danger" };
-  if (s.valid === true) return { label: "Valid", tone: "bg-accent-soft text-accent" };
-  return { label: "Unknown", tone: "bg-muted text-ink-muted" };
+function companyBadge(
+  s: Record<string, unknown>,
+): { label: string; tone: "good" | "bad" | "neutral" } {
+  if (s.domain_alive === true) return { label: "Verified", tone: "good" };
+  if (s.domain_alive === false) return { label: "Unverified", tone: "bad" };
+  return { label: "Unknown", tone: "neutral" };
 }
 
-function companyBadge(s: Record<string, unknown>) {
-  if (s.domain_alive === true) return { label: "Verified", tone: "bg-accent-soft text-accent" };
-  if (s.domain_alive === false) return { label: "Unverified", tone: "bg-danger-bg text-danger" };
-  return { label: "Unknown", tone: "bg-muted text-ink-muted" };
-}
-
-function ipBadge(s: Record<string, unknown>) {
-  if (s.is_vpn === true || s.is_tor === true) return { label: "Flagged", tone: "bg-danger-bg text-danger" };
+function ipBadge(
+  s: Record<string, unknown>,
+): { label: string; tone: "good" | "bad" | "neutral" } {
+  if (s.is_vpn === true || s.is_tor === true)
+    return { label: "Flagged", tone: "bad" };
   const risk = s.risk_score as number | undefined;
-  if (risk !== undefined && risk > 50) return { label: "Risky", tone: "bg-danger-bg text-danger" };
-  return { label: "Clean", tone: "bg-accent-soft text-accent" };
+  if (risk !== undefined && risk > 50) return { label: "Risky", tone: "bad" };
+  return { label: "Clean", tone: "good" };
 }
 
 function formatTimestamp(iso: string): string {
   const d = new Date(iso);
-  return d.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  }) + " \u00B7 " + d.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-    timeZoneName: "short",
-  });
+  return (
+    d.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    }) +
+    " · " +
+    d.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+      timeZoneName: "short",
+    })
+  );
 }
 
 function DetailSkeleton() {

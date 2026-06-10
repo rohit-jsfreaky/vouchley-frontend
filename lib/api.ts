@@ -9,9 +9,19 @@
  * cookie from the incoming request.
  */
 
-const PUBLIC_API_BASE =
-  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+/**
+ * In `next dev` the browser talks to a SAME-ORIGIN proxy (`/api/be/*`,
+ * see app/api/be/[...path]/route.ts) so the session cookie binds to
+ * localhost even when the backend is the deployed api.vouchley.getrevlio.com.
+ * In production this is the real backend URL — direct, no proxy.
+ */
+export const PUBLIC_API_BASE =
+  process.env.NODE_ENV === "development"
+    ? "/api/be"
+    : process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
+// Server-side (RSC) calls always hit the real backend directly and forward
+// the (now localhost-bound) cookie value, so no proxy hop is needed here.
 const SERVER_API_BASE =
   process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 

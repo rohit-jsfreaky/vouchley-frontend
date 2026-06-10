@@ -11,6 +11,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { DashboardKpis, KpiValue } from "@/lib/api-dashboard";
 import { cn } from "@/lib/utils";
@@ -78,20 +79,20 @@ function Tile({
 }) {
   const hasValue = kpi.value !== null && kpi.value !== undefined;
   return (
-    <div className="relative overflow-hidden rounded-xl border border-border/20 bg-surface p-6 shadow-[var(--shadow-soft)]">
+    <Card className="relative gap-3 overflow-hidden border-border/20 px-6 py-6 shadow-[var(--shadow-soft)]">
       <Icon
         className="absolute right-4 top-4 size-8 text-ink-soft/30"
         strokeWidth={1.25}
         aria-hidden
       />
-      <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-widest text-ink-muted">
+      <p className="text-xs font-medium uppercase tracking-wide text-ink-soft">
         {label}
       </p>
-      <p className="font-serif text-4xl text-ink">
+      <p className="text-3xl font-semibold tabular-nums text-ink">
         {hasValue ? format(kpi.value as number) : "—"}
       </p>
       <Delta delta={kpi.delta_pct} lowerIsBetter={lowerIsBetter} />
-    </div>
+    </Card>
   );
 }
 
@@ -104,7 +105,7 @@ function Delta({
 }) {
   if (delta === null || delta === undefined) {
     return (
-      <div className="mt-4 flex items-center gap-1 font-mono text-xs text-ink-soft">
+      <div className="flex items-center gap-1 font-mono text-xs text-ink-soft">
         <MinusSquare className="size-3.5" strokeWidth={1.75} aria-hidden />
         <span>No comparison</span>
       </div>
@@ -112,7 +113,7 @@ function Delta({
   }
   if (delta === 0) {
     return (
-      <div className="mt-4 flex items-center gap-1 font-mono text-xs text-ink-muted">
+      <div className="flex items-center gap-1 font-mono text-xs text-ink-muted">
         <MinusSquare className="size-3.5" strokeWidth={1.75} aria-hidden />
         <span>Stable</span>
       </div>
@@ -123,7 +124,7 @@ function Delta({
   return (
     <div
       className={cn(
-        "mt-4 flex items-center gap-1 font-mono text-xs",
+        "flex items-center gap-1 font-mono text-xs",
         good ? "text-accent" : "text-danger",
       )}
     >
@@ -141,14 +142,14 @@ export function KpiTilesSkeleton() {
   return (
     <section className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
       {Array.from({ length: 4 }).map((_, i) => (
-        <div
+        <Card
           key={i}
-          className="rounded-xl border border-border/20 bg-surface p-6 shadow-[var(--shadow-soft)]"
+          className="gap-3 border-border/20 px-6 py-6 shadow-[var(--shadow-soft)]"
         >
-          <Skeleton className="mb-4 h-3 w-24" />
+          <Skeleton className="h-3 w-24" />
           <Skeleton className="h-10 w-20" />
-          <Skeleton className="mt-6 h-3 w-16" />
-        </div>
+          <Skeleton className="h-3 w-16" />
+        </Card>
       ))}
     </section>
   );

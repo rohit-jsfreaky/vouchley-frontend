@@ -4,9 +4,11 @@ import { CreditCard, ExternalLink, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ApiError } from "@/lib/api";
 import { openCustomerPortal } from "@/lib/api-billing";
-import { Skeleton } from "@/components/ui/skeleton";
 
 interface Props {
   hasDodoCustomer: boolean;
@@ -33,52 +35,55 @@ export function PaymentMethodCard({ hasDodoCustomer, loading }: Props) {
   }
 
   return (
-    <section className="flex flex-col items-start gap-6 rounded-xl bg-surface p-6 shadow-[var(--shadow-soft)] sm:flex-row sm:items-center sm:justify-between">
-      <div className="flex items-center gap-4">
-        <div className="flex size-12 items-center justify-center rounded-lg border border-border/40 bg-canvas text-ink-muted">
-          <CreditCard className="size-5" strokeWidth={1.75} aria-hidden />
+    <Card className="border-border/20 shadow-[var(--shadow-soft)]">
+      <CardContent className="flex flex-col items-start gap-6 p-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-4">
+          <div className="flex size-12 items-center justify-center rounded-lg border border-border/40 bg-canvas text-ink-muted">
+            <CreditCard className="size-5" strokeWidth={1.75} aria-hidden />
+          </div>
+          <div>
+            {loading ? (
+              <>
+                <Skeleton className="mb-2 h-4 w-40" />
+                <Skeleton className="h-3 w-32" />
+              </>
+            ) : (
+              <>
+                <h3 className="mb-1 font-semibold text-ink">
+                  {hasDodoCustomer
+                    ? "Payment methods & receipts"
+                    : "No payment methods on file yet"}
+                </h3>
+                <p className="text-sm text-ink-muted">
+                  {hasDodoCustomer
+                    ? "Managed securely through Dodo Payments."
+                    : "Purchase your first pack to create a Dodo customer."}
+                </p>
+              </>
+            )}
+          </div>
         </div>
-        <div>
-          {loading ? (
+
+        <Button
+          type="button"
+          variant="secondary"
+          size="md"
+          onClick={handleOpenPortal}
+          disabled={!hasDodoCustomer || redirecting || loading}
+        >
+          {redirecting ? (
             <>
-              <Skeleton className="mb-2 h-4 w-40" />
-              <Skeleton className="h-3 w-32" />
+              <Loader2 className="size-4 animate-spin" strokeWidth={1.75} />
+              Opening…
             </>
           ) : (
             <>
-              <h3 className="mb-1 font-semibold text-ink">
-                {hasDodoCustomer
-                  ? "Payment methods & receipts"
-                  : "No payment methods on file yet"}
-              </h3>
-              <p className="text-sm text-ink-muted">
-                {hasDodoCustomer
-                  ? "Managed securely through Dodo Payments."
-                  : "Purchase your first pack to create a Dodo customer."}
-              </p>
+              Open customer portal
+              <ExternalLink className="size-4" strokeWidth={1.75} />
             </>
           )}
-        </div>
-      </div>
-
-      <button
-        type="button"
-        onClick={handleOpenPortal}
-        disabled={!hasDodoCustomer || redirecting || loading}
-        className="inline-flex h-10 items-center gap-2 rounded-lg border border-border bg-surface px-4 text-sm font-medium text-ink transition-colors hover:bg-subtle disabled:cursor-not-allowed disabled:opacity-60"
-      >
-        {redirecting ? (
-          <>
-            <Loader2 className="size-4 animate-spin" strokeWidth={1.75} />
-            Opening…
-          </>
-        ) : (
-          <>
-            Open customer portal
-            <ExternalLink className="size-4" strokeWidth={1.75} />
-          </>
-        )}
-      </button>
-    </section>
+        </Button>
+      </CardContent>
+    </Card>
   );
 }

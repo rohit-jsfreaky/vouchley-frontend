@@ -3,7 +3,18 @@
 import { ExternalLink, Receipt } from "lucide-react";
 
 import { EmptyState } from "@/components/dashboard/shell/empty-state";
+import { PaidBadge } from "@/components/dashboard/shared/status-badges";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import type { InvoiceItem } from "@/lib/api-billing";
 
 interface Props {
@@ -14,73 +25,74 @@ interface Props {
 
 export function InvoiceHistory({ invoices, loading, onOpenPortal }: Props) {
   return (
-    <section className="overflow-hidden rounded-xl bg-surface shadow-[var(--shadow-soft)]">
-      <div className="flex items-center justify-between border-b border-border/30 p-6">
-        <h3 className="font-serif text-2xl text-ink">Purchase history</h3>
-      </div>
-
-      {loading ? (
-        <InvoiceSkeleton />
-      ) : !invoices || invoices.length === 0 ? (
-        <EmptyState
-          icon={Receipt}
-          title="No purchases yet"
-          description="Once you buy your first credit pack, receipts will appear here."
-          className="border-0 py-16"
-        />
-      ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-left">
-            <thead>
-              <tr className="border-b border-border/30 bg-canvas text-xs font-mono font-semibold uppercase tracking-widest text-ink-muted">
-                <th className="px-6 py-3">Invoice #</th>
-                <th className="px-6 py-3">Date</th>
-                <th className="px-6 py-3">Pack</th>
-                <th className="px-6 py-3">Credits</th>
-                <th className="px-6 py-3">Amount</th>
-                <th className="px-6 py-3">Status</th>
-                <th className="px-6 py-3 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border/30 text-sm">
+    <Card className="gap-0 overflow-hidden border-border/20 py-0 shadow-[var(--shadow-soft)]">
+      <CardHeader className="border-b border-border/30 bg-subtle/60 py-4">
+        <CardTitle className="font-serif text-2xl font-normal text-ink">
+          Purchase history
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="p-0">
+        {loading ? (
+          <InvoiceSkeleton />
+        ) : !invoices || invoices.length === 0 ? (
+          <EmptyState
+            icon={Receipt}
+            title="No purchases yet"
+            description="Once you buy your first credit pack, receipts will appear here."
+            className="border-0 py-16"
+          />
+        ) : (
+          <Table>
+            <TableHeader>
+              <TableRow className="hover:bg-transparent">
+                <TableHead>Invoice #</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead>Pack</TableHead>
+                <TableHead>Credits</TableHead>
+                <TableHead>Amount</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {invoices.map((inv) => (
-                <tr key={inv.id} className="transition-colors hover:bg-canvas">
-                  <td className="px-6 py-4 font-mono text-xs text-ink-muted">
+                <TableRow key={inv.id}>
+                  <TableCell className="font-mono text-xs text-ink-muted">
                     {(inv.payment_id ?? inv.id).slice(0, 14)}…
-                  </td>
-                  <td className="px-6 py-4 text-ink">
+                  </TableCell>
+                  <TableCell className="text-ink">
                     {formatDate(inv.created_at)}
-                  </td>
-                  <td className="px-6 py-4 text-ink">{inv.pack_name}</td>
-                  <td className="px-6 py-4 font-mono text-ink-muted">
+                  </TableCell>
+                  <TableCell className="text-ink">{inv.pack_name}</TableCell>
+                  <TableCell className="font-mono text-ink-muted">
                     +{inv.credits_added.toLocaleString()}
-                  </td>
-                  <td className="px-6 py-4 font-mono text-ink">
+                  </TableCell>
+                  <TableCell className="font-mono text-ink">
                     ${inv.amount_usd.toFixed(2)}
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="inline-flex items-center rounded bg-accent-soft px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-accent">
-                      Paid
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <button
+                  </TableCell>
+                  <TableCell>
+                    <PaidBadge />
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Button
                       type="button"
+                      variant="ghost"
+                      size="sm"
                       onClick={onOpenPortal}
-                      className="inline-flex items-center gap-1 text-xs font-medium text-brand hover:text-brand-hover"
                       title="Open receipt in Dodo portal"
+                      className="text-brand hover:text-brand-hover"
                     >
                       Receipt
                       <ExternalLink className="size-3" strokeWidth={1.75} />
-                    </button>
-                  </td>
-                </tr>
+                    </Button>
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-    </section>
+            </TableBody>
+          </Table>
+        )}
+      </CardContent>
+    </Card>
   );
 }
 

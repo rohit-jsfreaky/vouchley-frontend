@@ -28,9 +28,45 @@ export interface BlogIndexEntry {
   featured?: boolean;
 }
 
+export interface BlogFaqItem {
+  question: string;
+  answer: string;
+}
+
+export interface BlogHowToStep {
+  name: string;
+  text: string;
+  url?: string;
+}
+
+export interface BlogHowTo {
+  name: string;
+  description?: string;
+  totalTime?: string; // ISO 8601 duration, e.g. "PT30M"
+  steps: BlogHowToStep[];
+}
+
+export interface BlogAuthorBio {
+  name: string;
+  title?: string;
+  bio?: string;
+  links?: {
+    twitter?: string;
+    linkedin?: string;
+    github?: string;
+    website?: string;
+  };
+}
+
 export interface BlogPost extends BlogIndexEntry {
   content: string; // raw markdown body
   updatedAt?: string;
+  /** Optional FAQ block — renders below the post body and emits FAQPage schema. */
+  faq?: BlogFaqItem[];
+  /** Optional HowTo block — emits HowTo schema. */
+  howTo?: BlogHowTo;
+  /** Optional rich author bio — overrides the default bio block. */
+  authorBio?: BlogAuthorBio;
 }
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "blog");
@@ -82,6 +118,9 @@ export function getPost(slug: string): BlogPost | null {
     readingTime: data.readingTime ?? estimateReadingTime(content),
     featured: data.featured ?? false,
     updatedAt: data.updatedAt,
+    faq: Array.isArray(data.faq) ? (data.faq as BlogFaqItem[]) : undefined,
+    howTo: data.howTo as BlogHowTo | undefined,
+    authorBio: data.authorBio as BlogAuthorBio | undefined,
     content,
   };
 }

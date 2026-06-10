@@ -12,8 +12,7 @@ import {
   DashboardDateRangeFilter,
   defaultDashboardRange,
 } from "@/components/dashboard/shell/date-range-filter";
-import { PageHeader } from "@/components/dashboard/shell/page-header";
-import { buttonStyles } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   type ChecksOverTimePoint,
   type DashboardDateRange,
@@ -26,6 +25,16 @@ import {
   type ScoreDistribution,
 } from "@/lib/api-dashboard";
 
+// Local-time day key (yyyy-MM-dd). Using toISOString() here would shift the
+// key by the UTC offset, so in non-UTC zones (e.g. IST) "today" lands in a
+// bucket the cursor loop never generates — which is why the chart looked empty.
+function dayKey(d: Date): string {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
 function normalizeChartPoints(
   points: ChecksOverTimePoint[] | null,
   range: DashboardDateRange,
@@ -35,19 +44,15 @@ function normalizeChartPoints(
   const end = new Date(`${range.endDate}T00:00:00`);
 
   const pointMap = new Map(
-    points.map((point) => [
-      new Date(point.date).toISOString().slice(0, 10),
-      point.count,
-    ]),
+    points.map((point) => [dayKey(new Date(point.date)), point.count]),
   );
 
   const normalized: ChecksOverTimePoint[] = [];
-  for (let cursor = new Date(start); cursor <= end; cursor.setDate(cursor.getDate() + 1)) {
-    const key = cursor.toISOString().slice(0, 10);
-    normalized.push({
-      date: key,
-      count: pointMap.get(key) ?? 0,
-    });
+  const cursor = new Date(start);
+  while (cursor <= end) {
+    const key = dayKey(cursor);
+    normalized.push({ date: key, count: pointMap.get(key) ?? 0 });
+    cursor.setDate(cursor.getDate() + 1);
   }
   return normalized;
 }
@@ -107,22 +112,23 @@ export function DashboardHomeClient() {
   }, [range]);
 
   return (
-    <div className="space-y-12">
-      <PageHeader
-        title="Dashboard"
-        subtitle="Overview of verification activity"
-        actions={
-          <>
-            <DashboardDateRangeFilter value={range} onChange={setRange} />
-            <Link
-              href="/dashboard/keys"
-              className={buttonStyles({ variant: "primary", size: "md", className: "cursor-pointer" })}
-            >
-              Create key
-            </Link>
-          </>
-        }
-      />
+    <div className="space-y-8">
+      <header className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight text-ink">
+            Dashboard
+          </h1>
+          <p className="mt-1 text-sm text-ink-muted">
+            Overview of verification activity
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <DashboardDateRangeFilter value={range} onChange={setRange} />
+          <Button asChild variant="primary" size="md">
+            <Link href="/dashboard/keys">Create key</Link>
+          </Button>
+        </div>
+      </header>
 
       <KpiTiles data={kpis} loading={loading} />
 

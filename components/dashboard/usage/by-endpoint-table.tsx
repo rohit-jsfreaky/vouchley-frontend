@@ -3,7 +3,16 @@
 import { TableProperties } from "lucide-react";
 
 import { EmptyState } from "@/components/dashboard/shell/empty-state";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import type { UsageByEndpointItem } from "@/lib/api-dashboard";
 
 export function UsageByEndpointTable({
@@ -14,53 +23,54 @@ export function UsageByEndpointTable({
   loading: boolean;
 }) {
   return (
-    <section className="overflow-hidden rounded-xl border border-border/20 bg-surface shadow-[var(--shadow-soft)]">
-      <div className="border-b border-border/30 p-6">
-        <h3 className="font-serif text-xl text-ink">Usage by endpoint</h3>
-      </div>
-      {loading ? (
-        <TableSkeleton />
-      ) : !items || items.length === 0 ? (
-        <EmptyState
-          icon={TableProperties}
-          title="No endpoint calls yet"
-          description="Once your API starts serving requests, per-endpoint stats appear here."
-          className="border-0"
-        />
-      ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-left">
-            <thead>
-              <tr className="bg-canvas text-xs font-mono font-medium uppercase tracking-wider text-ink-muted">
-                <th className="w-1/2 p-4">Endpoint</th>
-                <th className="p-4 text-right">Calls</th>
-                <th className="p-4 text-right">Avg Latency</th>
-                <th className="p-4 text-right">Error Rate</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border/30 text-sm">
+    <Card className="gap-0 overflow-hidden border-border/20 py-0 shadow-[var(--shadow-soft)]">
+      <CardHeader className="border-b border-border/30 bg-subtle/60 py-4">
+        <CardTitle className="font-serif text-xl font-normal text-ink">
+          Usage by endpoint
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="p-0">
+        {loading ? (
+          <TableSkeleton />
+        ) : !items || items.length === 0 ? (
+          <EmptyState
+            icon={TableProperties}
+            title="No endpoint calls yet"
+            description="Once your API starts serving requests, per-endpoint stats appear here."
+            className="border-0 py-16"
+          />
+        ) : (
+          <Table>
+            <TableHeader>
+              <TableRow className="hover:bg-transparent">
+                <TableHead className="w-1/2">Endpoint</TableHead>
+                <TableHead className="text-right">Calls</TableHead>
+                <TableHead className="text-right">Avg Latency</TableHead>
+                <TableHead className="text-right">Error Rate</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {items.map((it) => (
-                <tr
-                  key={it.endpoint}
-                  className="transition-colors hover:bg-canvas/60"
-                >
-                  <td className="p-4 font-mono text-ink">{it.endpoint}</td>
-                  <td className="p-4 text-right font-mono text-ink-muted">
+                <TableRow key={it.endpoint}>
+                  <TableCell className="font-mono text-ink">
+                    {it.endpoint}
+                  </TableCell>
+                  <TableCell className="text-right font-mono text-ink-muted">
                     {it.count.toLocaleString()}
-                  </td>
-                  <td className="p-4 text-right font-mono text-ink-muted">
+                  </TableCell>
+                  <TableCell className="text-right font-mono text-ink-muted">
                     {it.avg_latency_ms !== null ? `${it.avg_latency_ms}ms` : "—"}
-                  </td>
-                  <td className="p-4 text-right font-mono text-ink-muted">
+                  </TableCell>
+                  <TableCell className="text-right font-mono text-ink-muted">
                     {it.error_rate_pct.toFixed(2)}%
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-    </section>
+            </TableBody>
+          </Table>
+        )}
+      </CardContent>
+    </Card>
   );
 }
 
