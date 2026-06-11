@@ -1,11 +1,90 @@
 export const HERO = {
+  badge: "100 free credits · no card required",
   headline: "Know which signups are",
   headlineAccent: "real.",
   subheadline:
-    "Vouchley scores every new signup in real time. Block bots, disposable emails, VPN/Tor abuse, and AI-driven fraud before they hit your database — in one API call.",
+    "Vouchley scores every new signup in real time — blocking bots, disposable emails, VPN abuse, and AI-driven fraud before they touch your database. One API call, under 1.5 seconds.",
   primaryCta: { label: "Start free — no card", href: "/signup" },
   secondaryCta: { label: "View docs", href: "/docs" },
 } as const;
+
+/**
+ * Animated product demo scenarios shown in the hero terminal. These mirror
+ * real verification responses (same shape, realistic scores) so the demo is
+ * honest about what the API returns.
+ */
+export type DemoScenario = {
+  email: string;
+  ip: string;
+  score: number;
+  recommendation: "approve" | "review" | "block";
+  reasoning: string;
+  ms: number;
+};
+
+export const DEMO_SCENARIOS: DemoScenario[] = [
+  {
+    email: "sarah.chen@stripe.com",
+    ip: "24.6.44.100",
+    score: 86,
+    recommendation: "approve",
+    reasoning: "Valid corporate email at established domain. IP clean.",
+    ms: 412,
+  },
+  {
+    email: "temp9981@10minutemail.com",
+    ip: "104.16.0.1",
+    score: 0,
+    recommendation: "block",
+    reasoning: "Disposable email provider. Datacenter IP range.",
+    ms: 388,
+  },
+  {
+    email: "quickreg@yopmail.com",
+    ip: "198.98.51.20",
+    score: 40,
+    recommendation: "review",
+    reasoning: "Disposable provider (YOPmail). IP flagged as exit node.",
+    ms: 405,
+  },
+];
+
+/** Animated count-up stats under the hero. Every number is real. */
+export type HeroStat = {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  decimals?: number;
+  label: string;
+};
+
+export const HERO_STATS: HeroStat[] = [
+  { value: 6, label: "Fraud signals per call" },
+  { value: 1.5, prefix: "<", suffix: "s", decimals: 1, label: "p95 response time" },
+  { value: 5000, suffix: "+", label: "Disposable domains tracked" },
+  { value: 100, label: "Free credits to start" },
+];
+
+/** Marquee of verification events — mirrors real scoring behaviour. */
+export type TickerEvent = {
+  email: string;
+  verdict: "approve" | "review" | "block";
+};
+
+export const TICKER_EVENTS: TickerEvent[] = [
+  { email: "sarah.chen@stripe.com", verdict: "approve" },
+  { email: "temp9981@10minutemail.com", verdict: "block" },
+  { email: "james.wilson@linear.app", verdict: "approve" },
+  { email: "quickreg@yopmail.com", verdict: "review" },
+  { email: "priya.patel@figma.com", verdict: "approve" },
+  { email: "admin@newshellco.xyz", verdict: "block" },
+  { email: "hans.mueller@gmail.com", verdict: "approve" },
+  { email: "throwaway@guerrillamail.com", verdict: "review" },
+  { email: "emma.brown@vercel.com", verdict: "approve" },
+  { email: "info@randomstore12345.tk", verdict: "block" },
+  { email: "yuki.tanaka@gmail.com", verdict: "approve" },
+  { email: "tester@mailinator.com", verdict: "review" },
+];
 
 /**
  * cURL sample shown in the hero code block. Any language talks HTTP —
@@ -41,17 +120,17 @@ export type FeatureItem = {
 export const FEATURES: FeatureItem[] = [
   {
     icon: "code",
-    title: "Simple Integration",
-    body: "One HTTP endpoint. Any language, from cURL to your favorite client. Running in under 5 minutes.",
+    title: "Simple integration",
+    body: "One HTTP endpoint. Any language, from cURL to your favorite client. Running in under 5 minutes — no SDK required.",
   },
   {
     icon: "zap",
-    title: "Sub-second Verification",
-    body: "Cache hits return in under 100ms. Fresh checks run every signal in parallel — under 1.5s p95.",
+    title: "Sub-second verification",
+    body: "Cache hits return in under 100ms. Fresh checks run every signal in parallel — under 1.5s at the p95.",
   },
   {
     icon: "shield",
-    title: "Private by Default",
+    title: "Private by default",
     body: "Signup data is never sold or shared. We cache scores, not identities. EU residency available on Pro.",
   },
 ];
@@ -185,5 +264,7 @@ export const FOUNDER = {
 
 export const FINAL_CTA = {
   title: "Stop paying for fake signups.",
+  subtitle:
+    "Score your first signup in the next five minutes. 100 free credits, no card, no sales call.",
   primaryCta: { label: "Start free — no card", href: "/signup" },
 } as const;

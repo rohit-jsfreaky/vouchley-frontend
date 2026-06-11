@@ -197,6 +197,83 @@ body {
   font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
+/* ===================================================================== */
+/*  Noir — premium dark theme for the public marketing site.            */
+/*  Scoped override of the editorial source tokens: every `bg-canvas`,  */
+/*  `text-ink`, `border-border`… utility inside `.theme-noir` resolves  */
+/*  to these values, flipping the whole surface dark without touching   */
+/*  the (light Mercury) dashboard.                                      */
+/* ===================================================================== */
+.theme-noir {
+  --color-canvas: #0c0d10;
+  --color-surface: #13151b;
+  --color-subtle: #1a1d24;
+  --color-muted: #232730;
+  --color-border: #262a33;
+  --color-border-strong: #3a4050;
+
+  --color-ink: #f2f3f6;
+  --color-ink-muted: #9ba1ae;
+  --color-ink-soft: #666d7c;
+  --color-ink-inverse: #ffffff;
+
+  --color-brand: #4d68ff;
+  --color-brand-hover: #6d83ff;
+  --color-brand-soft: #1a2147;
+
+  --color-accent: #3ecf7e;
+  --color-accent-soft: #122b1d;
+
+  --color-success: #3ecf7e;
+  --color-success-bg: #122b1d;
+  --color-warning: #e3a63d;
+  --color-warning-bg: #2e2310;
+  --color-danger: #f0564f;
+  --color-danger-bg: #331413;
+  --color-info: #58a6ff;
+  --color-info-bg: #11253a;
+
+  --shadow-editorial: 0 24px 70px -20px rgba(0, 0, 0, 0.7);
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.35);
+
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+/* Keep blog code blocks readable on noir (pre uses ink as background). */
+.theme-noir .blog-prose pre {
+  background: #08090c;
+  color: #f2f3f6;
+}
+
+/* ---------- Lenis smooth scroll ------------------------------------------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ---------- Marketing marquee --------------------------------------------- */
+@keyframes vch-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: vch-marquee 44s linear infinite;
+  will-change: transform;
+}
+.marquee-group:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
 /* Shiki — strip inline background and padding; our wrapper provides them. */
 .shiki-wrapper pre.shiki {
   background-color: transparent !important;

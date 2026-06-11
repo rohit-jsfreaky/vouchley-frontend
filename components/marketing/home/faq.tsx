@@ -1,42 +1,39 @@
+import { Reveal } from "@/components/marketing/animation/reveal";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { FAQ } from "@/config/home";
 
 export function Faq() {
   return (
-    <section className="bg-canvas px-6 py-24 md:px-8">
+    <section className="px-6 py-24 md:px-8 md:py-28">
       <div className="mx-auto max-w-3xl">
-        <div className="mb-12">
-          <p className="mb-3 text-xs uppercase tracking-[0.18em] text-brand">
+        <Reveal className="mb-12">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-brand">
             FAQ
           </p>
-          <h2 className="font-serif text-4xl text-ink md:text-5xl">
-            Frequently asked
-            <br />
-            questions.
+          <h2 className="text-3xl font-semibold tracking-tight text-ink md:text-5xl">
+            Frequently asked questions.
           </h2>
-        </div>
-        <dl className="divide-y divide-border border-y border-border">
-          {FAQ.map((item) => (
-            <details
-              key={item.question}
-              className="group py-6"
-            >
-              <summary className="flex cursor-pointer list-none items-start justify-between gap-6">
-                <dt className="font-serif text-lg text-ink md:text-xl">
+        </Reveal>
+
+        <Reveal>
+          <Accordion type="single" collapsible className="w-full">
+            {FAQ.map((item) => (
+              <AccordionItem key={item.question} value={item.question}>
+                <AccordionTrigger className="py-5 text-left text-base font-medium text-ink hover:no-underline md:text-lg">
                   {item.question}
-                </dt>
-                <span
-                  aria-hidden
-                  className="mt-1 select-none font-mono text-xl text-brand transition-transform group-open:rotate-45"
-                >
-                  +
-                </span>
-              </summary>
-              <dd className="mt-4 leading-relaxed text-ink-muted">
-                {item.answer}
-              </dd>
-            </details>
-          ))}
-        </dl>
+                </AccordionTrigger>
+                <AccordionContent className="leading-relaxed text-ink-muted">
+                  {item.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Geist_Mono, Instrument_Serif } from "next/font/google";
+import localFont from "next/font/local";
 import { Toaster } from "sonner";
 
 import { PostHogProvider } from "@/components/analytics/posthog-provider";
@@ -9,9 +10,25 @@ import { SITE } from "@/config/site";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import "./globals.css";
 
-const sans = Geist({
-  subsets: ["latin"],
+/**
+ * Satoshi (Fontshare, free commercial license) — variable 300–900. The
+ * premium modern grotesque; everything inherits it via --font-sans.
+ */
+const satoshi = localFont({
+  src: [
+    {
+      path: "./fonts/Satoshi-Variable.woff2",
+      weight: "300 900",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Satoshi-VariableItalic.woff2",
+      weight: "300 900",
+      style: "italic",
+    },
+  ],
   variable: "--font-sans",
+  display: "swap",
 });
 
 const mono = Geist_Mono({
@@ -99,7 +116,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${serif.variable} ${mono.variable}`}
+      className={`${satoshi.variable} ${serif.variable} ${mono.variable}`}
     >
       <head>
         <JsonLd data={organizationJsonLd()} />
