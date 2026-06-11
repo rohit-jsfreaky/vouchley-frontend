@@ -94,14 +94,17 @@ export function CheckDetailClient({ checkId }: Props) {
       </Link>
 
       <div className="mb-2 flex flex-wrap items-center gap-3">
-        <h1 className="font-serif text-3xl text-ink md:text-4xl">
-          Check {check.id.length > 12 ? `${check.id.slice(0, 12)}...` : check.id}
+        <h1 className="text-3xl font-bold tracking-tight text-ink">
+          Check details
         </h1>
+        <span className="rounded-md border border-border/60 bg-subtle px-2 py-1 font-mono text-xs text-ink-muted">
+          {check.id.length > 16 ? `${check.id.slice(0, 12)}…` : check.id}
+        </span>
       </div>
 
       <div className="mb-8 flex flex-wrap items-center gap-3">
         <RecommendationBadge value={check.recommendation} />
-        <span className="font-mono text-xs text-ink-muted">
+        <span className="text-xs text-ink-muted">
           {formatTimestamp(check.created_at)}
         </span>
       </div>
@@ -109,14 +112,16 @@ export function CheckDetailClient({ checkId }: Props) {
       {/* ---- KPI tiles ---- */}
       <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
         <StatCard
-          label="Verification Score"
+          label="Verification score"
           value={
             check.score !== null ? (
               <span>
-                <span className="font-serif text-4xl font-bold text-ink">
+                <span className="text-[34px] font-bold leading-none tabular-nums tracking-tight text-ink">
                   {check.score}
                 </span>
-                <span className="ml-0.5 text-lg text-ink-muted">/100</span>
+                <span className="ml-1 text-lg font-semibold text-ink-soft">
+                  /100
+                </span>
               </span>
             ) : (
               <span className="text-ink-soft">—</span>
@@ -124,14 +129,16 @@ export function CheckDetailClient({ checkId }: Props) {
           }
         />
         <StatCard
-          label="Processed Time"
+          label="Processing time"
           value={
             check.processed_in_ms !== null ? (
               <span>
-                <span className="font-serif text-4xl font-bold text-ink">
+                <span className="text-[34px] font-bold leading-none tabular-nums tracking-tight text-ink">
                   {check.processed_in_ms}
                 </span>
-                <span className="ml-1 text-lg text-ink-muted">ms</span>
+                <span className="ml-1 text-lg font-semibold text-ink-soft">
+                  ms
+                </span>
               </span>
             ) : (
               <span className="text-ink-soft">—</span>
@@ -139,10 +146,10 @@ export function CheckDetailClient({ checkId }: Props) {
           }
         />
         <StatCard
-          label="API Key Used"
+          label="API key used"
           value={
-            <span className="flex items-center gap-2 font-mono text-sm text-ink-muted">
-              {check.api_key_prefix ? `${check.api_key_prefix}...` : "—"}
+            <span className="inline-flex rounded-md border border-border/60 bg-subtle px-2 py-1 font-mono text-xs text-ink-muted">
+              {check.api_key_prefix ? `${check.api_key_prefix}…` : "—"}
             </span>
           }
         />
@@ -152,18 +159,14 @@ export function CheckDetailClient({ checkId }: Props) {
       <div className="grid grid-cols-1 gap-8 xl:grid-cols-2">
         {/* Signal breakdown */}
         <section>
-          <h2 className="mb-6 font-serif text-2xl text-ink">
-            Signal Breakdown
+          <h2 className="mb-5 text-lg font-semibold text-ink">
+            Signal breakdown
           </h2>
 
           {reasoning && (
-            <Card className="mb-6 gap-3 border-border/20 px-6 py-6 shadow-[var(--shadow-soft)]">
-              <p className="font-mono text-xs font-semibold uppercase tracking-wider text-ink-muted">
-                Reasoning
-              </p>
-              <p className="font-serif text-base leading-7 text-ink">
-                {reasoning}
-              </p>
+            <Card className="mb-5 gap-2 border-border/20 px-6 py-5 shadow-[var(--shadow-soft)]">
+              <p className="text-[13px] font-medium text-ink-muted">Reasoning</p>
+              <p className="text-[15px] leading-7 text-ink">{reasoning}</p>
             </Card>
           )}
 
@@ -187,7 +190,7 @@ export function CheckDetailClient({ checkId }: Props) {
                     "—",
                 },
                 {
-                  label: "Domain Age",
+                  label: "Domain age",
                   value: companySignals.domain_age_days
                     ? `${Math.round(Number(companySignals.domain_age_days) / 365)} yrs`
                     : "—",
@@ -214,8 +217,8 @@ export function CheckDetailClient({ checkId }: Props) {
 
         {/* Raw JSON */}
         <section>
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="font-serif text-2xl text-ink">Raw Output</h2>
+          <div className="mb-5 flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-ink">Raw output</h2>
             <button
               type="button"
               onClick={handleCopyJson}
@@ -234,8 +237,16 @@ export function CheckDetailClient({ checkId }: Props) {
               )}
             </button>
           </div>
-          <div className="overflow-hidden rounded-xl bg-ink text-ink-inverse shadow-[var(--shadow-editorial)]">
-            <pre className="max-h-[600px] overflow-auto p-6 font-mono text-xs leading-6">
+          <div className="overflow-hidden rounded-2xl bg-[#13151b] text-[#e7e9ee] shadow-[var(--shadow-soft)]">
+            <div className="flex items-center gap-1.5 border-b border-white/10 px-5 py-3" aria-hidden>
+              <span className="size-2.5 rounded-full bg-white/15" />
+              <span className="size-2.5 rounded-full bg-white/15" />
+              <span className="size-2.5 rounded-full bg-white/15" />
+              <span className="ml-auto font-mono text-[11px] text-white/40">
+                response.json
+              </span>
+            </div>
+            <pre className="max-h-[600px] overflow-auto p-5 font-mono text-xs leading-6">
               <code>
                 {check.full_response
                   ? JSON.stringify(check.full_response, null, 2)
@@ -257,10 +268,8 @@ function StatCard({
   value: React.ReactNode;
 }) {
   return (
-    <Card className="gap-3 border-border/20 px-6 py-6 shadow-[var(--shadow-soft)]">
-      <p className="font-mono text-xs font-semibold uppercase tracking-widest text-ink-muted">
-        {label}
-      </p>
+    <Card className="gap-3 border-border/20 px-5 py-5 shadow-[var(--shadow-soft)]">
+      <p className="text-[13px] font-medium text-ink-muted">{label}</p>
       <div>{value}</div>
     </Card>
   );
@@ -278,26 +287,24 @@ function SignalCard({
   rows: { label: string | null; value: string }[];
 }) {
   return (
-    <Card className="gap-0 border-border/20 px-5 py-5 shadow-[var(--shadow-soft)]">
+    <Card className="gap-0 border-border/20 px-5 py-4 shadow-[var(--shadow-soft)]">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Icon className="size-4 text-ink-muted" strokeWidth={1.75} />
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-ink">
-            {title}
+        <div className="flex items-center gap-2.5">
+          <span className="flex size-8 items-center justify-center rounded-lg bg-subtle text-ink-muted">
+            <Icon className="size-4" strokeWidth={1.75} />
           </span>
+          <span className="text-sm font-semibold text-ink">{title}</span>
         </div>
         <SignalBadge label={status.label} tone={status.tone} />
       </div>
-      <Separator className="my-3 bg-border/30" />
-      <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+      <Separator className="my-3.5 bg-border/40" />
+      <div className="grid grid-cols-2 gap-x-6 gap-y-2.5">
         {rows.map((r, i) => (
           <div key={i}>
             {r.label && (
-              <p className="font-mono text-[10px] font-semibold uppercase tracking-wider text-ink-soft">
-                {r.label}
-              </p>
+              <p className="mb-0.5 text-xs text-ink-soft">{r.label}</p>
             )}
-            <p className="font-mono text-sm text-ink">{r.value}</p>
+            <p className="font-mono text-[13px] text-ink">{r.value}</p>
           </div>
         ))}
       </div>

@@ -24,8 +24,8 @@ export function UsageByEndpointTable({
 }) {
   return (
     <Card className="gap-0 overflow-hidden border-border/20 py-0 shadow-[var(--shadow-soft)]">
-      <CardHeader className="border-b border-border/30 bg-subtle/60 py-4">
-        <CardTitle className="font-serif text-xl font-normal text-ink">
+      <CardHeader className="border-b border-border py-4">
+        <CardTitle className="text-lg font-semibold text-ink">
           Usage by endpoint
         </CardTitle>
       </CardHeader>
@@ -40,28 +40,39 @@ export function UsageByEndpointTable({
             className="border-0 py-16"
           />
         ) : (
-          <Table>
+          <Table className="[&_td]:px-5 [&_td]:py-3 [&_th]:h-11 [&_th]:px-5">
             <TableHeader>
-              <TableRow className="hover:bg-transparent">
+              <TableRow className="border-border bg-subtle/40 hover:bg-subtle/40 [&_th]:text-[13px] [&_th]:font-medium [&_th]:text-ink-muted">
                 <TableHead className="w-1/2">Endpoint</TableHead>
                 <TableHead className="text-right">Calls</TableHead>
-                <TableHead className="text-right">Avg Latency</TableHead>
-                <TableHead className="text-right">Error Rate</TableHead>
+                <TableHead className="text-right">Avg latency</TableHead>
+                <TableHead className="text-right">Error rate</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {items.map((it) => (
-                <TableRow key={it.endpoint}>
-                  <TableCell className="font-mono text-ink">
-                    {it.endpoint}
+                <TableRow
+                  key={it.endpoint}
+                  className="border-border/60 transition-colors hover:bg-subtle/40"
+                >
+                  <TableCell>
+                    <span className="rounded-md border border-border/60 bg-subtle px-2 py-1 font-mono text-xs text-ink">
+                      {it.endpoint}
+                    </span>
                   </TableCell>
-                  <TableCell className="text-right font-mono text-ink-muted">
+                  <TableCell className="text-right tabular-nums text-ink">
                     {it.count.toLocaleString()}
                   </TableCell>
-                  <TableCell className="text-right font-mono text-ink-muted">
+                  <TableCell className="text-right tabular-nums text-ink-muted">
                     {it.avg_latency_ms !== null ? `${it.avg_latency_ms}ms` : "—"}
                   </TableCell>
-                  <TableCell className="text-right font-mono text-ink-muted">
+                  <TableCell
+                    className={
+                      it.error_rate_pct > 0
+                        ? "text-right tabular-nums font-medium text-danger"
+                        : "text-right tabular-nums text-ink-muted"
+                    }
+                  >
                     {it.error_rate_pct.toFixed(2)}%
                   </TableCell>
                 </TableRow>

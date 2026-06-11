@@ -59,26 +59,37 @@ export function RecentVerifications({ data, loading }: Props) {
             className="border-0 py-16"
           />
         ) : (
-          <Table className="[&_td]:px-5 [&_td]:py-3.5 [&_th]:h-11 [&_th]:px-5">
+          <Table className="[&_td]:px-5 [&_td]:py-3 [&_th]:h-11 [&_th]:px-5">
             <TableHeader>
-              <TableRow className="border-border hover:bg-transparent [&_th]:text-xs [&_th]:font-medium [&_th]:uppercase [&_th]:tracking-wide [&_th]:text-ink-soft">
-                <TableHead>Email / Identifier</TableHead>
+              <TableRow className="border-border bg-subtle/40 hover:bg-subtle/40 [&_th]:text-[13px] [&_th]:font-medium [&_th]:text-ink-muted">
+                <TableHead>Email</TableHead>
                 <TableHead>Score</TableHead>
-                <TableHead>Recommendation</TableHead>
-                <TableHead>IP Country</TableHead>
+                <TableHead>Verdict</TableHead>
+                <TableHead>Country</TableHead>
                 <TableHead>Source</TableHead>
                 <TableHead>Time</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {data.map((c) => (
-                <TableRow key={c.id} className="border-border/60">
-                  <TableCell className="max-w-[260px] truncate">
+                <TableRow
+                  key={c.id}
+                  className="border-border/60 transition-colors hover:bg-subtle/40"
+                >
+                  <TableCell className="max-w-[280px]">
                     <Link
                       href={`/dashboard/checks/${c.id}`}
-                      className="font-medium text-ink underline-offset-2 hover:text-brand hover:underline"
+                      className="group flex items-center gap-2.5"
                     >
-                      {c.email || "—"}
+                      <span
+                        aria-hidden
+                        className="flex size-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand/15 to-brand/5 text-xs font-bold text-brand"
+                      >
+                        {(c.email || "?").charAt(0).toUpperCase()}
+                      </span>
+                      <span className="truncate font-medium text-ink underline-offset-2 group-hover:text-brand group-hover:underline">
+                        {c.email || "—"}
+                      </span>
                     </Link>
                   </TableCell>
                   <TableCell>

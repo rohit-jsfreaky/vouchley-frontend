@@ -24,6 +24,14 @@ import {
   type RecentCheckItem,
   type ScoreDistribution,
 } from "@/lib/api-dashboard";
+import type { User } from "@/lib/auth-client";
+
+function greetingForHour(hour: number): string {
+  if (hour < 5) return "Up late";
+  if (hour < 12) return "Good morning";
+  if (hour < 17) return "Good afternoon";
+  return "Good evening";
+}
 
 // Local-time day key (yyyy-MM-dd). Using toISOString() here would shift the
 // key by the UTC offset, so in non-UTC zones (e.g. IST) "today" lands in a
@@ -57,8 +65,26 @@ function normalizeChartPoints(
   return normalized;
 }
 
-export function DashboardHomeClient() {
+export function DashboardHomeClient({ user }: { user: User | null }) {
   const [range, setRange] = useState<DashboardDateRange>(defaultDashboardRange);
+  // Computed after mount: greeting + date depend on the visitor's clock and
+  // locale, which the server can't know — avoids a hydration mismatch.
+  const [headerMeta, setHeaderMeta] = useState<{
+    greeting: string;
+    today: string;
+  } | null>(null);
+
+  useEffect(() => {
+    const now = new Date();
+    setHeaderMeta({
+      greeting: greetingForHour(now.getHours()),
+      today: now.toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+      }),
+    });
+  }, []);
   const [kpis, setKpis] = useState<DashboardKpis | null>(null);
   const [chart, setChart] = useState<ChecksOverTimePoint[] | null>(null);
   const [dist, setDist] = useState<ScoreDistribution | null>(null);
@@ -115,12 +141,13 @@ export function DashboardHomeClient() {
     <div className="space-y-8">
       <header className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-ink">
-            Dashboard
-          </h1>
-          <p className="mt-1 text-sm text-ink-muted">
-            Overview of verification activity
+          <p className="text-sm font-medium text-ink-muted">
+            {headerMeta?.today ?? " "}
           </p>
+          <h1 className="mt-1 text-3xl font-bold tracking-tight text-ink">
+            {headerMeta?.greeting ?? "Welcome back"}
+            {user?.name ? `, ${user.name.split(" ")[0]}` : ""}
+          </h1>
         </div>
         <div className="flex items-center gap-2">
           <DashboardDateRangeFilter value={range} onChange={setRange} />

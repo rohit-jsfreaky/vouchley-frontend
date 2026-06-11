@@ -59,7 +59,7 @@ export function BillingContactForm({ profile, loading }: Props) {
   return (
     <Card className="sticky top-8 border-border/20 p-8 shadow-[var(--shadow-soft)]">
       <CardHeader className="p-0">
-        <CardTitle className="mb-6 font-serif text-2xl font-normal text-ink">
+        <CardTitle className="mb-6 text-lg font-semibold text-ink">
           Billing contact
         </CardTitle>
       </CardHeader>

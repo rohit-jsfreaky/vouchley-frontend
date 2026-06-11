@@ -23,7 +23,7 @@ export function BalanceCard({ data, loading, onBuyClick }: Props) {
 
   if (loading || !data) {
     return (
-      <Card className="border-border/20 p-8 shadow-[var(--shadow-editorial)]">
+      <Card className="border-border/20 p-8 shadow-[var(--shadow-soft)]">
         <Skeleton className="mb-4 h-5 w-28" />
         <Skeleton className="mb-3 h-12 w-40" />
         <Skeleton className="h-4 w-56" />
@@ -49,14 +49,19 @@ export function BalanceCard({ data, loading, onBuyClick }: Props) {
   }
 
   return (
-    <Card className="border-border/20 shadow-[var(--shadow-editorial)]">
-      <CardContent className="flex flex-col gap-8 p-8 md:flex-row md:items-start md:justify-between">
+    <Card className="relative overflow-hidden border-border/20 shadow-[var(--shadow-soft)]">
+      {/* Soft brand glow in the corner — gives the hero card depth */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-20 -top-24 size-72 rounded-full bg-brand/10 blur-3xl"
+      />
+      <CardContent className="relative flex flex-col gap-8 p-7 md:flex-row md:items-start md:justify-between md:p-8">
         <div className="flex-1 space-y-6">
           <div>
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2.5">
               <Badge
                 className={cn(
-                  "rounded border-transparent font-mono text-[10px] font-bold uppercase tracking-wider",
+                  "rounded-full border-transparent px-2.5 py-0.5 text-[11px] font-semibold",
                   isActive
                     ? "bg-accent-soft text-accent"
                     : "bg-subtle text-ink-muted",
@@ -65,23 +70,23 @@ export function BalanceCard({ data, loading, onBuyClick }: Props) {
                 {isActive ? `Active · ${sub!.plan_display_name}` : "Free"}
               </Badge>
               {isActive && sub?.current_period_end && (
-                <span className="font-mono text-xs text-ink-muted">
+                <span className="text-xs text-ink-muted">
                   Next bill {formatDate(sub.current_period_end)} ·{" "}
-                  <span className="text-ink">
+                  <span className="font-semibold text-ink">
                     ${sub.monthly_price_usd.toFixed(0)}/mo
                   </span>
                 </span>
               )}
             </div>
 
-            <div className="mt-3 font-serif text-5xl text-ink">
+            <p className="mt-5 text-[13px] font-medium text-ink-muted">
+              Available credits
+            </p>
+            <div className="mt-1 text-5xl font-bold leading-none tabular-nums tracking-tight text-ink">
               {data.credits_balance.toLocaleString()}
-              <span className="ml-2 font-sans text-base font-medium text-ink-muted">
-                credits
-              </span>
             </div>
 
-            <p className="mt-2 text-sm text-ink-muted">
+            <p className="mt-3 text-sm text-ink-muted">
               {isActive
                 ? `${sub!.monthly_credits.toLocaleString()} credits added each cycle · unused credits roll over`
                 : "Subscribe to a plan to get monthly credits"}
@@ -89,7 +94,7 @@ export function BalanceCard({ data, loading, onBuyClick }: Props) {
           </div>
 
           <div className="text-sm text-ink-muted">
-            <span className="font-medium text-ink">
+            <span className="font-semibold tabular-nums text-ink">
               {data.credits_used_this_month.toLocaleString()}
             </span>{" "}
             credits used this month

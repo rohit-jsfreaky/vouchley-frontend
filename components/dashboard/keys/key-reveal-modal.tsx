@@ -43,8 +43,8 @@ export function KeyRevealModal({ plaintext, onDone }: Props) {
           <div className="mx-auto mb-2 flex size-16 items-center justify-center rounded-full bg-accent-soft text-accent">
             <Check className="size-8" strokeWidth={2.5} aria-hidden />
           </div>
-          <DialogTitle className="font-serif text-2xl font-normal text-ink">
-            Key created successfully
+          <DialogTitle className="text-xl font-semibold tracking-tight text-ink">
+            Key created
           </DialogTitle>
           <DialogDescription className="text-ink-muted">
             Please copy this key now. For your security, it will not be shown again.

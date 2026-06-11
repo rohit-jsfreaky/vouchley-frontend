@@ -15,12 +15,13 @@ interface Props {
 const BANDS: Array<{
   key: keyof Omit<ScoreDistribution, "total">;
   label: string;
+  range: string;
   color: string;
 }> = [
-  { key: "excellent", label: "Excellent (90-100)", color: "bg-accent" },
-  { key: "good", label: "Good (70-89)", color: "bg-brand" },
-  { key: "fair", label: "Fair (50-69)", color: "bg-warning" },
-  { key: "poor", label: "Poor (0-49)", color: "bg-danger" },
+  { key: "excellent", label: "Excellent", range: "90–100", color: "bg-accent" },
+  { key: "good", label: "Good", range: "70–89", color: "bg-brand" },
+  { key: "fair", label: "Fair", range: "50–69", color: "bg-warning" },
+  { key: "poor", label: "Poor", range: "0–49", color: "bg-danger" },
 ];
 
 export function ScoreDistributionCard({ data, loading }: Props) {
@@ -42,25 +43,50 @@ export function ScoreDistributionCard({ data, loading }: Props) {
             className="h-48"
           />
         ) : (
-          <div className="space-y-4">
-            {BANDS.map((band) => {
-              const count = data[band.key];
-              const pct = data.total > 0 ? (count / data.total) * 100 : 0;
-              return (
-                <div key={band.key}>
-                  <div className="mb-1 flex justify-between text-xs text-ink-muted">
-                    <span>{band.label}</span>
-                    <span>{pct.toFixed(0)}%</span>
-                  </div>
-                  <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
-                    <div
-                      className={`h-2 rounded-full ${band.color}`}
-                      style={{ width: `${pct}%` }}
-                    />
-                  </div>
-                </div>
-              );
-            })}
+          <div>
+            {/* Single stacked bar: the whole mix at a glance */}
+            <div className="flex h-3 w-full gap-px overflow-hidden rounded-full bg-muted">
+              {BANDS.map((band) => {
+                const pct = (data[band.key] / data.total) * 100;
+                if (pct <= 0) return null;
+                return (
+                  <div
+                    key={band.key}
+                    className={band.color}
+                    style={{ width: `${pct}%` }}
+                    title={`${band.label}: ${pct.toFixed(0)}%`}
+                  />
+                );
+              })}
+            </div>
+
+            <ul className="mt-5 space-y-3">
+              {BANDS.map((band) => {
+                const count = data[band.key];
+                const pct = (count / data.total) * 100;
+                return (
+                  <li
+                    key={band.key}
+                    className="flex items-center justify-between text-sm"
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <span
+                        className={`size-2.5 rounded-full ${band.color}`}
+                        aria-hidden
+                      />
+                      <span className="font-medium text-ink">{band.label}</span>
+                      <span className="text-xs text-ink-soft">{band.range}</span>
+                    </span>
+                    <span className="tabular-nums text-ink-muted">
+                      {count.toLocaleString()}
+                      <span className="ml-2 inline-block w-10 text-right font-semibold text-ink">
+                        {pct.toFixed(0)}%
+                      </span>
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         )}
       </CardContent>

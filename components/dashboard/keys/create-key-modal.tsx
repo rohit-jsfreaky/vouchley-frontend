@@ -58,11 +58,11 @@ export function CreateKeyModal({ open, onClose, onCreated }: Props) {
     >
       <DialogContent showCloseButton={!submitting}>
         <DialogHeader>
-          <DialogTitle className="font-serif text-2xl font-normal text-ink">
+          <DialogTitle className="text-xl font-semibold tracking-tight text-ink">
             Create new key
           </DialogTitle>
           <DialogDescription className="text-ink-muted">
-            Create a new API credential for your application environment.
+            A new API credential for your application environment.
           </DialogDescription>
         </DialogHeader>
 
@@ -70,7 +70,7 @@ export function CreateKeyModal({ open, onClose, onCreated }: Props) {
           <div className="space-y-1.5">
             <Label
               htmlFor="key-label"
-              className="font-mono text-xs uppercase tracking-wider text-ink-muted"
+              className="text-sm font-medium text-ink"
             >
               Label
             </Label>
@@ -87,7 +87,7 @@ export function CreateKeyModal({ open, onClose, onCreated }: Props) {
           </div>
 
           <div>
-            <Label className="mb-2 font-mono text-xs uppercase tracking-wider text-ink-muted">
+            <Label className="mb-2 text-sm font-medium text-ink">
               Environment
             </Label>
             <RadioGroup

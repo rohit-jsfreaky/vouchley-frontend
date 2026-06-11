@@ -18,14 +18,14 @@ export function UsageSummaryTiles({
   if (!data) return null;
 
   return (
-    <section className="grid grid-cols-1 gap-6 md:grid-cols-3">
+    <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
       <Tile
-        label="Total Checks"
+        label="Total checks"
         value={data.total_checks.toLocaleString()}
         icon={BarChart3}
       />
       <Tile
-        label="Billable Operations"
+        label="Billable operations"
         value={data.billable_checks.toLocaleString()}
         caption={
           data.cached_checks > 0
@@ -36,7 +36,7 @@ export function UsageSummaryTiles({
         icon={ReceiptText}
       />
       <Tile
-        label="Est. Cost"
+        label="Est. cost"
         value={`$${data.estimated_cost_usd.toFixed(2)}`}
         caption={`${data.credits_used.toLocaleString()} credits used`}
         icon={DollarSign}
@@ -59,46 +59,40 @@ function Tile({
   icon: React.ElementType;
 }) {
   return (
-    <Card
-      className={cn(
-        "relative gap-3 overflow-hidden border-border/20 px-6 py-6 shadow-[var(--shadow-soft)]",
-        highlight && "ring-1 ring-brand-soft",
-      )}
-    >
-      <Icon
-        className="absolute right-4 top-4 size-8 text-ink-soft/30"
-        strokeWidth={1.25}
-        aria-hidden
-      />
-      <p className="font-mono text-xs font-semibold uppercase tracking-widest text-ink-muted">
-        {label}
-      </p>
-      <p
-        className={cn(
-          "font-serif text-4xl",
-          highlight ? "text-brand" : "text-ink",
-        )}
-      >
+    <Card className="gap-0 border-border/20 px-5 py-5 shadow-[var(--shadow-soft)] transition-shadow duration-200 hover:shadow-[var(--shadow-editorial)]">
+      <div className="flex items-center gap-2.5">
+        <span
+          className={cn(
+            "flex size-8 items-center justify-center rounded-lg",
+            highlight ? "bg-brand-soft text-brand" : "bg-subtle text-ink-muted",
+          )}
+        >
+          <Icon className="size-4" strokeWidth={1.75} aria-hidden />
+        </span>
+        <p className="text-[13px] font-medium text-ink-muted">{label}</p>
+      </div>
+      <p className="mt-4 text-[34px] font-bold leading-none tabular-nums tracking-tight text-ink">
         {value}
       </p>
-      {caption && (
-        <p className="text-xs font-medium text-ink-muted">{caption}</p>
-      )}
+      {caption && <p className="mt-2 text-xs text-ink-muted">{caption}</p>}
     </Card>
   );
 }
 
 function UsageSummarySkeleton() {
   return (
-    <section className="grid grid-cols-1 gap-6 md:grid-cols-3">
+    <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
       {Array.from({ length: 3 }).map((_, i) => (
         <Card
           key={i}
-          className="gap-3 border-border/20 px-6 py-6 shadow-[var(--shadow-soft)]"
+          className="gap-0 border-border/20 px-5 py-5 shadow-[var(--shadow-soft)]"
         >
-          <Skeleton className="h-3 w-24" />
-          <Skeleton className="h-10 w-28" />
-          <Skeleton className="h-3 w-32" />
+          <div className="flex items-center gap-2.5">
+            <Skeleton className="size-8 rounded-lg" />
+            <Skeleton className="h-3 w-24" />
+          </div>
+          <Skeleton className="mt-4 h-9 w-28" />
+          <Skeleton className="mt-2 h-3 w-32" />
         </Card>
       ))}
     </section>

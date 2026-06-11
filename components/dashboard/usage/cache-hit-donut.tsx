@@ -37,7 +37,7 @@ export function CacheHitDonut({
   return (
     <Card className="flex flex-col gap-2 border-border/20 shadow-[var(--shadow-soft)]">
       <CardHeader>
-        <CardTitle className="font-serif text-xl font-normal text-ink">
+        <CardTitle className="text-lg font-semibold text-ink">
           Cache hit rate
         </CardTitle>
       </CardHeader>
@@ -68,8 +68,10 @@ export function CacheHitDonut({
                   data={slices}
                   dataKey="count"
                   nameKey="label"
-                  innerRadius={60}
-                  strokeWidth={2}
+                  innerRadius={62}
+                  paddingAngle={3}
+                  cornerRadius={6}
+                  strokeWidth={0}
                 >
                   {slices.map((slice) => (
                     <Cell key={slice.key} fill={slice.fill} />
@@ -87,16 +89,16 @@ export function CacheHitDonut({
                           <tspan
                             x={viewBox.cx}
                             y={viewBox.cy}
-                            className="fill-ink font-serif text-3xl"
+                            className="fill-ink text-3xl font-bold tracking-tight"
                           >
                             {data.hit_rate_pct.toFixed(1)}%
                           </tspan>
                           <tspan
                             x={viewBox.cx}
                             y={(viewBox.cy ?? 0) + 22}
-                            className="fill-ink-muted font-mono text-xs"
+                            className="fill-ink-muted text-xs font-medium"
                           >
-                            HIT RATE
+                            hit rate
                           </tspan>
                         </text>
                       );

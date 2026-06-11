@@ -4,7 +4,13 @@ import { BarChart2 } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
 import { EmptyState } from "@/components/dashboard/shell/empty-state";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   type ChartConfig,
   ChartContainer,
@@ -28,15 +34,24 @@ export function DailyVolumeChart({
   data: UsageDailyPoint[] | null;
   loading: boolean;
 }) {
+  const total = data?.reduce((sum, p) => sum + p.count, 0) ?? 0;
+
   return (
-    <Card className="gap-4 border-border/20 shadow-[var(--shadow-editorial)]">
+    <Card className="gap-4 border-border/20 shadow-[var(--shadow-soft)]">
       <CardHeader>
-        <CardTitle className="font-serif text-2xl font-normal text-ink">
+        <CardDescription className="text-[13px] font-medium text-ink-muted">
           Daily check volume
-        </CardTitle>
-        <p className="mt-1 text-sm text-ink-muted">
-          Activity over the selected period
-        </p>
+        </CardDescription>
+        {loading ? (
+          <Skeleton className="mt-1 h-8 w-24" />
+        ) : (
+          <CardTitle className="text-3xl font-bold tabular-nums tracking-tight text-ink">
+            {total.toLocaleString()}
+            <span className="ml-2 text-sm font-medium tracking-normal text-ink-soft">
+              in selected period
+            </span>
+          </CardTitle>
+        )}
       </CardHeader>
       <CardContent>
         {loading ? (
@@ -68,7 +83,12 @@ export function DailyVolumeChart({
                   />
                 }
               />
-              <Bar dataKey="count" fill="var(--color-count)" radius={[4, 4, 0, 0]} />
+              <Bar
+                dataKey="count"
+                fill="var(--color-count)"
+                radius={[6, 6, 0, 0]}
+                maxBarSize={36}
+              />
             </BarChart>
           </ChartContainer>
         )}

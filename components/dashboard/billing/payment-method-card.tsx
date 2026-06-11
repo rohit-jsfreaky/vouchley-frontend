@@ -38,7 +38,7 @@ export function PaymentMethodCard({ hasDodoCustomer, loading }: Props) {
     <Card className="border-border/20 shadow-[var(--shadow-soft)]">
       <CardContent className="flex flex-col items-start gap-6 p-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-4">
-          <div className="flex size-12 items-center justify-center rounded-lg border border-border/40 bg-canvas text-ink-muted">
+          <div className="flex size-11 items-center justify-center rounded-xl bg-subtle text-ink-muted">
             <CreditCard className="size-5" strokeWidth={1.75} aria-hidden />
           </div>
           <div>

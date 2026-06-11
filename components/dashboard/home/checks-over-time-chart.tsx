@@ -38,13 +38,18 @@ export function ChecksOverTimeChart({ data, loading }: Props) {
   return (
     <Card className="gap-4 border-border/20 shadow-[var(--shadow-soft)] lg:col-span-2">
       <CardHeader>
-        <CardTitle className="text-lg font-semibold text-ink">
-          Checks Over Time
-        </CardTitle>
-        {!loading && total > 0 && (
-          <CardDescription className="text-ink-muted">
-            {total.toLocaleString()} checks in this range
-          </CardDescription>
+        <CardDescription className="text-[13px] font-medium text-ink-muted">
+          Checks over time
+        </CardDescription>
+        {loading ? (
+          <Skeleton className="mt-1 h-8 w-24" />
+        ) : (
+          <CardTitle className="text-3xl font-bold tabular-nums tracking-tight text-ink">
+            {total.toLocaleString()}
+            <span className="ml-2 text-sm font-medium tracking-normal text-ink-soft">
+              in selected range
+            </span>
+          </CardTitle>
         )}
       </CardHeader>
       <CardContent>

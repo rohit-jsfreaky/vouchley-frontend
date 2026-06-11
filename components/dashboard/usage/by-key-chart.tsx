@@ -7,7 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { UsageByKeyItem } from "@/lib/api-dashboard";
 
-const BAR_COLORS = ["bg-brand", "bg-info", "bg-ink-muted", "bg-ink-soft"];
+// Monochrome brand scale: rank reads through opacity, not rainbow colors.
+const BAR_COLORS = ["bg-brand", "bg-brand/70", "bg-brand/45", "bg-brand/25"];
 
 export function UsageByKeyChart({
   items,
@@ -21,7 +22,7 @@ export function UsageByKeyChart({
   return (
     <Card className="gap-4 border-border/20 shadow-[var(--shadow-soft)]">
       <CardHeader>
-        <CardTitle className="font-serif text-xl font-normal text-ink">
+        <CardTitle className="text-lg font-semibold text-ink">
           Usage by API key
         </CardTitle>
       </CardHeader>
@@ -40,12 +41,19 @@ export function UsageByKeyChart({
               const pct = total > 0 ? (item.count / total) * 100 : 0;
               return (
                 <div key={item.key_id}>
-                  <div className="mb-1 flex justify-between text-sm">
-                    <span className="font-mono font-medium text-ink">
-                      {item.label || item.key_prefix}
+                  <div className="mb-1.5 flex items-center justify-between text-sm">
+                    <span className="truncate font-medium text-ink">
+                      {item.label || (
+                        <span className="font-mono text-[13px]">
+                          {item.key_prefix}…
+                        </span>
+                      )}
                     </span>
-                    <span className="font-mono text-ink-muted">
+                    <span className="ml-3 shrink-0 tabular-nums text-ink-muted">
                       {item.count.toLocaleString()}
+                      <span className="ml-2 inline-block w-10 text-right font-semibold text-ink">
+                        {pct.toFixed(0)}%
+                      </span>
                     </span>
                   </div>
                   <div className="h-2 w-full overflow-hidden rounded-full bg-muted">

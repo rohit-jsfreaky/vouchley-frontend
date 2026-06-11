@@ -10,8 +10,8 @@ import {
 import type { Period } from "@/lib/api-dashboard";
 
 const OPTIONS: { value: Period; label: string }[] = [
-  { value: "7d", label: "Last 7 Days" },
-  { value: "30d", label: "Last 30 Days" },
+  { value: "7d", label: "Last 7 days" },
+  { value: "30d", label: "Last 30 days" },
   { value: "mtd", label: "Month to date" },
   { value: "all", label: "All time" },
 ];
@@ -31,7 +31,7 @@ export function PeriodSelector({
       onValueChange={(v) => onChange(v as Period)}
       disabled={disabled}
     >
-      <SelectTrigger className="h-11 min-w-[180px] bg-surface font-semibold shadow-[var(--shadow-soft)]">
+      <SelectTrigger className="h-11 min-w-[170px] bg-surface font-medium shadow-[var(--shadow-soft)]">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>

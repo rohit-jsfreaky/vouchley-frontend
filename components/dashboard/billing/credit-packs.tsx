@@ -118,20 +118,20 @@ export const CreditPacks = forwardRef<HTMLElement, Props>(function CreditPacks(
   return (
     <section
       ref={ref}
-      className="rounded-2xl bg-surface p-8 shadow-[var(--shadow-soft)] md:p-10"
+      className="rounded-2xl border border-border/20 bg-surface p-6 shadow-[var(--shadow-soft)] md:p-8"
     >
-      <div className="mb-10 max-w-2xl">
-        <h3 className="font-serif text-2xl text-ink">
+      <div className="mb-8 max-w-2xl">
+        <h3 className="text-xl font-semibold tracking-tight text-ink">
           {activePlan ? "Plans" : "Choose a plan"}
         </h3>
-        <p className="mt-2 text-sm leading-6 text-ink-muted">
+        <p className="mt-1.5 text-sm leading-6 text-ink-muted">
           {activePlan
             ? "Change or cancel your plan anytime from the customer portal."
             : "Monthly subscription. Credits roll over and never expire."}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
         {PACKS.map((pack) => {
           const isCurrent = pack.slug === activePlan;
           return (
@@ -173,27 +173,32 @@ function PackCard({
   onOpenPortal: () => void;
 }) {
   const ringClass = isCurrent
-    ? "border-2 border-accent bg-accent-soft/20 shadow-[0_16px_40px_-26px_rgba(107,122,79,0.45)]"
+    ? "border border-accent/50 ring-1 ring-accent/50 shadow-[0_16px_40px_-26px_rgba(22,163,74,0.35)]"
     : pack.highlighted
-      ? "border-2 border-brand bg-brand-soft/20 shadow-[0_18px_42px_-28px_rgba(184,96,60,0.42)]"
-      : "border border-border/40 bg-canvas shadow-[var(--shadow-soft)]";
+      ? "border border-brand/50 ring-1 ring-brand/50 shadow-[0_18px_42px_-26px_rgba(61,90,254,0.4)]"
+      : "border border-border/60 shadow-[var(--shadow-soft)]";
 
   return (
-    <Card className={cn("relative min-h-[30rem] rounded-2xl", ringClass)}>
-      <CardContent className="flex h-full flex-col p-7 md:p-8">
+    <Card
+      className={cn(
+        "relative rounded-2xl bg-canvas/50 transition-shadow duration-200 hover:shadow-[var(--shadow-editorial)]",
+        ringClass,
+      )}
+    >
+      <CardContent className="flex h-full flex-col p-6 md:p-7">
         {isCurrent ? (
-          <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap border-transparent bg-accent px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-ink-inverse">
+          <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border-transparent bg-accent px-3 py-1 text-[11px] font-semibold text-white">
             Current plan
           </Badge>
         ) : pack.badge ? (
-          <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap border-transparent bg-brand px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-ink-inverse">
+          <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border-transparent bg-brand px-3 py-1 text-[11px] font-semibold text-white">
             {pack.badge}
           </Badge>
         ) : null}
 
         <h4
           className={cn(
-            "mb-1 font-serif text-xl font-semibold",
+            "mb-1 text-base font-semibold",
             isCurrent
               ? "text-accent"
               : pack.highlighted
@@ -205,13 +210,13 @@ function PackCard({
         </h4>
         <p className="mb-5 text-sm leading-6 text-ink-muted">{pack.credits}</p>
 
-        <div className="mb-4">
-          <span className="font-serif text-4xl font-bold text-ink">
+        <div className="mb-1.5">
+          <span className="text-4xl font-bold tabular-nums tracking-tight text-ink">
             {pack.price}
           </span>
-          <span className="ml-1 text-sm text-ink-muted">/ month</span>
+          <span className="ml-1.5 text-sm text-ink-muted">/ month</span>
         </div>
-        <p className="mb-8 text-sm leading-6 text-ink-soft">{pack.perCredit}</p>
+        <p className="mb-7 text-[13px] leading-6 text-ink-soft">{pack.perCredit}</p>
 
         {isCurrent ? (
           <Button
@@ -220,7 +225,7 @@ function PackCard({
             size="md"
             onClick={onOpenPortal}
             disabled={anyBusy}
-            className="mb-8 w-full"
+            className="mb-6 w-full"
           >
             {portalLoading ? (
               <>
@@ -241,7 +246,7 @@ function PackCard({
             size="md"
             onClick={onOpenPortal}
             disabled={anyBusy}
-            className="mb-8 w-full"
+            className="mb-6 w-full"
           >
             Change via portal
             <ExternalLink className="size-4" strokeWidth={1.75} />
@@ -253,7 +258,7 @@ function PackCard({
             size="md"
             onClick={onSubscribe}
             disabled={anyBusy}
-            className="mb-8 w-full"
+            className="mb-6 w-full"
           >
             {loading ? (
               <>
@@ -266,14 +271,19 @@ function PackCard({
           </Button>
         )}
 
-        <ul className="mt-auto space-y-3 border-t border-border/30 pt-6 text-sm leading-7 text-ink-muted">
+        <ul className="mt-auto space-y-2.5 border-t border-border/60 pt-5 text-sm leading-6 text-ink-muted">
           {pack.features.map((f) => (
-            <li key={f} className="flex items-start gap-2">
-              <Check
-                className="mt-0.5 size-4 shrink-0 text-brand"
-                strokeWidth={2.5}
-                aria-hidden
-              />
+            <li key={f} className="flex items-start gap-2.5">
+              <span
+                className={cn(
+                  "mt-0.5 flex size-4.5 shrink-0 items-center justify-center rounded-full",
+                  isCurrent
+                    ? "bg-accent-soft text-accent"
+                    : "bg-brand-soft text-brand",
+                )}
+              >
+                <Check className="size-3" strokeWidth={2.5} aria-hidden />
+              </span>
               <span>{f}</span>
             </li>
           ))}

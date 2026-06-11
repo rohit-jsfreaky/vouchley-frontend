@@ -1,6 +1,6 @@
 "use client";
 
-import { Info, KeyRound, Trash2 } from "lucide-react";
+import { Info, KeyRound, Plus, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -9,7 +9,6 @@ import { KeyRevealModal } from "@/components/dashboard/keys/key-reveal-modal";
 import { KeyStatusBadge } from "@/components/dashboard/shared/status-badges";
 import { EmptyState } from "@/components/dashboard/shell/empty-state";
 import { PageHeader } from "@/components/dashboard/shell/page-header";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -83,28 +82,26 @@ export function ApiKeysClient() {
     <div>
       <PageHeader
         title="API Keys"
-        subtitle="Manage your application access credentials."
+        subtitle="Credentials your servers use to call the Vouchley API."
         actions={
           <Button
             type="button"
             variant="primary"
             size="md"
             onClick={() => setCreating(true)}
-            className="cursor-pointer"
+            className="cursor-pointer gap-2"
           >
-            Create new key
+            <Plus className="size-4" strokeWidth={2.25} />
+            Create key
           </Button>
         }
       />
 
-      <Alert className="mb-10 border-info/30 bg-info-bg/40">
-        <Info className="text-info" strokeWidth={1.75} />
-        <AlertTitle className="text-ink">Security Notice</AlertTitle>
-        <AlertDescription className="text-ink-muted">
-          For your protection, API keys are only displayed once upon creation. If
-          you lose a key, you&apos;ll need to rotate it or create a new one.
-        </AlertDescription>
-      </Alert>
+      <p className="mb-6 flex items-center gap-2 text-[13px] text-ink-muted">
+        <Info className="size-3.5 shrink-0 text-ink-soft" strokeWidth={1.75} />
+        Keys are shown in full exactly once, at creation. Lost one? Create a
+        replacement and revoke the old key.
+      </p>
 
       {keys === null ? (
         <KeysTableSkeleton />
@@ -147,7 +144,7 @@ export function ApiKeysClient() {
       >
         <AlertDialogContent size="sm">
           <AlertDialogHeader>
-            <AlertDialogTitle className="font-serif text-2xl font-normal text-ink">
+            <AlertDialogTitle className="text-xl font-semibold tracking-tight text-ink">
               Revoke API key?
             </AlertDialogTitle>
             <AlertDialogDescription className="text-ink-muted">
@@ -201,34 +198,57 @@ function KeysTable({
 }) {
   return (
     <Card className="overflow-hidden border-border/20 p-0 shadow-[var(--shadow-soft)]">
-      <Table>
+      <Table className="[&_td]:px-5 [&_td]:py-3 [&_th]:h-11 [&_th]:px-5">
         <TableHeader>
-          <TableRow className="hover:bg-transparent">
-            <TableHead>Label</TableHead>
+          <TableRow className="border-border bg-subtle/40 hover:bg-subtle/40 [&_th]:text-[13px] [&_th]:font-medium [&_th]:text-ink-muted">
+            <TableHead>Key</TableHead>
             <TableHead>Prefix</TableHead>
             <TableHead>Created</TableHead>
             <TableHead>Last used</TableHead>
-            <TableHead className="text-center">Status</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead className="text-right" aria-label="Actions" />
           </TableRow>
         </TableHeader>
         <TableBody>
           {keys.map((k) => {
             const revoked = !!k.revoked_at;
             return (
-              <TableRow key={k.id} className="group">
-                <TableCell
-                  className={cn("font-medium", revoked && "text-ink-muted")}
-                >
-                  {k.label || <span className="text-ink-soft">(no label)</span>}
+              <TableRow
+                key={k.id}
+                className={cn(
+                  "group border-border/60 transition-colors hover:bg-subtle/40",
+                  revoked && "opacity-60",
+                )}
+              >
+                <TableCell className="max-w-[240px]">
+                  <span className="flex items-center gap-2.5">
+                    <span
+                      aria-hidden
+                      className={cn(
+                        "flex size-7 shrink-0 items-center justify-center rounded-lg",
+                        revoked
+                          ? "bg-subtle text-ink-soft"
+                          : "bg-brand-soft text-brand",
+                      )}
+                    >
+                      <KeyRound className="size-3.5" strokeWidth={1.75} />
+                    </span>
+                    <span
+                      className={cn(
+                        "truncate font-medium text-ink",
+                        revoked && "text-ink-muted",
+                      )}
+                    >
+                      {k.label || (
+                        <span className="font-normal text-ink-soft">
+                          Untitled key
+                        </span>
+                      )}
+                    </span>
+                  </span>
                 </TableCell>
                 <TableCell>
-                  <span
-                    className={cn(
-                      "rounded border border-border/50 bg-muted px-2 py-1 font-mono text-xs text-ink-muted",
-                      revoked && "opacity-60",
-                    )}
-                  >
+                  <span className="rounded-md border border-border/60 bg-subtle px-2 py-1 font-mono text-xs text-ink-muted">
                     {k.key_prefix}…
                   </span>
                 </TableCell>
@@ -236,9 +256,13 @@ function KeysTable({
                   {formatDate(k.created_at)}
                 </TableCell>
                 <TableCell className="text-ink-muted">
-                  {k.last_used_at ? relativeTime(k.last_used_at) : "Never"}
+                  {k.last_used_at ? (
+                    relativeTime(k.last_used_at)
+                  ) : (
+                    <span className="text-ink-soft">Never</span>
+                  )}
                 </TableCell>
-                <TableCell className="text-center">
+                <TableCell>
                   <KeyStatusBadge revoked={revoked} environment={k.environment} />
                 </TableCell>
                 <TableCell className="text-right">
@@ -249,7 +273,8 @@ function KeysTable({
                       size="sm"
                       onClick={() => onRevoke(k)}
                       disabled={revokingId === k.id}
-                      className="cursor-pointer text-danger hover:bg-danger-bg hover:text-danger"
+                      aria-label={`Revoke ${k.label || k.key_prefix}`}
+                      className="cursor-pointer text-ink-soft opacity-0 transition-opacity hover:bg-danger-bg hover:text-danger focus-visible:opacity-100 group-hover:opacity-100"
                     >
                       <Trash2 className="size-3.5" strokeWidth={1.75} />
                       {revokingId === k.id ? "Revoking…" : "Revoke"}

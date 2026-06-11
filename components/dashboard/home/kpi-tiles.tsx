@@ -1,13 +1,12 @@
 "use client";
 
 import {
+  ArrowDownRight,
+  ArrowUpRight,
   FileCheck,
   Gauge,
-  MinusSquare,
   ShieldBan,
   Timer,
-  TrendingDown,
-  TrendingUp,
   type LucideIcon,
 } from "lucide-react";
 
@@ -26,36 +25,36 @@ export function KpiTiles({ data, loading }: Props) {
   if (!data) return null;
 
   return (
-    <section className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+    <section className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
       <Tile
-        label="Total Checks"
+        label="Total checks"
         icon={FileCheck}
         kpi={data.total_checks}
         format={(v) => Math.round(v).toLocaleString()}
         lowerIsBetter={false}
       />
       <Tile
-        label="Avg. Score"
+        label="Avg. score"
         icon={Gauge}
         kpi={data.avg_score}
         format={(v) => v.toFixed(1)}
         lowerIsBetter={false}
       />
       <Tile
-        label="Block Rate"
+        label="Block rate"
         icon={ShieldBan}
         kpi={data.block_rate}
         format={(v) => `${v.toFixed(1)}%`}
         lowerIsBetter
       />
       <Tile
-        label="Avg. Latency"
+        label="Avg. latency"
         icon={Timer}
         kpi={data.avg_latency_ms}
         format={(v) => (
           <>
             {Math.round(v).toLocaleString()}
-            <span className="ml-1 text-xl text-ink-muted">ms</span>
+            <span className="ml-0.5 text-lg font-semibold text-ink-soft">ms</span>
           </>
         )}
         lowerIsBetter
@@ -79,76 +78,72 @@ function Tile({
 }) {
   const hasValue = kpi.value !== null && kpi.value !== undefined;
   return (
-    <Card className="relative gap-3 overflow-hidden border-border/20 px-6 py-6 shadow-[var(--shadow-soft)]">
-      <Icon
-        className="absolute right-4 top-4 size-8 text-ink-soft/30"
-        strokeWidth={1.25}
-        aria-hidden
-      />
-      <p className="text-xs font-medium uppercase tracking-wide text-ink-soft">
-        {label}
-      </p>
-      <p className="text-3xl font-semibold tabular-nums text-ink">
+    <Card className="gap-0 border-border/20 px-5 py-5 shadow-[var(--shadow-soft)] transition-shadow duration-200 hover:shadow-[var(--shadow-editorial)]">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <span className="flex size-8 items-center justify-center rounded-lg bg-subtle text-ink-muted">
+            <Icon className="size-4" strokeWidth={1.75} aria-hidden />
+          </span>
+          <p className="text-[13px] font-medium text-ink-muted">{label}</p>
+        </div>
+        <DeltaPill delta={kpi.delta_pct} lowerIsBetter={lowerIsBetter} />
+      </div>
+      <p className="mt-4 text-[34px] font-bold leading-none tabular-nums tracking-tight text-ink">
         {hasValue ? format(kpi.value as number) : "—"}
       </p>
-      <Delta delta={kpi.delta_pct} lowerIsBetter={lowerIsBetter} />
     </Card>
   );
 }
 
-function Delta({
+function DeltaPill({
   delta,
   lowerIsBetter,
 }: {
   delta: number | null;
   lowerIsBetter: boolean;
 }) {
-  if (delta === null || delta === undefined) {
+  if (delta === null || delta === undefined || delta === 0) {
     return (
-      <div className="flex items-center gap-1 font-mono text-xs text-ink-soft">
-        <MinusSquare className="size-3.5" strokeWidth={1.75} aria-hidden />
-        <span>No comparison</span>
-      </div>
-    );
-  }
-  if (delta === 0) {
-    return (
-      <div className="flex items-center gap-1 font-mono text-xs text-ink-muted">
-        <MinusSquare className="size-3.5" strokeWidth={1.75} aria-hidden />
-        <span>Stable</span>
-      </div>
+      <span className="rounded-full bg-subtle px-2 py-0.5 text-[11px] font-semibold text-ink-soft">
+        {delta === 0 ? "Stable" : "—"}
+      </span>
     );
   }
   const positive = delta > 0;
   const good = lowerIsBetter ? !positive : positive;
   return (
-    <div
+    <span
       className={cn(
-        "flex items-center gap-1 font-mono text-xs",
-        good ? "text-accent" : "text-danger",
+        "inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-[11px] font-semibold tabular-nums",
+        good ? "bg-accent-soft text-accent" : "bg-danger-bg text-danger",
       )}
     >
       {positive ? (
-        <TrendingUp className="size-3.5" strokeWidth={1.75} aria-hidden />
+        <ArrowUpRight className="size-3" strokeWidth={2.25} aria-hidden />
       ) : (
-        <TrendingDown className="size-3.5" strokeWidth={1.75} aria-hidden />
+        <ArrowDownRight className="size-3" strokeWidth={2.25} aria-hidden />
       )}
-      <span>{delta > 0 ? `+${delta}%` : `${delta}%`}</span>
-    </div>
+      {Math.abs(delta)}%
+    </span>
   );
 }
 
 export function KpiTilesSkeleton() {
   return (
-    <section className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+    <section className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
       {Array.from({ length: 4 }).map((_, i) => (
         <Card
           key={i}
-          className="gap-3 border-border/20 px-6 py-6 shadow-[var(--shadow-soft)]"
+          className="gap-0 border-border/20 px-5 py-5 shadow-[var(--shadow-soft)]"
         >
-          <Skeleton className="h-3 w-24" />
-          <Skeleton className="h-10 w-20" />
-          <Skeleton className="h-3 w-16" />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <Skeleton className="size-8 rounded-lg" />
+              <Skeleton className="h-3 w-20" />
+            </div>
+            <Skeleton className="h-5 w-12 rounded-full" />
+          </div>
+          <Skeleton className="mt-4 h-9 w-24" />
         </Card>
       ))}
     </section>

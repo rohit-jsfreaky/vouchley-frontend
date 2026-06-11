@@ -64,15 +64,17 @@ export function SettingsClient() {
       {loading ? (
         <SettingsSkeleton />
       ) : profile ? (
-        <Card className="gap-8 border-border/20 px-8 py-8 shadow-[var(--shadow-soft)] md:px-10 md:py-10">
-          <h3 className="font-serif text-2xl text-ink">Your Profile</h3>
+        <Card className="gap-6 border-border/20 p-6 shadow-[var(--shadow-soft)] md:p-8">
+          <div>
+            <h3 className="text-lg font-semibold text-ink">Profile</h3>
+            <p className="mt-0.5 text-sm text-ink-muted">
+              How you appear across Vouchley.
+            </p>
+          </div>
 
-          <div className="max-w-2xl space-y-6">
+          <div className="max-w-2xl space-y-5">
             <div className="space-y-1.5">
-              <Label
-                htmlFor="settings-name"
-                className="font-mono text-xs font-semibold uppercase tracking-wider text-ink-muted"
-              >
+              <Label htmlFor="settings-name" className="text-sm font-medium text-ink">
                 Name
               </Label>
               <Input
@@ -86,11 +88,8 @@ export function SettingsClient() {
             </div>
 
             <div className="space-y-1.5">
-              <Label
-                htmlFor="settings-email"
-                className="font-mono text-xs font-semibold uppercase tracking-wider text-ink-muted"
-              >
-                Email Address
+              <Label htmlFor="settings-email" className="text-sm font-medium text-ink">
+                Email address
               </Label>
               <Input
                 id="settings-email"
@@ -118,10 +117,10 @@ export function SettingsClient() {
                       className="mr-2 size-4 animate-spin"
                       strokeWidth={1.75}
                     />
-                    Saving...
+                    Saving…
                   </>
                 ) : (
-                  "Save Changes"
+                  "Save changes"
                 )}
               </Button>
             </div>

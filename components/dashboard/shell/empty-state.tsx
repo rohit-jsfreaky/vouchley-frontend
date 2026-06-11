@@ -25,13 +25,11 @@ export function EmptyState({
       )}
     >
       {Icon && (
-        <Icon
-          className="size-8 text-ink-soft"
-          strokeWidth={1.5}
-          aria-hidden
-        />
+        <span className="mb-1 flex size-12 items-center justify-center rounded-xl bg-subtle text-ink-soft">
+          <Icon className="size-6" strokeWidth={1.5} aria-hidden />
+        </span>
       )}
-      <h3 className="font-serif text-xl text-ink">{title}</h3>
+      <h3 className="text-base font-semibold text-ink">{title}</h3>
       {description && (
         <p className="max-w-sm text-sm text-ink-muted">{description}</p>
       )}

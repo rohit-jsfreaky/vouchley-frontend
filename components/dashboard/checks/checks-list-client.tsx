@@ -62,32 +62,40 @@ export function ChecksListClient() {
         />
       ) : (
         <Card className="overflow-hidden border-border/20 p-0 shadow-[var(--shadow-soft)]">
-          <Table>
+          <Table className="[&_td]:px-5 [&_td]:py-3 [&_th]:h-11 [&_th]:px-5">
             <TableHeader>
-              <TableRow className="hover:bg-transparent">
-                <TableHead>Check ID</TableHead>
+              <TableRow className="border-border bg-subtle/40 hover:bg-subtle/40 [&_th]:text-[13px] [&_th]:font-medium [&_th]:text-ink-muted">
                 <TableHead>Email</TableHead>
                 <TableHead>Score</TableHead>
-                <TableHead>Result</TableHead>
-                <TableHead>IP Country</TableHead>
+                <TableHead>Verdict</TableHead>
+                <TableHead>Country</TableHead>
+                <TableHead>Check ID</TableHead>
                 <TableHead>Time</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {checks.map((c) => (
-                <TableRow key={c.id}>
-                  <TableCell>
+                <TableRow
+                  key={c.id}
+                  className="border-border/60 transition-colors hover:bg-subtle/40"
+                >
+                  <TableCell className="max-w-[280px]">
                     <Link
                       href={`/dashboard/checks/${c.id}`}
-                      className="font-mono text-xs text-brand underline-offset-2 hover:underline"
+                      className="group flex items-center gap-2.5"
                     >
-                      {c.id.length > 16 ? `${c.id.slice(0, 12)}...` : c.id}
+                      <span
+                        aria-hidden
+                        className="flex size-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand/15 to-brand/5 text-xs font-bold text-brand"
+                      >
+                        {(c.email || "?").charAt(0).toUpperCase()}
+                      </span>
+                      <span className="truncate font-medium text-ink underline-offset-2 group-hover:text-brand group-hover:underline">
+                        {c.email || "—"}
+                      </span>
                     </Link>
                   </TableCell>
-                  <TableCell className="max-w-[220px] truncate font-mono text-xs">
-                    {c.email || "—"}
-                  </TableCell>
-                  <TableCell className="font-mono">
+                  <TableCell>
                     <ScoreValue score={c.score} />
                   </TableCell>
                   <TableCell>
@@ -102,6 +110,11 @@ export function ChecksListClient() {
                     ) : (
                       <span className="text-ink-soft">—</span>
                     )}
+                  </TableCell>
+                  <TableCell>
+                    <span className="rounded-md border border-border/60 bg-subtle px-2 py-1 font-mono text-xs text-ink-muted">
+                      {c.id.length > 16 ? `${c.id.slice(0, 12)}…` : c.id}
+                    </span>
                   </TableCell>
                   <TableCell className="text-ink-muted">
                     {relativeTime(c.created_at)}

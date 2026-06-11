@@ -78,10 +78,10 @@ export function UsageClient() {
   }, [period]);
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-8">
       <PageHeader
         title="Usage"
-        subtitle="METRICS FOR THE CURRENT BILLING CYCLE"
+        subtitle="Volume, cost, and performance for the selected period."
         actions={
           <>
             <PeriodSelector value={period} onChange={setPeriod} />
@@ -106,7 +106,7 @@ export function UsageClient() {
 
       <DailyVolumeChart data={daily} loading={loading} />
 
-      <section className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <UsageByKeyChart
           items={byKey?.items ?? null}
           total={byKey?.total ?? 0}
@@ -117,8 +117,8 @@ export function UsageClient() {
 
       <UsageByEndpointTable items={byEndpoint} loading={loading} />
 
-      <p className="text-center font-mono text-xs uppercase tracking-widest text-ink-muted">
-        * Cache hits do not count toward quota
+      <p className="text-[13px] text-ink-soft">
+        Cache hits don&apos;t count toward your quota.
       </p>
     </div>
   );

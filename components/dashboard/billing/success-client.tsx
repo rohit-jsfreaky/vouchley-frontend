@@ -64,8 +64,8 @@ export function BillingSuccessClient() {
             <Check className="size-12 text-accent" strokeWidth={3} aria-hidden />
           </div>
 
-          <h1 className="mb-4 text-center font-serif text-4xl tracking-tight text-ink md:text-5xl">
-            Payment received.
+          <h1 className="mb-4 text-center text-3xl font-bold tracking-tight text-ink md:text-4xl">
+            Payment received
           </h1>
 
           <p className="mx-auto mb-10 max-w-sm text-center text-lg leading-relaxed text-ink-muted">
@@ -77,7 +77,7 @@ export function BillingSuccessClient() {
             ) : balance !== null ? (
               <>
                 Thanks for upgrading. Your balance is{" "}
-                <span className="font-mono font-bold text-brand">
+                <span className="font-bold tabular-nums text-brand">
                   {balance.toLocaleString()}
                 </span>{" "}
                 credits.
@@ -111,7 +111,7 @@ export function BillingSuccessClient() {
             />
           </div>
 
-          <p className="mb-8 text-center font-mono text-xs uppercase tracking-widest text-ink-soft">
+          <p className="mb-8 text-center text-[13px] text-ink-soft">
             A receipt has been sent to your email.
           </p>
 
@@ -143,14 +143,12 @@ function ActionLink({
       className="group flex items-center justify-between rounded bg-surface p-4 text-left transition-colors hover:bg-subtle"
     >
       <div className="flex items-center gap-4">
-        <Icon className="size-5 text-info" strokeWidth={1.75} aria-hidden />
+        <Icon className="size-5 text-brand" strokeWidth={1.75} aria-hidden />
         <div>
           <span className="block font-semibold text-ink group-hover:text-brand">
             {title}
           </span>
-          <span className="mt-0.5 block font-mono text-xs uppercase tracking-wider text-ink-muted">
-            {sub}
-          </span>
+          <span className="mt-0.5 block text-xs text-ink-muted">{sub}</span>
         </div>
       </div>
       <ArrowRight

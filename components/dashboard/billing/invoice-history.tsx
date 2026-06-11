@@ -26,8 +26,8 @@ interface Props {
 export function InvoiceHistory({ invoices, loading, onOpenPortal }: Props) {
   return (
     <Card className="gap-0 overflow-hidden border-border/20 py-0 shadow-[var(--shadow-soft)]">
-      <CardHeader className="border-b border-border/30 bg-subtle/60 py-4">
-        <CardTitle className="font-serif text-2xl font-normal text-ink">
+      <CardHeader className="border-b border-border py-4">
+        <CardTitle className="text-lg font-semibold text-ink">
           Purchase history
         </CardTitle>
       </CardHeader>
@@ -42,32 +42,39 @@ export function InvoiceHistory({ invoices, loading, onOpenPortal }: Props) {
             className="border-0 py-16"
           />
         ) : (
-          <Table>
+          <Table className="[&_td]:px-5 [&_td]:py-3 [&_th]:h-11 [&_th]:px-5">
             <TableHeader>
-              <TableRow className="hover:bg-transparent">
-                <TableHead>Invoice #</TableHead>
+              <TableRow className="border-border bg-subtle/40 hover:bg-subtle/40 [&_th]:text-[13px] [&_th]:font-medium [&_th]:text-ink-muted">
+                <TableHead>Invoice</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>Pack</TableHead>
-                <TableHead>Credits</TableHead>
-                <TableHead>Amount</TableHead>
+                <TableHead className="text-right">Credits</TableHead>
+                <TableHead className="text-right">Amount</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                <TableHead className="text-right" aria-label="Actions" />
               </TableRow>
             </TableHeader>
             <TableBody>
               {invoices.map((inv) => (
-                <TableRow key={inv.id}>
-                  <TableCell className="font-mono text-xs text-ink-muted">
-                    {(inv.payment_id ?? inv.id).slice(0, 14)}…
+                <TableRow
+                  key={inv.id}
+                  className="border-border/60 transition-colors hover:bg-subtle/40"
+                >
+                  <TableCell>
+                    <span className="rounded-md border border-border/60 bg-subtle px-2 py-1 font-mono text-xs text-ink-muted">
+                      {(inv.payment_id ?? inv.id).slice(0, 14)}…
+                    </span>
                   </TableCell>
-                  <TableCell className="text-ink">
+                  <TableCell className="text-ink-muted">
                     {formatDate(inv.created_at)}
                   </TableCell>
-                  <TableCell className="text-ink">{inv.pack_name}</TableCell>
-                  <TableCell className="font-mono text-ink-muted">
+                  <TableCell className="font-medium text-ink">
+                    {inv.pack_name}
+                  </TableCell>
+                  <TableCell className="text-right tabular-nums font-medium text-accent">
                     +{inv.credits_added.toLocaleString()}
                   </TableCell>
-                  <TableCell className="font-mono text-ink">
+                  <TableCell className="text-right tabular-nums text-ink">
                     ${inv.amount_usd.toFixed(2)}
                   </TableCell>
                   <TableCell>

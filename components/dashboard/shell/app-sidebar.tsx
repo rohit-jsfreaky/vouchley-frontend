@@ -25,14 +25,14 @@ import {
   DASHBOARD_NAV_FOOTER,
   type DashboardNavItem,
 } from "@/config/dashboard-nav";
-import { logout } from "@/lib/auth-client";
+import { logout, type User } from "@/lib/auth-client";
 
 function isActive(pathname: string, href: string): boolean {
   if (href === "/dashboard") return pathname === "/dashboard";
   return pathname === href || pathname.startsWith(href + "/");
 }
 
-export function AppSidebar() {
+export function AppSidebar({ user }: { user?: User | null }) {
   const pathname = usePathname();
 
   return (
@@ -92,6 +92,7 @@ export function AppSidebar() {
           ))}
           <LogoutItem />
         </SidebarMenu>
+        {user && <UserCard user={user} />}
       </SidebarFooter>
     </Sidebar>
   );
@@ -124,6 +125,30 @@ function NavItem({
         </Link>
       </SidebarMenuButton>
     </SidebarMenuItem>
+  );
+}
+
+function UserCard({ user }: { user: User }) {
+  const initial = (user.name || user.email).charAt(0).toUpperCase();
+  return (
+    <div className="mt-1 flex items-center gap-2.5 rounded-xl border border-border bg-canvas/70 p-2 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:border-0 group-data-[collapsible=icon]:bg-transparent group-data-[collapsible=icon]:p-0">
+      <span
+        aria-hidden
+        className="flex size-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand to-[#6d83ff] text-sm font-bold text-white"
+      >
+        {initial}
+      </span>
+      <div className="min-w-0 group-data-[collapsible=icon]:hidden">
+        {user.name && (
+          <p className="truncate text-[13px] font-semibold leading-tight text-ink">
+            {user.name}
+          </p>
+        )}
+        <p className="truncate text-xs leading-tight text-ink-muted">
+          {user.email}
+        </p>
+      </div>
+    </div>
   );
 }
 
