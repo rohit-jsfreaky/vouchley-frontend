@@ -25,13 +25,20 @@ export async function generateMetadata({
   if (!data) return {};
 
   const isDisposable = data.kind === "disposable";
-  const title = isDisposable
-    ? `Is ${data.domain} a Disposable Email? (${data.serviceName})`
-    : `Is ${data.domain} a Disposable Email? (Spoiler: No)`;
+  // High-traffic domains (Mailinator, Guerrilla Mail, 10MinuteMail) tune their
+  // own metaTitle/metaDescription to match real query demand; everything else
+  // falls back to the generated "Is X a disposable email?" pattern.
+  const title =
+    data.metaTitle ??
+    (isDisposable
+      ? `Is ${data.domain} a Disposable Email? (${data.serviceName})`
+      : `Is ${data.domain} a Disposable Email? (Spoiler: No)`);
 
-  const description = isDisposable
-    ? `${data.domain} is operated by ${data.serviceName}, a disposable / temporary email service. Block at signup. Includes alias domains, code example, and related services.`
-    : `${data.domain} (${data.serviceName}) is a legitimate free email provider — not disposable. Do not block. Here's how to score these signups correctly.`;
+  const description =
+    data.metaDescription ??
+    (isDisposable
+      ? `${data.domain} is operated by ${data.serviceName}, a disposable / temporary email service. Block at signup. Includes alias domains, code example, and related services.`
+      : `${data.domain} (${data.serviceName}) is a legitimate free email provider — not disposable. Do not block. Here's how to score these signups correctly.`);
 
   return buildMetadata({
     title,

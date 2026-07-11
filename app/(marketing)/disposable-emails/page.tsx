@@ -6,7 +6,7 @@ import { DISPOSABLE_DOMAINS } from "@/config/disposable-domains";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Disposable Email Domain Database — Block Throwaway Signups",
+  title: "Disposable Email Domains: 2026 List to Block",
   description:
     "Curated list of well-known disposable, temporary, and free email providers. Each entry shows whether to block the domain at signup and why.",
   path: "/disposable-emails",

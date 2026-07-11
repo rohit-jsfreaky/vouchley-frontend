@@ -38,6 +38,15 @@ export type DisposableDomain = {
   aliases?: string[];
   /** 3–4 related services to cross-link. Use slugs. */
   related: string[];
+  /**
+   * SEO <title> override for high-traffic domains (e.g. Mailinator). Lets the
+   * SERP title match real query demand ("what is X", "who owns X", "is X safe")
+   * instead of only the generated "Is X a disposable email?". Falls back to the
+   * generated title.
+   */
+  metaTitle?: string;
+  /** SEO meta-description override. Falls back to the generated description. */
+  metaDescription?: string;
 };
 
 export const DISPOSABLE_DOMAINS: DisposableDomain[] = [
@@ -53,6 +62,9 @@ export const DISPOSABLE_DOMAINS: DisposableDomain[] = [
       "Throwaway accounts on signup forms, one-time email confirmations the user never wants to access again, or testing email flows during development.",
     blockRationale:
       "A user signing up with a Mailinator address has no intention of receiving ongoing communication. Block at the signup layer to protect deliverability and prevent free-tier abuse.",
+    metaTitle: "What Is Mailinator? Owner, Uses & How to Block It",
+    metaDescription:
+      "Mailinator is a public disposable email service running since 2003. Who owns it, what it's used for, and how to block Mailinator addresses at signup.",
     aliases: ["binkmail.com", "bobmail.info", "chammy.info", "mailtothis.com"],
     related: ["10minutemail-com", "guerrillamail-com", "yopmail-com", "maildrop-cc"],
   },
@@ -68,6 +80,9 @@ export const DISPOSABLE_DOMAINS: DisposableDomain[] = [
       "Quick, single-use email confirmations where the user wants to avoid spam follow-up. Common on signup forms requiring email verification before granting access.",
     blockRationale:
       "Any signup with a 10MinuteMail address will fail to be reachable within minutes. The user has explicitly opted out of any follow-up — there is no value in onboarding them.",
+    metaTitle: "What Is 10 Minute Mail? Disposable Email Explained",
+    metaDescription:
+      "10 Minute Mail gives a throwaway inbox that self-destructs in ten minutes. What it is, why people use it, and how to block 10minutemail.com at signup.",
     aliases: ["10minutemail.net", "10minutemail.org"],
     related: ["mailinator-com", "guerrillamail-com", "tempmail-org", "throwawaymail-com"],
   },
@@ -83,6 +98,9 @@ export const DISPOSABLE_DOMAINS: DisposableDomain[] = [
       "Anonymous signups, comment submissions, and any throwaway email registration. Guerrilla Mail addresses are sometimes used to bypass IP-based rate limits on signup forms.",
     blockRationale:
       "Block at signup. Guerrilla Mail and its alias domains are pure throwaway providers with no expectation of long-term inbox access.",
+    metaTitle: "Guerrilla Mail: Is It Safe & Should You Block It?",
+    metaDescription:
+      "Guerrilla Mail is a large disposable email service with hourly-expiring inboxes. Is it safe, what it's used for, and how to detect and block it at signup.",
     aliases: [
       "sharklasers.com",
       "guerrillamailblock.com",

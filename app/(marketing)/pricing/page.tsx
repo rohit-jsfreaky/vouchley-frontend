@@ -6,9 +6,9 @@ import { PricingHeader } from "@/components/marketing/pricing/pricing-header";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Pricing — Simple monthly plans for signup verification",
+  title: "Signup Verification API Pricing (From $19/mo)",
   description:
-    "Monthly credit plans from $19 for 15,000 verifications. Credits roll over every month and never expire, and cached checks are always free. Start with 100 free credits — no card required.",
+    "Signup verification from $19/mo for 15,000 checks. Credits roll over and never expire, cached checks are always free. Start with 100 free credits — no card required.",
   path: "/pricing",
   keywords: [
     "signup verification pricing",

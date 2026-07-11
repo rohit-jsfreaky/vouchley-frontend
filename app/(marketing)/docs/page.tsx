@@ -12,14 +12,21 @@ import { MobileTocFab } from "@/components/docs/mobile-toc-fab";
 import { DocsToc } from "@/components/docs/toc";
 import { CodeBlock } from "@/components/ui/code-block";
 import type { TocItem } from "@/config/docs";
-import { SITE } from "@/config/site";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: `Quickstart — ${SITE.name} Docs`,
+// Keyword-first, brand added once by the title template (the old inline title
+// "Quickstart — Vouchley Docs" double-appended the brand: "… Docs — Vouchley").
+export const metadata: Metadata = buildMetadata({
+  title: "Signup Verification API Quickstart",
   description:
-    "Get your first Vouchley verification response in under five minutes. One API key, one POST request.",
-  alternates: { canonical: "/docs" },
-};
+    "Get your first Vouchley verification response in under five minutes — one API key, one POST request. The signup verification API quickstart with copy-paste code.",
+  path: "/docs",
+  keywords: [
+    "signup verification API docs",
+    "verification API quickstart",
+    "email verification API integration",
+  ],
+});
 
 const TOC: TocItem[] = [
   { id: "create-key", title: "1. Create an API key", level: 2 },

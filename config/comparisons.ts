@@ -80,7 +80,7 @@ export const COMPARISONS: Comparison[] = [
     pitch:
       "Kickbox is one of the longest-running email-verification services. Vouchley scores the entire signup — email, IP, domain, and behavior — in one call.",
     lastVerified: "2026-04-28",
-    metaTitle: "Vouchley vs Kickbox: Signup Verification vs Email-Only Validation",
+    metaTitle: "Kickbox Alternative: Verify the Whole Signup",
     metaDescription:
       "Honest side-by-side comparison: Kickbox validates email addresses; Vouchley scores the whole signup including IP, VPN, and bot signals. Pricing, features, when to pick which.",
 
@@ -162,7 +162,7 @@ export const COMPARISONS: Comparison[] = [
     pitch:
       "ZeroBounce bundles email validation with deliverability tooling (inbox placement, blacklist monitoring, warmup). Vouchley is focused on real-time signup verification and skips the deliverability suite entirely.",
     lastVerified: "2026-04-28",
-    metaTitle: "Vouchley vs ZeroBounce: Real-Time Signup Verification Compared",
+    metaTitle: "ZeroBounce Alternative for Signup Verification",
     metaDescription:
       "Vouchley vs ZeroBounce: pricing, features, and use cases compared. ZeroBounce focuses on email deliverability suites; Vouchley scores the full signup with IP, VPN, and bot detection.",
 
@@ -245,7 +245,7 @@ export const COMPARISONS: Comparison[] = [
     pitch:
       "Sift is the enterprise-grade fraud platform — payments, signups, content, account takeover, all in one ML system. Vouchley is the focused, developer-priced alternative for teams that just need signup verification.",
     lastVerified: "2026-04-28",
-    metaTitle: "Vouchley vs Sift: Signup Verification API for Builders, Not Enterprises",
+    metaTitle: "Sift Alternative: Signup Verification from $19/mo",
     metaDescription:
       "Sift is enterprise fraud-decisioning at $30k+/year. Vouchley is real-time signup verification starting at $19/month. When to pick which, and the honest trade-offs.",
 
