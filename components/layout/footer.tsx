@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { BrandMark } from "@/components/layout/brand-mark";
 import { FOOTER_LINKS } from "@/config/nav";
 import { SITE } from "@/config/site";
 
@@ -9,9 +10,10 @@ export function Footer() {
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 md:flex-row md:gap-0">
         <Link
           href="/"
-          className="font-serif text-lg text-ink"
+          className="flex items-center gap-2 text-lg font-bold tracking-tight text-ink"
           aria-label={`${SITE.name} — home`}
         >
+          <BrandMark size={24} />
           {SITE.name}
         </Link>
 

@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { BrandMark } from "@/components/layout/brand-mark";
 import { Button } from "@/components/ui/button";
 import {
   Sidebar,
@@ -40,9 +41,10 @@ export function AppSidebar({ user }: { user?: User | null }) {
       <SidebarHeader className="gap-3 p-3 group-data-[collapsible=icon]:items-center group-data-[collapsible=icon]:p-2">
         <Link
           href="/dashboard"
-          className="px-1 py-1 group-data-[collapsible=icon]:hidden"
+          className="flex items-center gap-2 px-1 py-1"
         >
-          <span className="text-2xl font-bold tracking-tight text-ink">
+          <BrandMark size={28} />
+          <span className="text-2xl font-bold tracking-tight text-ink group-data-[collapsible=icon]:hidden">
             Vouchley
           </span>
         </Link>

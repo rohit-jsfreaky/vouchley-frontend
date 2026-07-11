@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { AppSidebar } from "@/components/dashboard/shell/app-sidebar";
+import { BrandMark } from "@/components/layout/brand-mark";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
@@ -29,8 +30,9 @@ export default async function DashboardLayout({
           <Separator orientation="vertical" className="mr-1 h-5 md:hidden" />
           <Link
             href="/dashboard"
-            className="text-base font-semibold text-ink md:hidden"
+            className="flex items-center gap-2 text-base font-semibold text-ink md:hidden"
           >
+            <BrandMark size={24} />
             Vouchley
           </Link>
         </header>

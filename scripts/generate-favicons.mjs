@@ -1,20 +1,22 @@
 /**
- * Generate all favicon assets from a single SVG source.
+ * Generate every favicon + app-icon from the Vouchley brand mark.
  *
+ * Source: public/revlio_logo.png  (2048×2048, transparent blue mark)
  * Usage:  node scripts/generate-favicons.mjs
  *
  * Outputs:
- *   app/icon.svg          — SVG favicon (modern browsers)
+ *   app/icon.png          — modern browsers (transparent)
  *   app/favicon.ico       — classic 48×48 ICO
- *   app/apple-icon.png    — 180×180 Apple touch icon
- *   public/favicon-16x16.png
- *   public/favicon-32x32.png
- *   public/favicon-192x192.png
- *   public/favicon-512x512.png
+ *   app/apple-icon.png    — 180×180, mark centered on white (iOS has no alpha)
+ *   public/favicon-16x16.png / -32x32 / -192x192 / -512x512   (transparent)
+ *   public/logo-mark.png  — 256×256 optimized copy for the UI (nav/sidebar/footer)
  *   public/site.webmanifest
+ *
+ * Also removes the old app/icon.svg (the previous brown "V") so it stops
+ * overriding the new PNG icon.
  */
 
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
@@ -23,95 +25,79 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const APP_DIR = join(ROOT, "app");
 const PUBLIC_DIR = join(ROOT, "public");
+const SOURCE = join(PUBLIC_DIR, "revlio_logo.png");
 
-// Brand color from the Vouchley design system
-const BRAND_BG = "#8B5E3C";   // warm brown (brand)
-const LETTER_COLOR = "#FFFFFF";
-
-// The SVG source: "V" in a rounded square, matching the sidebar logo style
-const SVG_SOURCE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="${BRAND_BG}"/>
-  <text
-    x="256" y="380"
-    text-anchor="middle"
-    font-family="Georgia, 'Times New Roman', serif"
-    font-size="380"
-    font-weight="600"
-    fill="${LETTER_COLOR}"
-  >V</text>
-</svg>`;
+// Brand — RoyalBlue Mercury theme.
+const THEME_COLOR = "#3D5AFE";
+const BACKGROUND_COLOR = "#FFFFFF";
+const WHITE = { r: 255, g: 255, b: 255, alpha: 1 };
 
 async function ensureDir(dir) {
   await mkdir(dir, { recursive: true });
 }
 
-async function generatePng(size, outputPath) {
-  await sharp(Buffer.from(SVG_SOURCE))
-    .resize(size, size)
-    .png()
-    .toFile(outputPath);
+async function png(size, outputPath, opts = {}) {
+  let img = sharp(SOURCE).resize(size, size, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } });
+  if (opts.flattenWhite) img = img.flatten({ background: WHITE });
+  await img.png({ compressionLevel: 9 }).toFile(outputPath);
   console.log(`  ✓ ${outputPath} (${size}×${size})`);
 }
 
-/**
- * Build a minimal ICO file containing a single 48×48 PNG image.
- * ICO format: 6-byte header + 16-byte directory entry + PNG data.
- */
+/** Minimal single-image ICO wrapping a 48×48 PNG. */
 function buildIco(pngBuffer) {
-  const numImages = 1;
-  const headerSize = 6;
-  const dirEntrySize = 16;
-  const dataOffset = headerSize + dirEntrySize * numImages;
+  const header = Buffer.alloc(6);
+  header.writeUInt16LE(0, 0); // reserved
+  header.writeUInt16LE(1, 2); // type: icon
+  header.writeUInt16LE(1, 4); // image count
 
-  const header = Buffer.alloc(headerSize);
-  header.writeUInt16LE(0, 0);          // reserved
-  header.writeUInt16LE(1, 2);          // type: 1 = ICO
-  header.writeUInt16LE(numImages, 4);  // count
-
-  const entry = Buffer.alloc(dirEntrySize);
-  entry.writeUInt8(48, 0);                       // width (48; 0 means 256)
-  entry.writeUInt8(48, 1);                       // height
-  entry.writeUInt8(0, 2);                        // color palette
-  entry.writeUInt8(0, 3);                        // reserved
-  entry.writeUInt16LE(1, 4);                     // color planes
-  entry.writeUInt16LE(32, 6);                    // bits per pixel
-  entry.writeUInt32LE(pngBuffer.length, 8);      // image size
-  entry.writeUInt32LE(dataOffset, 12);           // data offset
+  const entry = Buffer.alloc(16);
+  entry.writeUInt8(48, 0); // width
+  entry.writeUInt8(48, 1); // height
+  entry.writeUInt8(0, 2); // palette
+  entry.writeUInt8(0, 3); // reserved
+  entry.writeUInt16LE(1, 4); // planes
+  entry.writeUInt16LE(32, 6); // bpp
+  entry.writeUInt32LE(pngBuffer.length, 8);
+  entry.writeUInt32LE(22, 12); // offset (6 + 16)
 
   return Buffer.concat([header, entry, pngBuffer]);
 }
 
 async function main() {
-  console.log("Generating Vouchley favicons...\n");
-
+  console.log("Generating Vouchley favicons from the brand mark...\n");
   await ensureDir(APP_DIR);
   await ensureDir(PUBLIC_DIR);
 
-  // 1. SVG favicon (app/icon.svg — Next.js auto-serves this)
-  const svgPath = join(APP_DIR, "icon.svg");
-  await writeFile(svgPath, SVG_SOURCE, "utf-8");
-  console.log(`  ✓ ${svgPath} (SVG)`);
+  // Retire the old brown-"V" SVG icon so it no longer overrides the PNG.
+  await rm(join(APP_DIR, "icon.svg"), { force: true });
 
-  // 2. PNG favicons in public/
-  await generatePng(16, join(PUBLIC_DIR, "favicon-16x16.png"));
-  await generatePng(32, join(PUBLIC_DIR, "favicon-32x32.png"));
-  await generatePng(192, join(PUBLIC_DIR, "favicon-192x192.png"));
-  await generatePng(512, join(PUBLIC_DIR, "favicon-512x512.png"));
+  // App icon (transparent mark) — Next.js auto-serves app/icon.png.
+  await png(512, join(APP_DIR, "icon.png"));
 
-  // 3. Apple touch icon (app/apple-icon.png — Next.js auto-serves)
-  await generatePng(180, join(APP_DIR, "apple-icon.png"));
+  // Public PNG favicons (transparent).
+  await png(16, join(PUBLIC_DIR, "favicon-16x16.png"));
+  await png(32, join(PUBLIC_DIR, "favicon-32x32.png"));
+  await png(192, join(PUBLIC_DIR, "favicon-192x192.png"));
+  await png(512, join(PUBLIC_DIR, "favicon-512x512.png"));
 
-  // 4. ICO (app/favicon.ico — Next.js auto-serves)
-  const ico48Png = await sharp(Buffer.from(SVG_SOURCE))
-    .resize(48, 48)
+  // Optimized copy for the UI (nav / sidebar / footer).
+  await png(256, join(PUBLIC_DIR, "logo-mark.png"));
+
+  // Apple touch icon — iOS strips alpha, so composite the mark (with padding)
+  // onto a white square.
+  const mark = await sharp(SOURCE).resize(150, 150).png().toBuffer();
+  await sharp({ create: { width: 180, height: 180, channels: 4, background: WHITE } })
+    .composite([{ input: mark, gravity: "center" }])
     .png()
-    .toBuffer();
-  const icoBuffer = buildIco(ico48Png);
-  const icoPath = join(APP_DIR, "favicon.ico");
-  await writeFile(icoPath, icoBuffer);
-  console.log(`  ✓ ${icoPath} (48×48 ICO)`);
+    .toFile(join(APP_DIR, "apple-icon.png"));
+  console.log(`  ✓ ${join(APP_DIR, "apple-icon.png")} (180×180 on white)`);
 
-  // 5. Web manifest
+  // ICO (app/favicon.ico) — transparent 48×48 mark.
+  const ico48 = await sharp(SOURCE).resize(48, 48).png().toBuffer();
+  await writeFile(join(APP_DIR, "favicon.ico"), buildIco(ico48));
+  console.log(`  ✓ ${join(APP_DIR, "favicon.ico")} (48×48 ICO)`);
+
+  // Web manifest.
   const manifest = {
     name: "Vouchley",
     short_name: "Vouchley",
@@ -119,15 +105,14 @@ async function main() {
       { src: "/favicon-192x192.png", sizes: "192x192", type: "image/png" },
       { src: "/favicon-512x512.png", sizes: "512x512", type: "image/png" },
     ],
-    theme_color: BRAND_BG,
-    background_color: "#FAF8F4",
+    theme_color: THEME_COLOR,
+    background_color: BACKGROUND_COLOR,
     display: "standalone",
   };
-  const manifestPath = join(PUBLIC_DIR, "site.webmanifest");
-  await writeFile(manifestPath, JSON.stringify(manifest, null, 2), "utf-8");
-  console.log(`  ✓ ${manifestPath}`);
+  await writeFile(join(PUBLIC_DIR, "site.webmanifest"), JSON.stringify(manifest, null, 2), "utf-8");
+  console.log(`  ✓ ${join(PUBLIC_DIR, "site.webmanifest")}`);
 
-  console.log("\nDone! Favicons generated successfully.");
+  console.log("\nDone.");
 }
 
 main().catch((err) => {

@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+import { BrandMark } from "@/components/layout/brand-mark";
 import { cn } from "@/lib/utils";
 
 type Verdict = "approve" | "review" | "block";
@@ -126,9 +127,12 @@ export function PlatformShowcase() {
         <div className="flex">
           {/* Mini sidebar */}
           <aside className="hidden w-44 shrink-0 border-r border-border bg-canvas/60 p-3 md:block">
-            <p className="px-2.5 pb-3 pt-1 text-base font-bold tracking-tight text-ink">
-              Vouchley
-            </p>
+            <div className="flex items-center gap-2 px-2.5 pb-3 pt-1">
+              <BrandMark size={20} />
+              <p className="text-base font-bold tracking-tight text-ink">
+                Vouchley
+              </p>
+            </div>
             <nav className="flex flex-col gap-0.5">
               {SIDEBAR.map(({ icon: Icon, label, active }) => (
                 <span
