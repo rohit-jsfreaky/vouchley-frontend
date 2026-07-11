@@ -17,12 +17,17 @@ import { SITE } from "@/config/site";
 import { getSessionServer } from "@/lib/auth-client";
 import { buildMetadata, faqJsonLd, softwareAppJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = buildMetadata({
-  title: SITE.title,
-  description: SITE.description,
-  path: "/",
-  keywords: ["signup verification API", "fake signup detection", "email validation"],
-});
+export const metadata: Metadata = {
+  ...buildMetadata({
+    title: SITE.title,
+    description: SITE.description,
+    path: "/",
+    keywords: ["signup verification API", "fake signup detection", "email validation"],
+  }),
+  // Brand-first document title so we win our own "vouchley" brand SERP (was ~pos 19).
+  // The keyword phrase still follows immediately, so intent terms stay covered.
+  title: { absolute: `${SITE.name} — ${SITE.title}` },
+};
 
 export default async function HomePage() {
   const user = await getSessionServer();

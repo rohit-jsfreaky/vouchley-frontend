@@ -27,7 +27,7 @@
       "excerpt": "AI agents now mimic human signup behavior — typing cadence, mouse jitter, even dwell time — at a cost of cents per account. Here's why traditional bot defenses break against agentic signup fraud, and the new layered approach SaaS teams need.",
       "date": "2026-04-26T09:00:00.000Z",
       "category": "Engineering",
-      "author": "Rohit",
+      "author": "Rohit Kashyap",
       "image": "/blog/ai-bot-signups-2026.jpg",
       "tags": ["AI bots", "signup fraud", "bot detection"],
       "keywords": [
@@ -46,7 +46,7 @@
       "excerpt": "Fake signups don't just waste compute — they wreck your sender reputation. Here's how Gmail and Outlook decide whether your transactional email lands in the inbox or the spam folder, and how fake accounts move that needle in the wrong direction.",
       "date": "2026-04-25T09:00:00.000Z",
       "category": "Engineering",
-      "author": "Rohit",
+      "author": "Rohit Kashyap",
       "image": "/blog/fake-signups-email-deliverability.jpg",
       "tags": ["email deliverability", "fake signups", "sender reputation"],
       "keywords": [
@@ -65,7 +65,7 @@
       "excerpt": "Signup verification APIs sit between your signup form and your database, scoring every new account in real time. Here's what they actually do, what they don't do, and how to evaluate one for your SaaS.",
       "date": "2026-04-24T18:00:00.000Z",
       "category": "Product",
-      "author": "Rohit",
+      "author": "Rohit Kashyap",
       "image": "/blog/what-is-signup-verification-api.jpg",
       "tags": ["signup verification API", "product", "fraud prevention"],
       "keywords": [
@@ -107,7 +107,7 @@
       "excerpt": "VPN signups aren't always bad — but they're disproportionately risky. Here's how to detect and risk-rank VPN, proxy, and Tor traffic on signup without losing legitimate privacy-conscious users.",
       "date": "2026-04-23T09:00:00.000Z",
       "category": "Engineering",
-      "author": "Rohit",
+      "author": "Rohit Kashyap",
       "image": "/blog/vpn-proxy-detection.jpg",
       "tags": ["VPN detection", "proxy detection", "signup verification"],
       "keywords": [
@@ -126,7 +126,7 @@
       "excerpt": "Email validation checks if an address can receive mail. Signup verification asks whether the person behind that address is legitimate. Understand the difference and stop paying for the wrong problem.",
       "date": "2026-04-22T09:00:00.000Z",
       "category": "Engineering",
-      "author": "Rohit",
+      "author": "Rohit Kashyap",
       "image": "/blog/email-validation-vs-verification.jpg",
       "tags": ["email validation", "signup verification", "API comparison"],
       "keywords": [
@@ -145,7 +145,7 @@
       "excerpt": "Fake signups are the silent tax on every growing SaaS. Here's how to detect and block them in real time — without adding friction for legitimate users.",
       "date": "2026-04-21T09:00:00.000Z",
       "category": "Engineering",
-      "author": "Rohit",
+      "author": "Rohit Kashyap",
       "image": "/blog/fake-signup-detection.jpg",
       "tags": ["fake signup detection", "signup verification", "SaaS fraud"],
       "keywords": [
@@ -164,7 +164,7 @@
       "excerpt": "Disposable emails are the #1 indicator of low-intent signups. Here's a practical guide to detecting them — what works in 2026, what doesn't, and how to integrate detection into any stack.",
       "date": "2026-04-18T09:00:00.000Z",
       "category": "Engineering",
-      "author": "Rohit",
+      "author": "Rohit Kashyap",
       "image": "/blog/disposable-email-guide.jpg",
       "tags": ["disposable email", "email validation", "signup verification"],
       "keywords": [
@@ -183,7 +183,7 @@
       "excerpt": "CAPTCHA solved 2015. Bot farms solved CAPTCHA. Here's how modern SaaS teams actually stop bot signups — without adding friction for real users.",
       "date": "2026-04-15T09:00:00.000Z",
       "category": "Engineering",
-      "author": "Rohit",
+      "author": "Rohit Kashyap",
       "image": "/blog/bot-signup-prevention.jpg",
       "tags": ["bot detection", "signup security", "fraud prevention"],
       "keywords": [

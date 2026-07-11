@@ -82,9 +82,16 @@ export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${SITE.url}/#organization`,
     name: SITE.name,
+    alternateName: "Vouchley API",
     url: SITE.url,
-    logo: `${SITE.url}/favicon-512x512.png`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE.url}/favicon-512x512.png`,
+      width: 512,
+      height: 512,
+    },
     sameAs: ["https://twitter.com/vouchley"],
     description: SITE.description,
   };
@@ -94,9 +101,12 @@ export function websiteJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${SITE.url}/#website`,
     name: SITE.name,
+    alternateName: "Vouchley API",
     url: SITE.url,
     description: SITE.description,
+    publisher: { "@id": `${SITE.url}/#organization` },
     potentialAction: {
       "@type": "SearchAction",
       target: `${SITE.url}/blog?q={search_term_string}`,
@@ -116,11 +126,11 @@ export function softwareAppJsonLd() {
     description: SITE.description,
     offers: {
       "@type": "Offer",
-      price: "29.00",
+      price: "19.00",
       priceCurrency: "USD",
       priceSpecification: {
         "@type": "UnitPriceSpecification",
-        price: "29.00",
+        price: "19.00",
         priceCurrency: "USD",
         billingIncrement: 1,
         unitText: "MONTH",
