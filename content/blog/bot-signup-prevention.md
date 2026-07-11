@@ -1,9 +1,11 @@
 ---
 title: "Bot Signup Prevention: Why CAPTCHA Isn't Enough in 2026"
 excerpt: "CAPTCHA solved 2015. Bot farms solved CAPTCHA. Here's how modern SaaS teams actually stop bot signups — without adding friction for real users."
+metaTitle: "Bot Signup Prevention in 2026 (Beyond CAPTCHA)"
+metaDescription: "CAPTCHA no longer stops bots — farms solved it years ago. How modern SaaS teams actually prevent bot and registration-bot signups in 2026, friction-free."
 date: "2026-04-15T09:00:00.000Z"
 category: "Engineering"
-author: "Rohit"
+author: "Rohit Kashyap"
 image: "/blog/bot-signup-prevention.jpg"
 tags: ["bot detection", "signup security", "fraud prevention"]
 keywords:

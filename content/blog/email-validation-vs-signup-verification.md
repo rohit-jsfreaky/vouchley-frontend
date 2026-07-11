@@ -3,7 +3,7 @@ title: "Email Validation vs Signup Verification: What's the Difference and Why I
 excerpt: "Email validation checks if an address can receive mail. Signup verification asks whether the person behind that address is legitimate. Understand the difference and stop paying for the wrong problem."
 date: "2026-04-22T09:00:00.000Z"
 category: "Engineering"
-author: "Rohit"
+author: "Rohit Kashyap"
 image: "/blog/email-validation-vs-verification.jpg"
 tags: ["email validation", "signup verification", "API comparison"]
 keywords:

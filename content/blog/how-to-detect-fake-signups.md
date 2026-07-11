@@ -3,7 +3,7 @@ title: "How to Detect Fake Signups in Real Time: A Complete Guide for SaaS Teams
 excerpt: "Fake signups are the silent tax on every growing SaaS. Here's how to detect and block them in real time — without adding friction for legitimate users."
 date: "2026-04-21T09:00:00.000Z"
 category: "Engineering"
-author: "Rohit"
+author: "Rohit Kashyap"
 image: "/blog/fake-signup-detection.jpg"
 tags: ["fake signup detection", "signup verification", "SaaS fraud"]
 keywords:

@@ -33,8 +33,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     });
   }
   return buildMetadata({
-    title: post.title,
-    description: post.excerpt,
+    // Keyword-first SERP title (<60 chars) when provided; the on-page H1 keeps
+    // the fuller `title`. Description likewise prefers a tuned metaDescription.
+    title: post.metaTitle ?? post.title,
+    description: post.metaDescription ?? post.excerpt,
     path: `/blog/${slug}`,
     image: post.image,
     keywords: post.keywords,

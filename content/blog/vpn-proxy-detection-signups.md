@@ -1,9 +1,11 @@
 ---
 title: "VPN and Proxy Detection for Signups: A Practical Guide for SaaS Teams"
 excerpt: "VPN signups aren't always bad — but they're disproportionately risky. Here's how to detect and risk-rank VPN, proxy, and Tor traffic on signup without losing legitimate privacy-conscious users."
+metaTitle: "VPN & Proxy Detection for Signup Fraud (2026)"
+metaDescription: "Detect and risk-score VPN, proxy, and Tor traffic at signup to stop fraud — without blocking legitimate privacy-conscious users. A practical 2026 guide."
 date: "2026-04-23T09:00:00.000Z"
 category: "Engineering"
-author: "Rohit"
+author: "Rohit Kashyap"
 image: "/blog/vpn-proxy-detection.jpg"
 tags: ["VPN detection", "proxy detection", "signup verification"]
 keywords:

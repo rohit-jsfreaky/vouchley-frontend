@@ -1,9 +1,11 @@
 ---
 title: "Disposable Email Detection: What Works, What Doesn't, and Why It Matters"
 excerpt: "Disposable emails are the #1 indicator of low-intent signups. Here's a practical guide to detecting them — what works in 2026, what doesn't, and how to integrate detection into any stack."
+metaTitle: "Disposable Email Detection: What Works in 2026"
+metaDescription: "How to detect and block disposable emails — Mailinator, 10minutemail, temp-mail — at signup in 2026. What works, what fails, and how to add it to any stack."
 date: "2026-04-18T09:00:00.000Z"
 category: "Engineering"
-author: "Rohit"
+author: "Rohit Kashyap"
 image: "/blog/disposable-email-guide.jpg"
 tags: ["disposable email", "email validation", "signup verification"]
 keywords:

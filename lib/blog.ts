@@ -61,6 +61,14 @@ export interface BlogAuthorBio {
 export interface BlogPost extends BlogIndexEntry {
   content: string; // raw markdown body
   updatedAt?: string;
+  /**
+   * SEO <title> override. Lets the on-page H1 (`title`) stay rich and
+   * descriptive while the SERP title stays keyword-first and under ~60 chars.
+   * Falls back to `title` when unset.
+   */
+  metaTitle?: string;
+  /** SEO meta-description override. Falls back to `excerpt` when unset. */
+  metaDescription?: string;
   /** Optional FAQ block — renders below the post body and emits FAQPage schema. */
   faq?: BlogFaqItem[];
   /** Optional HowTo block — emits HowTo schema. */
@@ -118,6 +126,8 @@ export function getPost(slug: string): BlogPost | null {
     readingTime: data.readingTime ?? estimateReadingTime(content),
     featured: data.featured ?? false,
     updatedAt: data.updatedAt,
+    metaTitle: data.metaTitle as string | undefined,
+    metaDescription: data.metaDescription as string | undefined,
     faq: Array.isArray(data.faq) ? (data.faq as BlogFaqItem[]) : undefined,
     howTo: data.howTo as BlogHowTo | undefined,
     authorBio: data.authorBio as BlogAuthorBio | undefined,

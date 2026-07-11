@@ -3,7 +3,7 @@ title: "How Fake Signups Quietly Destroy Your Email Deliverability"
 excerpt: "Fake signups don't just waste compute — they wreck your sender reputation. Here's how Gmail and Outlook decide whether your transactional email lands in the inbox or the spam folder, and how fake accounts move that needle in the wrong direction."
 date: "2026-04-25T09:00:00.000Z"
 category: "Engineering"
-author: "Rohit"
+author: "Rohit Kashyap"
 image: "/blog/fake-signups-email-deliverability.jpg"
 tags: ["email deliverability", "fake signups", "sender reputation"]
 keywords:

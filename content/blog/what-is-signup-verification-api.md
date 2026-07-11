@@ -3,7 +3,7 @@ title: "What Is a Signup Verification API? A Practical Guide for Product Teams"
 excerpt: "Signup verification APIs sit between your signup form and your database, scoring every new account in real time. Here's what they actually do, what they don't do, and how to evaluate one for your SaaS."
 date: "2026-04-24T18:00:00.000Z"
 category: "Product"
-author: "Rohit"
+author: "Rohit Kashyap"
 image: "/blog/what-is-signup-verification-api.jpg"
 tags: ["signup verification API", "product", "fraud prevention"]
 keywords:

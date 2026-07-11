@@ -1,6 +1,8 @@
 ---
 title: "The 2026 State of SaaS Signup Fraud Report"
 excerpt: "A directional, evidence-based look at what's actually attacking SaaS signup forms in 2026 — disposable emails, VPN traffic, AI-bot signups, Gmail alias abuse, and free-tier infrastructure mining. Drawn from Vouchley verification telemetry plus the broader industry data."
+metaTitle: "2026 SaaS Signup Fraud Report: Data & Trends"
+metaDescription: "Fresh 2026 data on what attacks SaaS signups — disposable emails, VPN traffic, AI bots, alias abuse — with benchmarks from real verification telemetry."
 date: "2026-06-08T09:00:00.000Z"
 updatedAt: "2026-06-08T09:00:00.000Z"
 category: "Research"

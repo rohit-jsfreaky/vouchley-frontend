@@ -1,9 +1,11 @@
 ---
 title: "AI Bot Signups in 2026: Why Your Existing Defenses Are About to Fail"
 excerpt: "AI agents now mimic human signup behavior — typing cadence, mouse jitter, even dwell time — at a cost of cents per account. Here's why traditional bot defenses break against agentic signup fraud, and the new layered approach SaaS teams need."
+metaTitle: "Stop AI Bot Signups in 2026: Defenses That Work"
+metaDescription: "AI agents now mimic human signups at cents per account, breaking CAPTCHA and legacy bot defenses. The layered approach that actually stops them in 2026."
 date: "2026-04-26T09:00:00.000Z"
 category: "Engineering"
-author: "Rohit"
+author: "Rohit Kashyap"
 image: "/blog/ai-bot-signups-2026.jpg"
 tags: ["AI bots", "signup fraud", "bot detection"]
 keywords:
