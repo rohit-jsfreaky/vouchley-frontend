@@ -12,7 +12,7 @@
 
 Sift is genuinely impressive. It's one of the most capable fraud platforms on the market — payments fraud, account takeover, content abuse, signup fraud, all powered by a shared ML model trained across the entire customer base.
 
-It's also priced for buyers with procurement teams. Public reports put typical Sift contracts at $30,000–50,000 per year minimum, and enterprise deployments at $100,000–300,000+. Vouchley starts at $29.
+It's also priced for buyers with procurement teams. Public reports put typical Sift contracts at $30,000–50,000 per year minimum, and enterprise deployments at $100,000–300,000+. Vouchley starts at $19.
 
 ## Who should pick which?
 
@@ -38,7 +38,7 @@ It's also priced for buyers with procurement teams. Public reports put typical S
 | Content abuse scoring | No | Yes |
 | Network-effect ML across customers | No | Yes (core differentiator) |
 | Investigation / case management UI | Inspector + dashboard | Full analyst console |
-| Published pricing | Yes ($29 starter) | No (request quote) |
+| Published pricing | Yes ($19 starter) | No (request quote) |
 | Time to integrate | Hours | Weeks (with sales cycle) |
 | Free tier | 100 credits, no card | Demo only |
 
@@ -48,11 +48,11 @@ It's also priced for buyers with procurement teams. Public reports put typical S
 Sift doesn't publish pricing. Vendor-research sites report typical contracts at $30k–50k/year minimum, with enterprise deployments at $100k–300k+. Pricing combines per-API-call volume, feature modules, and multi-year commits. Expect a sales cycle.
 
 ### Vouchley pricing
-Vouchley is priced like a developer tool: $29 for 3,000 verifications, no monthly minimum, no contract, sign up with email and start in 5 minutes.
+Vouchley is priced like a developer tool: $19/month for 15,000 verifications, no contract, sign up with email and start in 5 minutes.
 
 ### Sample scenario: Series A SaaS, 50,000 signups/month
 
-- **Vouchley:** Roughly $400/mo on credit packs
+- **Vouchley:** $49/mo on the Pro plan (50,000 credits)
 - **Sift:** Five-figure annual contract; not Sift's target buyer
 
 ## When Sift is the better pick

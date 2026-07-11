@@ -68,9 +68,9 @@ const DISPOSABLE: Record<string, { service: string; block: boolean; slug: string
 
 const PACKS = [
   { slug: "free",    name: "Free",    credits: 100,    priceUSD: 0,   perCredit: 0 },
-  { slug: "starter", name: "Starter", credits: 3_000,  priceUSD: 29,  perCredit: 0.0097 },
-  { slug: "pro",     name: "Pro",     credits: 12_000, priceUSD: 99,  perCredit: 0.00825 },
-  { slug: "scale",   name: "Scale",   credits: 40_000, priceUSD: 299, perCredit: 0.00748 },
+  { slug: "starter", name: "Starter", credits: 15_000,  priceUSD: 19, perCredit: 0.00127 },
+  { slug: "pro",     name: "Pro",     credits: 50_000,  priceUSD: 49, perCredit: 0.00098 },
+  { slug: "scale",   name: "Scale",   credits: 200_000, priceUSD: 99, perCredit: 0.0005 },
 ];
 
 const TOOLS: WebMcpTool[] = [
@@ -120,7 +120,7 @@ const TOOLS: WebMcpTool[] = [
   {
     name: "recommend_credit_pack",
     description:
-      "Given an expected monthly volume of signup verifications, recommend the cheapest Vouchley credit pack that covers it. Returns the recommended pack and the math behind the recommendation. Credits never expire so stacking multiple packs is also a valid strategy.",
+      "Given an expected monthly volume of signup verifications, recommend the cheapest Vouchley plan that covers it. Returns the recommended plan and the math behind the recommendation. Unused credits roll over and never expire.",
     inputSchema: {
       type: "object",
       required: ["monthly_verifications"],

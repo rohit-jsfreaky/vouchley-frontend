@@ -30,23 +30,19 @@ The `credits_charged` field in every response tells you exactly how many credits
 
 ## Plans & pricing
 
-Vouchley sells one-time credit packs. Credits never expire.
+Vouchley runs on monthly credit plans. Unused credits roll over and never expire.
 
 - **Free** — $0 on signup, 100 credits
-- **Starter** — $29 one-time, 3,000 credits ($0.0097/credit)
-- **Pro** — $99 one-time, 12,000 credits ($0.00825/credit, 15% savings)
-- **Scale** — $299 one-time, 40,000 credits ($0.00748/credit, best rate)
+- **Starter** — $19/month, 15,000 credits ($0.00127/credit)
+- **Pro** — $49/month, 50,000 credits ($0.00098/credit, save 23%)
+- **Scale** — $99/month, 200,000 credits ($0.0005/credit, best rate)
 
-New accounts start with 100 free credits to test the API. After these are used, purchase a pack from the [Billing](https://vouchley.getrevlio.com/dashboard/billing) page.
+New accounts start with 100 free credits to test the API. After these are used, subscribe to a plan from the [Billing](https://vouchley.getrevlio.com/dashboard/billing) page.
 
 ## Credit rollover
 
-Unused credits roll over indefinitely. Each pack purchase adds to your existing balance. There is no expiration date on credits.
+Unused credits roll over indefinitely. Each billing cycle adds your plan's credits to your existing balance. There is no expiration date on credits.
 
-If you have 500 credits remaining when you buy a 3,000-credit Starter pack, your new balance is 3,500. The credits are fungible — no FIFO or LIFO accounting.
-
-## Auto-refill (Pro plan)
-
-On the Pro plan, you can enable auto-refill at $89/month. When your balance drops below a threshold you configure, a fresh batch of credits is added automatically. Disable any time from Billing.
+If you have 500 credits remaining when your Starter plan adds 15,000 credits, your new balance is 15,500. The credits are fungible — no FIFO or LIFO accounting.
 
 [Next: Rate Limits →](https://vouchley.getrevlio.com/docs/rate-limits)

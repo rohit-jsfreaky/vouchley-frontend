@@ -50,11 +50,11 @@ Vouchley is the SaaS engineer's tool. We don't ship deliverability features. We 
 Starts at $20 for 2,000 PAYG validations (~$0.01 each). Subscription tiers begin at $18/month for 2,000 emails and scale up: Starter $49/mo, Team $99/mo, Pro $249/mo. The bundled deliverability suite (ZeroBounce ONE™) starts at $99/mo.
 
 ### Vouchley pricing
-$29 for 3,000 verifications (~$0.0097 each), no monthly minimum, no expiration. Each verification includes the full signup score — email + IP + domain + behavioral.
+$19/month for 15,000 verifications (~$0.00127 each); unused credits roll over and never expire. Each verification includes the full signup score — email + IP + domain.
 
 ### Sample scenario: 5,000 real-time signup checks per month
 
-- **Vouchley:** $29 starter pack (3,000) plus a top-up — about $50 total
+- **Vouchley:** $19/mo on Starter — 15,000 credits covers it with room to spare
 - **ZeroBounce:** ~$50 PAYG; $99/mo Team plan if you want predictable pricing
 
 ## When ZeroBounce is the better pick
@@ -70,8 +70,8 @@ If you don't run an email marketing program — you just need to know which sign
 ### Can Vouchley replace ZeroBounce for email list cleaning?
 For the validation step, yes — Vouchley's bulk endpoint handles list cleaning. For the broader deliverability suite (inbox placement, DMARC, blacklist monitoring), no. Those are not Vouchley's product.
 
-### Why does Vouchley charge per check, not per month?
-Most signup-verification traffic is bursty — a launch, a viral post, a spam wave. Subscription pricing forces you to either over-pay for an idle month or hit a cap mid-spike. Credit packs scale with what you actually use.
+### How does Vouchley's pricing work — subscription or pay-as-you-go?
+Vouchley is a simple monthly plan. Your plan adds its credit allotment each billing cycle, unused credits roll over and never expire, and cache hits within 30 days don't cost a credit. Bursty months just draw down your rollover balance instead of hitting a hard cap.
 
 ### Is ZeroBounce's accuracy better on email-only checks?
 ZeroBounce publishes 96–99% accuracy on email validation, in line with the industry. Vouchley's email layer hits the same range. The differences show up on the signals ZeroBounce doesn't have — IP, domain, and behavior — where Vouchley is the only one returning a verdict.

@@ -1,6 +1,6 @@
 /**
- * Authoritative pricing — one-time credit packs, credits never expire.
- * Source of truth: pricing.md at repo root.
+ * Authoritative pricing — monthly credit plans; unused credits roll over and
+ * never expire. Source of truth: pricing.md at repo root.
  */
 
 export type PackSlug = "free" | "starter" | "pro" | "scale";
@@ -43,33 +43,33 @@ export const PRICING_PLANS: PricingPlan[] = [
   {
     slug: "starter",
     name: "Starter",
-    price: "$29",
-    priceSuffix: "one-time",
+    price: "$19",
+    priceSuffix: "per month",
     description: "For solo founders and MVP validation.",
-    credits: "3,000 credits",
-    creditsNote: "Never expire",
+    credits: "15,000 credits",
+    creditsNote: "Roll over monthly",
     cta: { label: "Choose Starter", href: "/signup?pack=starter", variant: "secondary" },
     features: [
       "Everything in Free",
       "Email support",
-      "$0.0097 per credit",
-      "Stack multiple packs",
+      "$0.00127 per credit",
+      "Credits roll over & never expire",
     ],
   },
   {
     slug: "pro",
     name: "Pro",
-    price: "$99",
-    priceSuffix: "one-time",
+    price: "$49",
+    priceSuffix: "per month",
     description: "For growing SaaS at $1–20k MRR.",
-    credits: "12,000 credits",
-    creditsNote: "Never expire",
+    credits: "50,000 credits",
+    creditsNote: "Roll over monthly",
     cta: { label: "Choose Pro", href: "/signup?pack=pro", variant: "primary" },
     features: [
       "Everything in Starter",
       "Priority email support",
-      "Auto-refill available at $89/mo",
-      "$0.00825 per credit — save 15%",
+      "Credits roll over every month",
+      "$0.00098 per credit — save 23%",
     ],
     highlighted: true,
     badge: "Most Popular",
@@ -77,16 +77,16 @@ export const PRICING_PLANS: PricingPlan[] = [
   {
     slug: "scale",
     name: "Scale",
-    price: "$299",
-    priceSuffix: "one-time",
+    price: "$99",
+    priceSuffix: "per month",
     description: "For established products with real volume.",
-    credits: "40,000 credits",
-    creditsNote: "Never expire",
+    credits: "200,000 credits",
+    creditsNote: "Roll over monthly",
     cta: { label: "Choose Scale", href: "/signup?pack=scale", variant: "secondary" },
     features: [
       "Everything in Pro",
       "Slack shared channel",
-      "$0.00748 per credit — best rate",
+      "$0.0005 per credit — best rate",
       "Custom allow/block lists",
     ],
   },
@@ -96,5 +96,5 @@ export const PRICING_HEADER = {
   eyebrow: "Pricing",
   title: "Simple, usage-based pricing.",
   subtitle:
-    "Buy credits once. They never expire. Pay only for what you verify — cache hits are always free.",
+    "Monthly credit plans. Unused credits roll over and never expire — pay only for what you verify, and cache hits are always free.",
 } as const;

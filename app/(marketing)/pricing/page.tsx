@@ -8,7 +8,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildMetadata({
   title: "Pricing — Simple monthly plans for signup verification",
   description:
-    "Monthly credit plans from $29. Credits roll over every month, cached checks are always free. Start with 100 free credits — no credit card required.",
+    "Monthly credit plans from $19 for 15,000 verifications. Credits roll over every month and never expire, and cached checks are always free. Start with 100 free credits — no card required.",
   path: "/pricing",
   keywords: [
     "signup verification pricing",

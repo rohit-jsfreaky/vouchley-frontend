@@ -82,15 +82,15 @@ export default function CachingCreditsPage() {
         </DocP>
         <ul className="mb-6 list-disc space-y-2 pl-6 text-base leading-relaxed text-ink-muted">
           <li>
-            <strong>Starter</strong> — $29/month, 3,000 credits ($0.0097/credit)
+            <strong>Starter</strong> — $19/month, 15,000 credits ($0.00127/credit)
           </li>
           <li>
-            <strong>Pro</strong> — $99/month, 12,000 credits ($0.00825/credit,
-            15% savings)
+            <strong>Pro</strong> — $49/month, 50,000 credits ($0.00098/credit,
+            save 23%)
           </li>
           <li>
-            <strong>Scale</strong> — $299/month, 40,000 credits
-            ($0.00748/credit, best rate)
+            <strong>Scale</strong> — $99/month, 200,000 credits
+            ($0.0005/credit, best rate)
           </li>
         </ul>
         <DocP>

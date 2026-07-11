@@ -92,7 +92,7 @@ There is no programmatic key-rotation endpoint. All key management is dashboard-
 | HTTP code | Meaning | What an agent should do |
 | --- | --- | --- |
 | `401 Unauthorized` | Key missing, malformed, or revoked | Stop. Surface to the human operator — the agent cannot self-recover. |
-| `402 Payment Required` | Credit balance is zero | Stop. Operator must purchase a credit pack. |
+| `402 Payment Required` | Credit balance is zero | Stop. Operator must subscribe to a plan. |
 | `429 Too Many Requests` | Rate limit hit | Back off with exponential delay (1s → 2s → 4s → ... → 30s) |
 | `5xx` | Vouchley problem | Retry with backoff. If persistent, surface to operator. |
 

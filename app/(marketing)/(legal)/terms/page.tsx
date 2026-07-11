@@ -67,16 +67,17 @@ export default function TermsPage() {
 
         <DocH2 id="credits">Credits and billing</DocH2>
         <DocP>
-          Vouchley is sold in one-time credit packs and, optionally, as a
-          monthly auto-refill plan. Credits never expire while your account is
-          active. One verification costs one credit; cache hits cost zero.
+          Vouchley is sold as monthly subscription plans. Each plan adds its
+          credit allotment every billing cycle, and unused credits roll over and
+          never expire while your account is active. One verification costs one
+          credit; cache hits cost zero.
           Purchases are processed by Dodo Payments, our Merchant of Record, who
           also handles VAT, GST, and sales tax depending on your location.
         </DocP>
         <DocP>
-          Credit packs are{" "}
-          <strong>non-refundable once the credits have been used</strong>, except
-          where required by law. If you purchased a pack by mistake and have
+          Credits are{" "}
+          <strong>non-refundable once they have been used</strong>, except
+          where required by law. If you subscribed by mistake and have
           not consumed any credits, email{" "}
           <DocLink href="mailto:hello@getrevlio.com">hello@getrevlio.com</DocLink>
           {" "}within 14 days and we&rsquo;ll reverse the charge through Dodo.
@@ -84,7 +85,7 @@ export default function TermsPage() {
         <DocP>
           When your balance hits zero, our API returns{" "}
           <DocCode>402 Payment Required</DocCode>. No overages are charged
-          automatically. Top up another pack or enable auto-refill to continue.
+          automatically. Your balance refills on your next billing cycle.
         </DocP>
 
         <DocH2 id="acceptable-use">Acceptable use</DocH2>

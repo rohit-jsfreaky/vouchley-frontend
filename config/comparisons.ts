@@ -119,10 +119,10 @@ export const COMPARISONS: Comparison[] = [
       competitorSummary:
         "Kickbox publishes a pay-as-you-go model starting at $5 for 500 verifications (~$0.01 each), with a $159/month subscription for 50,000 verifications and an enterprise tier at $4,000 for 1 million.",
       vouchleySummary:
-        "Vouchley sells prepaid credit packs starting at $29 for 3,000 verifications (~$0.0097 each). Credits never expire and there's no monthly minimum.",
+        "Vouchley sells monthly plans starting at $19 for 15,000 verifications (~$0.00127 each). Unused credits roll over and never expire.",
       sampleScenario: {
         label: "10,000 signups verified per month",
-        vouchleyCost: "~$97 (paid as needed, credits never expire)",
+        vouchleyCost: "$19/mo on Starter — 15,000 credits, unused roll over",
         competitorCost: "~$80–100 on PAYG; $159/mo on the 50k plan if you can absorb the floor",
       },
     },
@@ -202,10 +202,10 @@ export const COMPARISONS: Comparison[] = [
       competitorSummary:
         "ZeroBounce starts at $20 for 2,000 PAYG validations (~$0.01 each). Subscription tiers begin at $18/month for 2,000 emails and scale up: Starter $49/mo, Team $99/mo, Pro $249/mo. The bundled deliverability suite (ZeroBounce ONE™) starts at $99/mo.",
       vouchleySummary:
-        "Vouchley charges $29 for 3,000 verifications (~$0.0097 each), no monthly minimum, no expiration. Each verification includes the full signup score — email + IP + domain + behavioral.",
+        "Vouchley charges $19/month for 15,000 verifications (~$0.00127 each); unused credits roll over and never expire. Each verification includes the full signup score — email + IP + domain.",
       sampleScenario: {
         label: "5,000 real-time signup checks per month",
-        vouchleyCost: "$29 starter pack (3,000) plus a top-up — about $50 total",
+        vouchleyCost: "$19/mo on Starter — 15,000 credits covers it with room to spare",
         competitorCost: "~$50 PAYG; $99/mo Team plan if you want predictable pricing",
       },
     },
@@ -222,9 +222,9 @@ export const COMPARISONS: Comparison[] = [
           "For the validation step, yes — Vouchley's bulk endpoint handles list cleaning. For the broader deliverability suite (inbox placement, DMARC, blacklist monitoring), no. Those are not Vouchley's product.",
       },
       {
-        question: "Why does Vouchley charge per check, not per month?",
+        question: "How does Vouchley's pricing work — subscription or pay-as-you-go?",
         answer:
-          "Most signup-verification traffic is bursty — a launch, a viral post, a spam wave. Subscription pricing forces you to either over-pay for an idle month or hit a cap mid-spike. Credit packs scale with what you actually use.",
+          "Vouchley is a simple monthly plan. Your plan adds its credit allotment each billing cycle, unused credits roll over and never expire, and cache hits within 30 days don't cost a credit. Bursty months just draw down your rollover balance instead of hitting a hard cap.",
       },
       {
         question: "Is ZeroBounce's accuracy better on email-only checks?",
@@ -247,10 +247,10 @@ export const COMPARISONS: Comparison[] = [
     lastVerified: "2026-04-28",
     metaTitle: "Vouchley vs Sift: Signup Verification API for Builders, Not Enterprises",
     metaDescription:
-      "Sift is enterprise fraud-decisioning at $30k+/year. Vouchley is real-time signup verification starting at $29. When to pick which, and the honest trade-offs.",
+      "Sift is enterprise fraud-decisioning at $30k+/year. Vouchley is real-time signup verification starting at $19/month. When to pick which, and the honest trade-offs.",
 
     heroBody:
-      "Sift is genuinely impressive. It's one of the most capable fraud platforms on the market — payments fraud, account takeover, content abuse, signup fraud, all powered by a shared ML model trained across the entire customer base. It's also priced for buyers with procurement teams. Public reports put typical Sift contracts at $30,000–50,000 per year minimum, and enterprise deployments at $100,000–300,000+. Vouchley starts at $29.",
+      "Sift is genuinely impressive. It's one of the most capable fraud platforms on the market — payments fraud, account takeover, content abuse, signup fraud, all powered by a shared ML model trained across the entire customer base. It's also priced for buyers with procurement teams. Public reports put typical Sift contracts at $30,000–50,000 per year minimum, and enterprise deployments at $100,000–300,000+. Vouchley starts at $19.",
 
     verdict: {
       pickVouchleyIf: [
@@ -274,7 +274,7 @@ export const COMPARISONS: Comparison[] = [
       { feature: "Content abuse scoring", vouchley: "No", competitor: "Yes" },
       { feature: "Network-effect ML across customers", vouchley: "No", competitor: "Yes (core differentiator)" },
       { feature: "Investigation / case management UI", vouchley: "Inspector + dashboard", competitor: "Full analyst console" },
-      { feature: "Published pricing", vouchley: "Yes ($29 starter)", competitor: "No (request quote)" },
+      { feature: "Published pricing", vouchley: "Yes ($19 starter)", competitor: "No (request quote)" },
       { feature: "Time to integrate", vouchley: "Hours", competitor: "Weeks (with sales cycle)" },
       { feature: "Free tier", vouchley: "100 credits, no card", competitor: "Demo only" },
     ],
@@ -283,10 +283,10 @@ export const COMPARISONS: Comparison[] = [
       competitorSummary:
         "Sift doesn't publish pricing. Vendor-research sites report typical contracts at $30k–50k/year minimum, with enterprise deployments at $100k–300k+. Pricing combines per-API-call volume, feature modules, and multi-year commits. Expect a sales cycle.",
       vouchleySummary:
-        "Vouchley is priced like a developer tool: $29 for 3,000 verifications, no monthly minimum, no contract, sign up with email and start in 5 minutes.",
+        "Vouchley is priced like a developer tool: $19/month for 15,000 verifications, no contract, sign up with email and start in 5 minutes.",
       sampleScenario: {
         label: "Series A SaaS, 50,000 signups/month",
-        vouchleyCost: "Roughly $400/mo on credit packs",
+        vouchleyCost: "$49/mo on the Pro plan (50,000 credits)",
         competitorCost: "Five-figure annual contract; not Sift's target buyer",
       },
     },

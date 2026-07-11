@@ -239,7 +239,7 @@ export const FAQ: FaqItem[] = [
   {
     question: "How much does it cost?",
     answer:
-      "Pay-as-you-go credit packs starting at $29 for 3,000 verifications. New accounts get 100 free credits — no card required. Credits never expire.",
+      "Monthly plans starting at $19 for 15,000 verifications a month. New accounts get 100 free credits — no card required. Unused credits roll over and never expire.",
   },
   {
     question: "Do you store my user data?",

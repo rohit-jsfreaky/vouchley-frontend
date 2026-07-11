@@ -1,11 +1,11 @@
 /**
  * Data for the "How we compare" table used on the homepage and pricing page.
  *
- * Honest framing: Vouchley is NOT the cheapest per email check on the market —
- * email-only validators like DeBounce undercut us at ~$0.002/check. The honest
- * win is on what each check covers: Vouchley scores email + IP + VPN + domain +
- * bot signals in one call, while everyone else listed below only validates the
- * email itself. The "Checks per call" column makes that visible.
+ * Framing: at $19 for 15,000 verifications (~$0.00127/check) Vouchley now costs
+ * LESS per check than even email-only validators like DeBounce (~$0.002/check),
+ * and still scores email + IP + VPN + domain in one call while everyone else
+ * listed below only validates the email itself. The "Checks per call" column
+ * makes that coverage gap visible.
  *
  * Re-verify prices each quarter — vendor pricing pages change 2–4 times/year.
  */
@@ -33,7 +33,7 @@ export const COMPARE_TABLE = {
   vouchley: {
     name: "Vouchley",
     checks: "Email + IP + VPN + domain + bot",
-    cost10k: "$99",
+    cost10k: "$19",
     expiry: "Never",
     expiryTone: "good" as const,
   },
@@ -84,5 +84,5 @@ export const COMPARE_TABLE = {
   ] satisfies ComparisonVendor[],
   /** Footnote rendered below the table. */
   footnote:
-    "Vouchley's per-check cost reflects multi-signal coverage. Email-only validators like DeBounce are cheaper per check but won't catch bot signups, datacenter IPs, VPN abuse, or AI-driven fraud.",
+    "At $19 for 15,000 verifications, Vouchley undercuts even email-only validators on price — and still scores VPN/proxy abuse, risky IPs, and domain reputation that they miss entirely.",
 } as const;

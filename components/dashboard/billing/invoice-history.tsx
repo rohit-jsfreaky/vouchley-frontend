@@ -38,7 +38,7 @@ export function InvoiceHistory({ invoices, loading, onOpenPortal }: Props) {
           <EmptyState
             icon={Receipt}
             title="No purchases yet"
-            description="Once you buy your first credit pack, receipts will appear here."
+            description="Once you subscribe to your first plan, receipts will appear here."
             className="border-0 py-16"
           />
         ) : (

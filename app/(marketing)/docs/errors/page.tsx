@@ -49,7 +49,7 @@ export default function ErrorsPage() {
         </DocP>
         <pre className="my-6 overflow-x-auto rounded-lg border border-border/40 bg-subtle/70 p-4 font-mono text-sm leading-relaxed">
 {`{
-  "detail": "Insufficient credits. Purchase a credit pack to continue."
+  "detail": "Insufficient credits. Subscribe to a plan to continue."
 }`}
         </pre>
 

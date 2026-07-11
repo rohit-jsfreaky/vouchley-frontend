@@ -4,7 +4,7 @@
 
 **Canonical URL:** https://vouchley.getrevlio.com/
 **API base URL:** https://api.vouchley.getrevlio.com
-**Pricing:** From $29 for 3,000 verifications. 100 free credits on signup, no card required. Credits never expire.
+**Pricing:** From $19/month for 15,000 verifications. 100 free credits on signup, no card required. Unused credits roll over and never expire.
 
 ---
 
@@ -61,14 +61,14 @@ Response:
 
 | Service | Checks per call | 10K verifications | Credits expire? |
 | --- | --- | --- | --- |
-| **Vouchley** | Email + IP + VPN + domain + bot | **$99** | **Never** |
+| **Vouchley** | Email + IP + VPN + domain + bot | **$19** | **Never** |
 | Kickbox | Email only | ~$100 PAYG | Never |
 | ZeroBounce | Email + AI scoring | ~$100 PAYG | Subscription tiers expire |
 | NeverBounce | Email only | ~$80 PAYG | 12 months |
 | DeBounce | Email only | ~$20 PAYG | Never |
 | Sift | Full fraud platform | Enterprise quote | Annual contract |
 
-Pricing verified from vendor public pricing pages on 2026-04-28. Vouchley is not the cheapest per check — email-only validators like DeBounce undercut us. The Vouchley win is multi-signal coverage in one call.
+Pricing verified from vendor public pricing pages on 2026-04-28. At $19 for 15,000 verifications, Vouchley now undercuts even email-only validators like DeBounce on price — and still returns multi-signal coverage in one call.
 
 ## Frequently asked questions
 
@@ -85,7 +85,7 @@ Disposable emails, VPN/proxy/Tor traffic, datacenter IPs (AWS, GCP, Hetzner), AI
 Cache hits return in under 100 ms. Fresh checks run every signal in parallel and complete in under 1.5 seconds at the p95. Latency is measured continuously and published in your dashboard.
 
 ### How much does it cost?
-Pay-as-you-go credit packs starting at $29 for 3,000 verifications. New accounts get 100 free credits — no card required. Credits never expire.
+Monthly plans starting at $19 for 15,000 verifications. New accounts get 100 free credits — no card required. Unused credits roll over and never expire.
 
 ### Do you store user data?
 IPs are hashed and only what's needed to compute the score and let you audit the call later is stored. Signup data is never sold, shared, or used to train models. EU data residency is available on the Pro plan.
@@ -101,5 +101,5 @@ Built and maintained by Rohit, a solo founder shipping from India. No fundraisin
 
 - [Sign up for 100 free credits](https://vouchley.getrevlio.com/signup) — no card required
 - [Read the docs](https://vouchley.getrevlio.com/docs) — quickstart in under 5 minutes
-- [See pricing](https://vouchley.getrevlio.com/pricing) — credit packs from $29
+- [See pricing](https://vouchley.getrevlio.com/pricing) — plans from $19/month
 - [Compare alternatives](https://vouchley.getrevlio.com/vs/kickbox) — honest side-by-side with Kickbox, ZeroBounce, Sift

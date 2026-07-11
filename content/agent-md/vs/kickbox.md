@@ -49,11 +49,11 @@ Vouchley is built for a different (broader) job: deciding whether an entire sign
 Pay-as-you-go starting at $5 for 500 verifications (~$0.01 each). A $159/month subscription covers 50,000 verifications. Enterprise tier at $4,000 for 1 million.
 
 ### Vouchley pricing
-Prepaid credit packs starting at $29 for 3,000 verifications (~$0.0097 each). Credits never expire and there's no monthly minimum.
+Monthly plans starting at $19 for 15,000 verifications (~$0.00127 each). Unused credits roll over and never expire.
 
 ### Sample scenario: 10,000 signups verified per month
 
-- **Vouchley:** ~$97 (paid as needed, credits never expire)
+- **Vouchley:** $19/mo on Starter — 15,000 credits, unused roll over
 - **Kickbox:** ~$80–100 on PAYG; $159/mo on the 50k plan if you can absorb the floor
 
 ## When Kickbox is the better pick

@@ -12,7 +12,7 @@ All error responses have the same shape — a JSON object with a `detail` field 
 
 ```json
 {
-  "detail": "Insufficient credits. Purchase a credit pack to continue."
+  "detail": "Insufficient credits. Subscribe to a plan to continue."
 }
 ```
 

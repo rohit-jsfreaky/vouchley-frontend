@@ -128,7 +128,7 @@ Three problems with this:
 2. **Your IP data is a one-time geolocation lookup, not a live reputation score.** A VPN IP looks identical to a residential IP in raw geolocation.
 3. **You miss the cross-product signal.** Commercial verification APIs see fraud across thousands of products. An attacker hitting you is probably on record elsewhere.
 
-It's the classic buy-vs-build calculation: verification is a specialist problem with specialist data. Paying $29–$99/month for an API is cheaper than paying an engineer to build and maintain a half-solution.
+It's the classic buy-vs-build calculation: verification is a specialist problem with specialist data. Paying $19–$99/month for an API is cheaper than paying an engineer to build and maintain a half-solution.
 
 ## Integration patterns
 

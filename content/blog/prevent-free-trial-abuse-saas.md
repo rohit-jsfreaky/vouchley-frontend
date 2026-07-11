@@ -211,7 +211,7 @@ If you're already evaluating tools, here's how the major options stack up for th
 | AI-bot signup detection | ✅ | ❌ | ❌ |
 | Single 0–100 trust score | ✅ | ❌ Sendex (email only) | ❌ per-email score |
 | Free tier | 100 credits, no card | 100 verifications | 100 / month |
-| Starting price | $29 / 3,000 | $5 / 500 | $20 / 2,000 |
+| Starting price | $19 / 15,000 | $5 / 500 | $20 / 2,000 |
 
 Email-only validators like Kickbox and ZeroBounce are perfect for list cleaning before a marketing send. For real-time **signup** scoring where you also need IP and behavioral signals in one call, Vouchley is the focused option. [See the full comparison →](/vs/kickbox)
 

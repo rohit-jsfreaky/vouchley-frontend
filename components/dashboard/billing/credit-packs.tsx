@@ -31,11 +31,11 @@ const PACKS: PackDef[] = [
   {
     slug: "starter",
     name: "Starter",
-    price: "$29",
-    credits: "3,000 credits / month",
-    perCredit: "$0.0097 per credit · credits roll over",
+    price: "$19",
+    credits: "15,000 credits / month",
+    perCredit: "$0.00127 per credit · credits roll over",
     features: [
-      "3,000 credits added every month",
+      "15,000 credits added every month",
       "Unused credits roll over forever",
       "Email support",
     ],
@@ -43,11 +43,11 @@ const PACKS: PackDef[] = [
   {
     slug: "pro",
     name: "Pro",
-    price: "$99",
-    credits: "12,000 credits / month",
-    perCredit: "$0.00825 per credit · 15% savings",
+    price: "$49",
+    credits: "50,000 credits / month",
+    perCredit: "$0.00098 per credit · save 23%",
     features: [
-      "12,000 credits added every month",
+      "50,000 credits added every month",
       "Unused credits roll over forever",
       "Priority email support",
     ],
@@ -57,11 +57,11 @@ const PACKS: PackDef[] = [
   {
     slug: "scale",
     name: "Scale",
-    price: "$299",
-    credits: "40,000 credits / month",
-    perCredit: "$0.00748 per credit · best rate",
+    price: "$99",
+    credits: "200,000 credits / month",
+    perCredit: "$0.0005 per credit · best rate",
     features: [
-      "40,000 credits added every month",
+      "200,000 credits added every month",
       "Unused credits roll over forever",
       "Slack shared channel",
     ],
