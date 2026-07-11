@@ -4,6 +4,7 @@ excerpt: "Disposable emails are the #1 indicator of low-intent signups. Here's a
 metaTitle: "Disposable Email Detection: What Works in 2026"
 metaDescription: "How to detect and block disposable emails — Mailinator, 10minutemail, temp-mail — at signup in 2026. What works, what fails, and how to add it to any stack."
 date: "2026-04-18T09:00:00.000Z"
+updatedAt: "2026-07-11T09:00:00.000Z"
 category: "Engineering"
 author: "Rohit Kashyap"
 image: "/blog/disposable-email-guide.jpg"
@@ -14,8 +15,25 @@ keywords:
   - "email validation API"
   - "block disposable emails"
   - "mailinator detection"
-readingTime: 8
+  - "temp mail that is not detected"
+  - "is guerrilla mail safe"
+  - "who owns mailinator"
+  - "block temporary email"
+readingTime: 12
 featured: false
+faq:
+  - question: "Who owns Mailinator and is it safe?"
+    answer: "Mailinator is a long-running public disposable email service (online since 2003). It is safe in the sense that it is a legitimate, well-known service, but it offers no privacy: anyone can read the mail sent to any Mailinator address by visiting the public inbox. For a business receiving a Mailinator signup, treat it as a throwaway address and block it, because the person has no intention of receiving ongoing email."
+  - question: "Is Guerrilla Mail safe to use?"
+    answer: "For the person using it, Guerrilla Mail is safe and anonymous — it is a legitimate disposable email service with hourly-expiring inboxes. For a business receiving a signup from a Guerrilla Mail address, it is a clear block signal, because the address is throwaway by design and will not be checked again after the confirmation email."
+  - question: "How do you detect temp mail that is not on a blocklist?"
+    answer: "Temp-mail services rotate through many alias domains to evade static blocklists, so a fixed list misses a large share of active domains. Catch the rest with a feed that updates daily, MX and domain-age checks (freshly-registered domains and dead MX records are strong signals), and behavioral corroboration such as a datacenter IP or a sub-second form submit. Combining these catches the rotating domains a static list misses."
+  - question: "What is the best way to block disposable emails at signup?"
+    answer: "Combine four checks rather than relying on one: a maintained blocklist that updates daily, an MX record lookup, a domain-age check, and a weighted score that folds in IP and behavioral signals. Hard-block obvious throwaway providers like Mailinator and 10 Minute Mail, flag privacy-forwarding aliases for review, and allow clean free-provider signups. A verification API does all of this in a single call."
+  - question: "Should you block Gmail or other free email providers?"
+    answer: "No. Gmail, Outlook, and Yahoo are legitimate providers used by real customers — blocking them costs you enormous legitimate volume. They are not disposable. The right move is to normalize free-provider addresses for uniqueness (Gmail dot and plus aliases) and apply slightly tighter scoring, not to block the domain."
+  - question: "How often do new disposable email domains appear?"
+    answer: "Roughly 20 to 50 new disposable domains per week as of 2026, with launches concentrated in Asia-Pacific timezones. A blocklist built six months ago will already miss about 25 to 40 percent of currently-active disposable services, which is why a daily-updated feed or a verification API that maintains the list is necessary to keep detection current."
 ---
 
 If you run a SaaS with a free tier, disposable emails are quietly draining you. Every Mailinator address that signs up and never returns means wasted onboarding emails, inflated activation funnel metrics, and in the worst case, coordinated abuse that gets your sending domain blacklisted.
@@ -145,6 +163,39 @@ A sensible middle ground:
 - **Hard block** obvious disposable providers (Mailinator, 10MinuteMail) that exist solely for throwaway use.
 - **Flag for review** privacy-forwarding services (SimpleLogin, AnonAddy, Firefox Relay) — they're technically email aliases but real users use them.
 - **Approve but throttle** signups from free providers (Gmail/Yahoo) that otherwise look clean.
+
+## The disposable email services people ask about most
+
+A handful of services account for the bulk of disposable-email signups. Here is how the most-searched ones compare, and whether to block them at signup:
+
+| Service | Launched | Inbox lifetime | Block at signup? |
+|---------|----------|----------------|------------------|
+| [Mailinator](/disposable-emails/mailinator-com) | 2003 | Public, persistent | Yes |
+| [10 Minute Mail](/disposable-emails/10minutemail-com) | 2007 | ~10 minutes | Yes |
+| [Guerrilla Mail](/disposable-emails/guerrillamail-com) | 2006 | ~1 hour | Yes |
+| [Temp-Mail](/disposable-emails/tempmail-org) | 2013 | Until refreshed | Yes |
+
+**Mailinator** is the oldest and most recognizable. It runs as a public service — anyone can read the mail sent to any Mailinator address by visiting the public inbox, with no password. That is exactly why a Mailinator signup has zero intent behind it: the "user" never expects to receive anything private. See the [full breakdown of Mailinator](/disposable-emails/mailinator-com).
+
+**10 Minute Mail** hands out an address that self-destructs after ten minutes. Any signup using it is unreachable within minutes, so there is no value in onboarding it. [More on 10 Minute Mail](/disposable-emails/10minutemail-com).
+
+**Guerrilla Mail** is one of the largest providers, with hourly-expiring inboxes and a rotating set of alias domains. Is Guerrilla Mail safe? For the person using it, yes — it is anonymous and disposable by design. For you receiving the signup, it is a clear block signal. [More on Guerrilla Mail](/disposable-emails/guerrillamail-com).
+
+**Temp-Mail** is the current market leader by volume, and the reason people search for "temp mail that is not detected" (covered next). [More on Temp-Mail](/disposable-emails/tempmail-org).
+
+You can browse every service in the full [disposable email domain reference](/disposable-emails).
+
+## Why some temp mail "isn't detected" (and how to catch it)
+
+If you have searched for temp mail that is not detected, here is what is actually happening: the large temp-mail services rotate through hundreds or thousands of alias domains specifically to slip past static blocklists. A list you committed six months ago will miss 25–40% of the domains currently in rotation.
+
+Three things catch the ones a static list misses:
+
+1. **A feed that updates daily.** New disposable domains appear at roughly 20–50 per week. Either subscribe to a maintained feed or use an API that maintains the list as a service.
+2. **MX and domain-age checks.** Freshly-registered throwaway domains, and addresses whose MX record stops responding shortly after the confirmation email, are strong signals even when the domain is not yet on any list.
+3. **Behavioral corroboration.** A brand-new domain plus a datacenter IP plus a sub-second form submit is disposable-adjacent behavior regardless of whether the domain is catalogued yet.
+
+This is the gap between a DIY blocklist and a maintained detector: the maintained one keeps catching the rotation you would otherwise miss.
 
 ## Integration in one API call
 
