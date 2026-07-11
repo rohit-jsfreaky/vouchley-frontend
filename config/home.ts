@@ -171,6 +171,9 @@ export const HOW_IT_WORKS: HowStep[] = [
 export type DetectionItem = {
   title: string;
   body: string;
+  /** Optional deep-dive guide — renders a "Learn more" link on the card. */
+  href?: string;
+  hrefLabel?: string;
 };
 
 export const WHAT_WE_DETECT: DetectionItem[] = [
@@ -178,11 +181,15 @@ export const WHAT_WE_DETECT: DetectionItem[] = [
     title: "Disposable & temporary emails",
     body:
       "Mailinator, 10MinuteMail, Guerrilla Mail, and 2,000+ throwaway providers — caught at the syntax + MX layer.",
+    href: "/blog/disposable-email-detection-guide",
+    hrefLabel: "Disposable email detection guide",
   },
   {
     title: "VPN, proxy & Tor exits",
     body:
       "Live IP reputation feeds flag VPNs, residential proxies, and Tor exit nodes used to mask abusive signups.",
+    href: "/blog/vpn-proxy-detection-signups",
+    hrefLabel: "VPN & proxy detection guide",
   },
   {
     title: "Datacenter & hosting IPs",
@@ -193,6 +200,8 @@ export const WHAT_WE_DETECT: DetectionItem[] = [
     title: "AI-driven bot signups",
     body:
       "Catches the new wave of agentic bots that mimic human typing patterns and pass legacy CAPTCHA challenges.",
+    href: "/blog/ai-bot-signups-2026",
+    hrefLabel: "AI bot signups in 2026",
   },
   {
     title: "New & suspicious domains",

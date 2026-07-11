@@ -1,4 +1,5 @@
 import {
+  ArrowUpRight,
   Bot,
   CalendarX2,
   Globe,
@@ -7,6 +8,7 @@ import {
   UserX,
   type LucideIcon,
 } from "lucide-react";
+import Link from "next/link";
 
 import { Reveal } from "@/components/marketing/animation/reveal";
 import { WHAT_WE_DETECT } from "@/config/home";
@@ -54,6 +56,16 @@ export function WhatWeDetect() {
                 <p className="text-sm leading-relaxed text-ink-muted">
                   {item.body}
                 </p>
+                {item.href && (
+                  <Link
+                    href={item.href}
+                    className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand transition-colors hover:text-brand/80"
+                    aria-label={item.hrefLabel ?? "Learn more"}
+                  >
+                    Learn more
+                    <ArrowUpRight className="size-3.5" strokeWidth={2} />
+                  </Link>
+                )}
               </li>
             );
           })}
