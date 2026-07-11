@@ -5,10 +5,16 @@
  *   https://vouchley.getrevlio.com/<KEY>.txt
  * (search engines fetch it to verify ownership before accepting submissions).
  *
- * Usage:
- *   node scripts/indexnow-submit.mjs                      # submit the default key-page list
- *   node scripts/indexnow-submit.mjs /pricing /blog/foo   # submit specific paths
+ * Usage (any of these forms works — see the Git Bash note below):
+ *   node scripts/indexnow-submit.mjs                       # default key-page list
+ *   node scripts/indexnow-submit.mjs pricing blog/foo      # relative paths (safest on Git Bash)
+ *   node scripts/indexnow-submit.mjs /pricing /vs/kickbox  # leading-slash paths (auto-recovered)
  *   node scripts/indexnow-submit.mjs https://vouchley.getrevlio.com/pricing
+ *
+ * ⚠️ Git Bash (MSYS) rewrites a leading-slash argument like "/pricing" into an
+ * absolute Windows path ("C:/Program Files/Git/pricing") before Node sees it.
+ * toUrl() below recovers the real path, and a guard drops anything malformed so
+ * we can never again submit "https://.../C:/Program Files/Git/..." to Bing.
  *
  * Google does NOT use IndexNow — use GSC "Request indexing" for Google.
  */
@@ -35,11 +41,42 @@ const DEFAULT_PATHS = [
   "/docs",
 ];
 
+/**
+ * Build a canonical https URL from a path/URL argument. Robust against Git Bash
+ * MSYS path conversion (see the header note).
+ */
+function toUrl(input) {
+  let p = String(input).trim().replace(/\\/g, "/");
+  if (/^https?:\/\//i.test(p)) return p;
+  // Undo MSYS mangling: if it became a drive-letter path, keep the tail after /Git/.
+  if (/^[A-Za-z]:\//.test(p)) {
+    const m = p.match(/\/Git\/(.*)$/i);
+    p = m ? m[1] : "";
+  }
+  p = "/" + p.replace(/^\/+/, "");
+  return ORIGIN + p;
+}
+
 const args = process.argv.slice(2);
-const paths = args.length ? args : DEFAULT_PATHS;
-const urlList = paths.map((p) =>
-  p.startsWith("http") ? p : `${ORIGIN}${p.startsWith("/") ? p : `/${p}`}`,
-);
+const inputs = args.length ? args : DEFAULT_PATHS;
+
+const urlList = inputs.map(toUrl).filter((u) => {
+  const pathPart = u.slice(ORIGIN.length);
+  const ok =
+    u.startsWith(`${ORIGIN}/`) &&
+    !/[:\\]/.test(pathPart) &&
+    !/program files/i.test(u);
+  if (!ok) console.log("  ✗ skipping malformed URL (not submitted):", u);
+  return ok;
+});
+
+if (!urlList.length) {
+  console.log("No valid URLs to submit.");
+  process.exit(1);
+}
+
+console.log("Submitting to IndexNow:");
+urlList.forEach((u) => console.log("  " + u));
 
 const body = { host: HOST, key: KEY, keyLocation: KEY_LOCATION, urlList };
 
@@ -49,7 +86,7 @@ const res = await fetch("https://api.indexnow.org/indexnow", {
   body: JSON.stringify(body),
 });
 
-console.log(`IndexNow: submitted ${urlList.length} URL(s) -> HTTP ${res.status}`);
+console.log(`\nIndexNow: submitted ${urlList.length} URL(s) -> HTTP ${res.status}`);
 if (res.status !== 200 && res.status !== 202) {
   console.log("Response:", await res.text());
   console.log(
