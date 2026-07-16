@@ -55,6 +55,7 @@ export const FOOTER_SECTIONS: FooterSection[] = [
     links: [
       { label: "Blog", href: "/blog" },
       { label: "Disposable emails", href: "/disposable-emails" },
+      { label: "Email checker", href: "/tools/disposable-email-checker" },
       { label: "Security", href: "/security" },
     ],
   },

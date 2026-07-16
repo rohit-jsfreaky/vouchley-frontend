@@ -36,6 +36,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.url}/docs/api/account`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     // Programmatic SEO — disposable email database index
     { url: `${SITE.url}/disposable-emails`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    // Free tools — link magnets
+    { url: `${SITE.url}/tools/disposable-email-checker`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     // Legal
     { url: `${SITE.url}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE.url}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
