@@ -1,6 +1,26 @@
 {
   "posts": [
     {
+      "slug": "proxy-detection-for-saas",
+      "title": "Proxy Detection for SaaS Signups: A Practical Build Guide",
+      "excerpt": "Proxy-backed signups are how one attacker becomes a thousand fake accounts. Here's how to detect and score proxy traffic on a SaaS signup — the signals that matter, the code, the thresholds, and whether to build or buy.",
+      "date": "2026-07-16T09:00:00.000Z",
+      "category": "Engineering",
+      "author": "Rohit Kashyap",
+      "image": "/blog/vpn-proxy-detection.jpg",
+      "tags": ["proxy detection", "signup fraud", "SaaS"],
+      "keywords": [
+        "proxy detection for saas",
+        "account signup proxy detection",
+        "proxy-backed account registration",
+        "proxy detection api",
+        "fake account proxy detection",
+        "residential proxy detection"
+      ],
+      "readingTime": 11,
+      "featured": false
+    },
+    {
       "slug": "2026-saas-signup-fraud-report",
       "title": "The 2026 State of SaaS Signup Fraud Report",
       "excerpt": "A directional, evidence-based look at what's actually attacking SaaS signup forms in 2026 — disposable emails, VPN traffic, AI-bot signups, Gmail alias abuse, and free-tier infrastructure mining. Drawn from Vouchley verification telemetry plus the broader industry data.",
