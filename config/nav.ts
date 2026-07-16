@@ -41,8 +41,12 @@ export const FOOTER_SECTIONS: FooterSection[] = [
   {
     title: "Compare",
     links: [
+      { label: "vs IPQualityScore", href: "/vs/ipqualityscore" },
       { label: "vs Kickbox", href: "/vs/kickbox" },
       { label: "vs ZeroBounce", href: "/vs/zerobounce" },
+      { label: "vs NeverBounce", href: "/vs/neverbounce" },
+      { label: "vs Emailable", href: "/vs/emailable" },
+      { label: "vs DeBounce", href: "/vs/debounce" },
       { label: "vs Sift", href: "/vs/sift" },
     ],
   },

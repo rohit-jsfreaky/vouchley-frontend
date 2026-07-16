@@ -314,6 +314,341 @@ export const COMPARISONS: Comparison[] = [
       },
     ],
   },
+
+  // -------------------------------------------------------------------------
+  // IPQualityScore — closest direct competitor; fraud/IP intelligence platform
+  // Pricing verified live on ipqualityscore.com/plans, 2026-07-16.
+  // -------------------------------------------------------------------------
+  {
+    slug: "ipqualityscore",
+    name: "IPQualityScore",
+    url: "https://www.ipqualityscore.com",
+    category: "Fraud detection & IP intelligence platform",
+    pitch:
+      "IPQualityScore is a full fraud-intelligence platform priced for fraud teams. Vouchley delivers the signup-verification core — email, IP, VPN, and bot signals — at developer pricing.",
+    lastVerified: "2026-07-16",
+    metaTitle: "IPQualityScore Alternative: From $19/mo",
+    metaDescription:
+      "IPQS starts at $99/month for 5,000 lookups. Vouchley scores 15,000 signups for $19/month — email, IP, VPN, and bot signals in one call. An honest comparison.",
+
+    heroBody:
+      "IPQualityScore is the most direct comparison on this site. It's a serious fraud-intelligence vendor: IP reputation, proxy and VPN detection, email validation, phone validation, URL scanning, and device fingerprinting, backed by a cross-customer fraud network. The catch is who it's priced for: plans start at $99/month for 5,000 lookups (~$0.02 each), and the headline features — residential proxy detection, device fingerprinting — sit in the $999/month and Enterprise tiers. Vouchley covers the signup-verification core of that stack at $19/month for 15,000 checks.",
+
+    verdict: {
+      pickVouchleyIf: [
+        "You need signup verification specifically — not phone validation, URL scanning, or transaction scoring.",
+        "You're paying (or being quoted) $99+/month for lookup volume that a $19 plan covers three times over.",
+        "You want one score and one recommendation per signup instead of assembling verdicts from separate tool endpoints.",
+      ],
+      pickCompetitorIf: [
+        "You need the full fraud stack: phone validation, URL scanning, device fingerprinting, transaction scoring.",
+        "You're an enterprise fraud team that benefits from IPQS's cross-customer fraud network (Fraud Fusion™).",
+        "You need honeypot-backed residential-proxy detection and can justify the $999/month SMB+ tier where it lives.",
+      ],
+    },
+
+    features: [
+      { feature: "Email validation (syntax, MX, disposable)", vouchley: "Yes", competitor: "Yes" },
+      { feature: "IP reputation / VPN / Tor", vouchley: "Yes", competitor: "Yes" },
+      { feature: "Datacenter IP detection", vouchley: "Yes", competitor: "Yes" },
+      { feature: "Residential proxy detection", vouchley: "Velocity + behavioral heuristics", competitor: "Yes — honeypot-backed (SMB+ tier, $999/mo)" },
+      { feature: "Domain age / freshness signal", vouchley: "Yes", competitor: "Yes" },
+      { feature: "AI-bot signup detection", vouchley: "Yes", competitor: "Enterprise tier (Bot Killer™)" },
+      { feature: "Phone number validation", vouchley: "No", competitor: "Yes" },
+      { feature: "URL / link scanning", vouchley: "No", competitor: "Yes" },
+      { feature: "Device fingerprinting SDK", vouchley: "No", competitor: "Enterprise tier only" },
+      { feature: "Single trust score + recommendation", vouchley: "Yes (0–100 + approve/review/block)", competitor: "Per-tool fraud scores" },
+      { feature: "Free tier", vouchley: "100 credits, no card", competitor: "1,000 lookups/mo (35/day cap)" },
+      { feature: "Entry pricing", vouchley: "$19/mo — 15,000 checks", competitor: "$99/mo — 5,000 lookups" },
+    ],
+
+    pricing: {
+      competitorSummary:
+        "IPQS publishes tiered plans (verified 2026-07-16): Free at 1,000 lookups/month capped to 35/day; Startup at $99/month for 5,000 lookups (~$0.02 each); SMB Basic at $499/month for 10,000; SMB+ at $999/month for 75,000. Residential proxy detection arrives at SMB+; device fingerprinting and Bot Killer™ are Enterprise-only.",
+      vouchleySummary:
+        "Vouchley is $19/month for 15,000 verifications (~$0.00127 each) with email + IP + VPN + domain + bot signals on every check. Credits roll over and never expire.",
+      sampleScenario: {
+        label: "5,000 signups verified per month",
+        vouchleyCost: "$19/mo Starter — 15,000 credits, 3× headroom",
+        competitorCost: "$99/mo Startup — exactly 5,000 lookups, capped at 250/day",
+      },
+    },
+
+    whenCompetitorWins:
+      "If you're running a fraud program rather than protecting a signup form, IPQS earns its price. Phone validation, URL scanning, transaction scoring, device fingerprinting, and a fraud network fed by Fortune 500 reporting are things Vouchley simply doesn't have. Enterprise fraud teams fighting multi-surface abuse should shortlist IPQS.",
+    whenVouchleyWins:
+      "If the question you actually need answered is \"is this signup real?\", IPQS charges ~$0.02 per answer for a platform you'll mostly leave unused. Vouchley answers exactly that question — email, IP, VPN/proxy, datacenter, domain age, and bot behavior folded into one score — at ~$0.0013 per check. That's roughly 15× cheaper per verification, with published self-serve pricing and no daily caps.",
+
+    faqs: [
+      {
+        question: "Why is Vouchley so much cheaper than IPQualityScore?",
+        answer:
+          "Scope. IPQS sells a multi-tool fraud platform with enterprise features (device fingerprinting, phone validation, URL scanning) priced into every tier. Vouchley does one job — signup verification — on self-hosted IP intelligence rather than resold per-lookup data, so the unit economics allow $19/month for 15,000 checks.",
+      },
+      {
+        question: "Does Vouchley detect VPNs and proxies like IPQS does?",
+        answer:
+          "Yes — VPN, Tor, datacenter, and known-proxy detection ship on every plan, built from live feeds refreshed multiple times a day. The honest gap: IPQS's residential-proxy detection is backed by a honeypot network and sits in their $999/month tier. Vouchley catches residential proxies through velocity and behavioral corroboration instead — effective, but not identical.",
+      },
+      {
+        question: "Can I migrate from IPQualityScore to Vouchley?",
+        answer:
+          "Yes, and the field mapping is direct: IPQS fraud_score maps to Vouchley's score, proxy/vpn/tor flags map to the ip block of the verify response, and email validity flags map to the email block. Sign up for 100 free credits and run both side by side on live traffic before switching.",
+      },
+    ],
+  },
+
+  // -------------------------------------------------------------------------
+  // DeBounce — budget email validation; cheapest bulk rates at huge volume
+  // Pricing verified live on debounce.com/pricing, 2026-07-16.
+  // -------------------------------------------------------------------------
+  {
+    slug: "debounce",
+    name: "DeBounce",
+    url: "https://debounce.com",
+    category: "Budget email validation",
+    pitch:
+      "DeBounce is one of the cheapest email validators on the market. Vouchley is still cheaper per check at typical volumes — and scores the whole signup, not just the inbox.",
+    lastVerified: "2026-07-16",
+    metaTitle: "DeBounce Alternative for Signup Verification",
+    metaDescription:
+      "DeBounce validates emails from $15 per 5,000 checks. Vouchley verifies 15,000 whole signups — email + IP + VPN + bot signals — for $19/month. Honest comparison.",
+
+    heroBody:
+      "DeBounce competes on price, and fairly: $15 for 5,000 validations at entry (~$0.003 each), sliding to ~$0.00045 per check at five-million volume, credits that never expire, and 100 free credits to start. For pure email list cleaning it's one of the best-value tools around. The real comparison with Vouchley is a comparison of jobs: DeBounce tells you whether an address can receive mail; Vouchley tells you whether the signup behind that address is real.",
+
+    verdict: {
+      pickVouchleyIf: [
+        "You're verifying signups in real time and want fraud signals — VPN, datacenter IPs, bots — attached to the email check.",
+        "Your volume fits a plan: $19 buys 15,000 checks (~$0.00127 each), below DeBounce's ~$0.003 entry rate.",
+        "You want an approve / review / block recommendation, not just deliverable / undeliverable.",
+      ],
+      pickCompetitorIf: [
+        "You clean marketing lists in the millions — DeBounce's ~$0.00045 top-tier bulk rate is nearly unbeatable.",
+        "You want their data-enrichment add-on alongside validation.",
+        "Email deliverability is your only problem and you'll never need fraud signals.",
+      ],
+    },
+
+    features: [
+      { feature: "Email syntax + MX validation", vouchley: "Yes", competitor: "Yes" },
+      { feature: "Disposable email detection", vouchley: "Yes", competitor: "Yes" },
+      { feature: "Role-based detection", vouchley: "Yes", competitor: "Yes" },
+      { feature: "Catch-all domain handling", vouchley: "Included in score", competitor: "Deep catch-all costs 10 credits/check" },
+      { feature: "IP reputation / VPN / Tor", vouchley: "Yes", competitor: "No" },
+      { feature: "Datacenter IP detection", vouchley: "Yes", competitor: "No" },
+      { feature: "Domain age / freshness", vouchley: "Yes", competitor: "No" },
+      { feature: "AI-bot signup detection", vouchley: "Yes", competitor: "No" },
+      { feature: "Single trust score + recommendation", vouchley: "Yes", competitor: "No" },
+      { feature: "Data enrichment add-on", vouchley: "No", competitor: "Yes (20 credits per hit)" },
+      { feature: "Free tier", vouchley: "100 credits, no card", competitor: "100 credits, no card" },
+      { feature: "Credits expire?", vouchley: "Never (roll over monthly)", competitor: "Never" },
+      { feature: "Entry pricing", vouchley: "$19/mo — 15,000 checks (~$0.00127)", competitor: "$15 — 5,000 checks (~$0.003)" },
+    ],
+
+    pricing: {
+      competitorSummary:
+        "DeBounce is pay-as-you-go (verified 2026-07-16): $15 for 5,000 validations (~$0.003 each) at entry, $450 for 500,000 (~$0.0009), sliding to ~$0.00045 per check at 5 million. 100 free credits, no card required, credits never expire. Extras cost extra: deep catch-all validation is 10 credits per check, data enrichment 20 credits per successful hit.",
+      vouchleySummary:
+        "Vouchley is $19/month for 15,000 full signup verifications (~$0.00127 each) — email, IP, VPN, domain, and bot signals included on every check, catch-all handling included. Credits roll over.",
+      sampleScenario: {
+        label: "5,000 signup checks per month",
+        vouchleyCost: "$19/mo — 15,000 credits, 3× headroom, full fraud signals",
+        competitorCost: "$15 PAYG — 5,000 email-only validations",
+      },
+    },
+
+    whenCompetitorWins:
+      "One-off bulk cleans at serious scale. If you're deduplicating and validating a two-million-address marketing list once a quarter, DeBounce's volume pricing (down to ~$0.00045 per check) and purpose-built bulk workflow make it the sensible choice. Vouchley's bulk endpoint works, but bulk hygiene at that scale is DeBounce's home turf.",
+    whenVouchleyWins:
+      "Real-time signups. At typical SaaS volumes Vouchley is cheaper per check than DeBounce's entry rate, and every check carries the signals an email-only tool can't see: a perfectly deliverable mailbox signing up from a datacenter IP behind a VPN is still a fake signup. DeBounce passes it; Vouchley blocks it.",
+
+    faqs: [
+      {
+        question: "Isn't DeBounce cheaper than Vouchley?",
+        answer:
+          "At multi-million bulk volume, yes — around $0.00045 per check. At typical monthly volumes, no: Vouchley's $19 buys 15,000 checks (~$0.00127 each) versus DeBounce's $15 for 5,000 (~$0.003 each). And a Vouchley check covers the whole signup, not only the email.",
+      },
+      {
+        question: "Does Vouchley handle catch-all domains?",
+        answer:
+          "Yes, and it's included: catch-all status is detected and folded into the trust score at no extra credit cost. DeBounce charges 10 credits per address for deep catch-all validation.",
+      },
+      {
+        question: "Can Vouchley clean an existing email list like DeBounce?",
+        answer:
+          "Yes — the /v1/verify/bulk endpoint takes up to 1,000 addresses per request. For occasional list hygiene that's plenty. For one-off multi-million-address cleans, DeBounce's bulk tooling and volume pricing are the better fit.",
+      },
+    ],
+  },
+
+  // -------------------------------------------------------------------------
+  // NeverBounce — established email verification, ZoomInfo-owned
+  // Pricing verified live on neverbounce.com/pricing, 2026-07-16.
+  // -------------------------------------------------------------------------
+  {
+    slug: "neverbounce",
+    name: "NeverBounce",
+    url: "https://www.neverbounce.com",
+    category: "Email verification (ZoomInfo)",
+    pitch:
+      "NeverBounce is ZoomInfo's email-verification arm with 80+ integrations. Vouchley verifies the whole signup at roughly a sixth of the per-check price — and its credits never expire.",
+    lastVerified: "2026-07-16",
+    metaTitle: "NeverBounce Alternative for Signup Verification",
+    metaDescription:
+      "NeverBounce charges $8 per 1,000 checks and credits expire in 12 months. Vouchley verifies 15,000 signups for $19/month and credits never expire. Compared honestly.",
+
+    heroBody:
+      "NeverBounce has been a fixture of email verification for a decade and is now part of ZoomInfo. Pricing (verified 2026-07-16): pay-as-you-go at $8 per 1,000 credits (~$0.008 per check) with credits expiring 12 months after purchase, and a Growth plan at $49/month covering up to 10,000 emails with AI lead-generation features bundled in. It's a solid list-cleaning product with 80+ integrations. Vouchley plays a different position: real-time signup verification with fraud signals, at $19 for 15,000 checks that never expire.",
+
+    verdict: {
+      pickVouchleyIf: [
+        "You're scoring signups in real time and need IP, VPN, datacenter, and bot signals with the email check.",
+        "Per-check cost matters: ~$0.00127 versus NeverBounce's ~$0.008, and Vouchley credits never expire.",
+        "You're engineering-led and want one API call, not a marketing-suite workflow.",
+      ],
+      pickCompetitorIf: [
+        "You live in marketing tools — 80+ integrations with HubSpot, Mailchimp, Zapier, and n8n matter to you.",
+        "You're a ZoomInfo customer and want verification inside that ecosystem.",
+        "You want the Growth plan's bundled AI lead sourcing and CRM auto-sync alongside verification.",
+      ],
+    },
+
+    features: [
+      { feature: "Email syntax + MX validation", vouchley: "Yes", competitor: "Yes" },
+      { feature: "Disposable email detection", vouchley: "Yes", competitor: "Yes" },
+      { feature: "Typo correction (gmai → gmail)", vouchley: "No", competitor: "Yes" },
+      { feature: "IP reputation / VPN / Tor", vouchley: "Yes", competitor: "No" },
+      { feature: "Datacenter IP detection", vouchley: "Yes", competitor: "No" },
+      { feature: "Domain age / freshness", vouchley: "Yes", competitor: "No" },
+      { feature: "AI-bot signup detection", vouchley: "Yes", competitor: "No" },
+      { feature: "Single trust score + recommendation", vouchley: "Yes", competitor: "No" },
+      { feature: "Marketing integrations", vouchley: "API only", competitor: "80+ (HubSpot, Mailchimp, Zapier, n8n)" },
+      { feature: "AI lead sourcing / CRM sync", vouchley: "No", competitor: "Yes (Growth plan)" },
+      { feature: "Credits expire?", vouchley: "Never (roll over monthly)", competitor: "12 months after purchase" },
+      { feature: "Free tier", vouchley: "100 credits, no card", competitor: "First list verified free" },
+      { feature: "Entry pricing", vouchley: "$19/mo — 15,000 checks", competitor: "$8 per 1,000 PAYG; $49/mo Growth (10k cap)" },
+    ],
+
+    pricing: {
+      competitorSummary:
+        "NeverBounce pay-as-you-go is $8 per 1,000 credits (~$0.008 per check), and credits expire 12 months after purchase. The Growth plan is $49/month for up to 10,000 emails with AI lead features and CRM auto-sync. Enterprise is custom, typically 250,000+ emails/month. Verified 2026-07-16.",
+      vouchleySummary:
+        "Vouchley is $19/month for 15,000 verifications (~$0.00127 each) with the full signup score on every check. Credits roll over and never expire.",
+      sampleScenario: {
+        label: "10,000 signups verified per month",
+        vouchleyCost: "$19/mo Starter — 15,000 credits, unused roll over",
+        competitorCost: "$80 PAYG (expiring credits), or $49/mo Growth at its 10,000 ceiling",
+      },
+    },
+
+    whenCompetitorWins:
+      "Marketing-led teams cleaning lists inside their existing stack. If your workflow is \"validate this HubSpot segment before the campaign\" and you want one-click integrations, NeverBounce is built exactly for that — and the Growth plan's AI lead sourcing is a genuine bundle if you'd buy those features anyway.",
+    whenVouchleyWins:
+      "Signup protection. NeverBounce tells you an address is deliverable; it says nothing about the VPN, the datacenter IP, or the bot behind the form. Vouchley returns all of it in one call at roughly a sixth of the per-check price, with credits that don't quietly expire on you after a year.",
+
+    faqs: [
+      {
+        question: "Is NeverBounce or Vouchley cheaper?",
+        answer:
+          "Vouchley, at typical volumes: ~$0.00127 per check on the $19 plan versus NeverBounce's ~$0.008 pay-as-you-go. There's also an expiry difference — NeverBounce credits die 12 months after purchase, while Vouchley credits roll over indefinitely.",
+      },
+      {
+        question: "Does Vouchley integrate with HubSpot or Mailchimp like NeverBounce?",
+        answer:
+          "Not with pre-built one-click integrations — Vouchley is an API you call at signup time (or from any tool that can make an HTTP request, including Zapier and n8n webhooks). If one-click marketing integrations are a hard requirement, NeverBounce wins that point.",
+      },
+      {
+        question: "Why does Vouchley check IPs when NeverBounce doesn't?",
+        answer:
+          "Different jobs. NeverBounce is list hygiene: is this address deliverable? Vouchley is signup verification: is this account creation legitimate? Answering the second question requires IP, domain, and behavioral signals on top of email validity — a deliverable Gmail address on a Tor exit node is still a signup you probably want to review.",
+      },
+    ],
+  },
+
+  // -------------------------------------------------------------------------
+  // Emailable — modern, well-liked email verification + deliverability extras
+  // Pricing verified live on emailable.com/pricing, 2026-07-16.
+  // -------------------------------------------------------------------------
+  {
+    slug: "emailable",
+    name: "Emailable",
+    url: "https://emailable.com",
+    category: "Email verification + deliverability",
+    pitch:
+      "Emailable is a polished, fast email-verification service with deliverability extras. Vouchley checks the whole signup for roughly a sixth of the per-check price.",
+    lastVerified: "2026-07-16",
+    metaTitle: "Emailable Alternative for Signup Verification",
+    metaDescription:
+      "Emailable starts at $38 per 5,000 checks. Vouchley verifies 15,000 whole signups — email, IP, VPN, and bot signals — for $19/month. An honest side-by-side.",
+
+    heroBody:
+      "Emailable is one of the better-liked modern email verifiers: fast bulk verification, a clean dashboard, deliverability extras like inbox reports and blacklist monitors, and 250 free credits to start. Entry pricing (verified 2026-07-16) is $38 for 5,000 credits (~$0.0076 each), 15% cheaper if you subscribe monthly, credits never expire, minimum purchase 5,000. Like every tool on this page except Vouchley, it answers one question: can this address receive mail? Vouchley answers a bigger one: is this signup real?",
+
+    verdict: {
+      pickVouchleyIf: [
+        "You need fraud signals at signup — VPN, proxy, datacenter, bot behavior — not just deliverability.",
+        "Cost per check matters: ~$0.00127 versus Emailable's ~$0.0076 entry rate.",
+        "You want a decision (approve / review / block), not a deliverability state you have to map to an action.",
+      ],
+      pickCompetitorIf: [
+        "You want deliverability tooling around validation — inbox placement reports and blacklist monitoring.",
+        "Your use case is bulk list cleaning with a polished team dashboard.",
+        "You verify occasional lists and prefer pay-as-you-go credits with a subscription discount when needed.",
+      ],
+    },
+
+    features: [
+      { feature: "Email syntax + MX validation", vouchley: "Yes", competitor: "Yes" },
+      { feature: "Disposable email detection", vouchley: "Yes", competitor: "Yes" },
+      { feature: "Role-based detection", vouchley: "Yes", competitor: "Yes" },
+      { feature: "IP reputation / VPN / Tor", vouchley: "Yes", competitor: "No" },
+      { feature: "Datacenter IP detection", vouchley: "Yes", competitor: "No" },
+      { feature: "Domain age / freshness", vouchley: "Yes", competitor: "No" },
+      { feature: "AI-bot signup detection", vouchley: "Yes", competitor: "No" },
+      { feature: "Single trust score + recommendation", vouchley: "Yes", competitor: "No" },
+      { feature: "Inbox placement reports", vouchley: "No", competitor: "Yes (100 credits/report)" },
+      { feature: "Blacklist monitoring", vouchley: "No", competitor: "Yes (5 credits/check)" },
+      { feature: "Free credits", vouchley: "100, no card", competitor: "250" },
+      { feature: "Credits expire?", vouchley: "Never (roll over monthly)", competitor: "Never" },
+      { feature: "Entry pricing", vouchley: "$19/mo — 15,000 checks", competitor: "$38 — 5,000 credits (min purchase)" },
+    ],
+
+    pricing: {
+      competitorSummary:
+        "Emailable is credit-based (verified 2026-07-16): $38 for 5,000 credits (~$0.0076 per verification) at entry — or $32.30/month with the 15% subscription discount — cheaper at higher volumes, minimum purchase 5,000 credits. 250 free trial credits; credits never expire. Deliverability extras consume credits: inbox reports 100 each, blacklist checks 5 each.",
+      vouchleySummary:
+        "Vouchley is $19/month for 15,000 verifications (~$0.00127 each), each carrying the full signup score — email, IP, VPN, domain, bot. Credits roll over and never expire.",
+      sampleScenario: {
+        label: "5,000 signup checks per month",
+        vouchleyCost: "$19/mo — 15,000 credits with full fraud signals",
+        competitorCost: "$38 PAYG (or $32.30/mo subscribed) — 5,000 email-only credits",
+      },
+    },
+
+    whenCompetitorWins:
+      "Email marketing operations. If your team lives in campaign land — cleaning lists before sends, watching blacklists, checking inbox placement — Emailable bundles those workflows in a genuinely nice product, and 250 free trial credits beats Vouchley's 100 for kicking tires on a list-cleaning job.",
+    whenVouchleyWins:
+      "Protecting a signup form. Emailable can't see the VPN, the datacenter ASN, the day-old domain, or the bot cadence behind a signup — a deliverable address from all four is still fraud. Vouchley returns those signals plus the email check in one call, at about a sixth of Emailable's entry cost per check.",
+
+    faqs: [
+      {
+        question: "Is Emailable more accurate than Vouchley on email checks?",
+        answer:
+          "Both run maintained disposable lists plus SMTP-level validation and land in the same industry accuracy range. The difference isn't email accuracy — it's that a Vouchley check also scores IP, domain, and behavioral signals that Emailable doesn't collect at all.",
+      },
+      {
+        question: "Emailable gives 250 free credits — Vouchley only gives 100?",
+        answer:
+          "Correct, and worth knowing. Two things cut the other way: a Vouchley credit covers the entire signup check (email + IP + domain + bot), and paid entry is $19 for 15,000 credits versus Emailable's $38 minimum for 5,000.",
+      },
+      {
+        question: "Can I use Emailable and Vouchley together?",
+        answer:
+          "Yes, and it's a sensible split: Emailable for campaign list hygiene and deliverability monitoring, Vouchley at the signup gate for fraud screening. They solve different problems and don't overlap in spend.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {
