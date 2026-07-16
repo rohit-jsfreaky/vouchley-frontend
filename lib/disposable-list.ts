@@ -19,33 +19,7 @@ const data = raw as unknown as {
   all_disposable_domains: string[];
 };
 
-const disposableSet = new Set<string>(
-  data.all_disposable_domains.map((d) => d.toLowerCase()),
-);
-const serviceByDomain = new Map<string, string>();
-
-for (const c of data.curated) {
-  const domain = c.domain.toLowerCase();
-  disposableSet.add(domain);
-  serviceByDomain.set(domain, c.service);
-  for (const alias of c.aliases ?? []) {
-    const a = alias.toLowerCase();
-    disposableSet.add(a);
-    serviceByDomain.set(a, c.service);
-  }
-}
-
-export const DISPOSABLE_DOMAIN_COUNT = disposableSet.size;
-
-export function lookupDisposable(domain: string): {
-  disposable: boolean;
-  service: string | null;
-} {
-  const d = domain.toLowerCase();
-  return { disposable: disposableSet.has(d), service: serviceByDomain.get(d) ?? null };
-}
-
-/** Well-known legitimate free providers — not disposable, but worth flagging. */
+/** Well-known legitimate free providers — never disposable, but worth flagging. */
 export const FREE_PROVIDERS = new Set<string>([
   "gmail.com",
   "googlemail.com",
@@ -88,3 +62,40 @@ export const ROLE_LOCAL_PARTS = new Set<string>([
   "abuse",
   "root",
 ]);
+
+const disposableSet = new Set<string>(
+  data.all_disposable_domains.map((d) => d.toLowerCase()),
+);
+const serviceByDomain = new Map<string, string>();
+
+// The curated list also contains free providers (Gmail, Outlook) and aliasing
+// services (AnonAddy) with `block: false` — those must NEVER be treated as
+// disposable. Only add curated entries the source flags as block: true.
+for (const c of data.curated) {
+  if (c.block !== true) continue;
+  const domain = c.domain.toLowerCase();
+  disposableSet.add(domain);
+  serviceByDomain.set(domain, c.service);
+  for (const alias of c.aliases ?? []) {
+    const a = alias.toLowerCase();
+    disposableSet.add(a);
+    serviceByDomain.set(a, c.service);
+  }
+}
+
+// Defensive: a legitimate free provider must never end up flagged disposable,
+// even if a bulk list source includes it by mistake.
+for (const fp of FREE_PROVIDERS) {
+  disposableSet.delete(fp);
+  serviceByDomain.delete(fp);
+}
+
+export const DISPOSABLE_DOMAIN_COUNT = disposableSet.size;
+
+export function lookupDisposable(domain: string): {
+  disposable: boolean;
+  service: string | null;
+} {
+  const d = domain.toLowerCase();
+  return { disposable: disposableSet.has(d), service: serviceByDomain.get(d) ?? null };
+}
