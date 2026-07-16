@@ -1,6 +1,26 @@
 {
   "posts": [
     {
+      "slug": "prevent-fake-signups-2026",
+      "title": "How to Prevent Fake Signups in 2026: The Full Playbook",
+      "excerpt": "Detecting fake signups is half the job. Preventing them is a system — layered defenses, the right block-vs-verify decision, registration-bot handling, and monitoring. Here's the full playbook, with a checklist you can ship this week.",
+      "date": "2026-07-16T11:00:00.000Z",
+      "category": "Engineering",
+      "author": "Rohit Kashyap",
+      "image": "/blog/fake-signup-detection.jpg",
+      "tags": ["fake signups", "signup fraud", "prevention"],
+      "keywords": [
+        "prevent fake signups",
+        "fake signup protection",
+        "stop fake signups",
+        "fake account detection for saas",
+        "registration bots",
+        "block fake accounts saas"
+      ],
+      "readingTime": 10,
+      "featured": false
+    },
+    {
       "slug": "best-ipqualityscore-alternatives-2026",
       "title": "The Best IPQualityScore Alternatives for Signup Verification (2026)",
       "excerpt": "IPQualityScore is powerful, but its $99/month floor and platform breadth are more than most teams need. Here are the best IPQualityScore alternatives for signup and IP verification in 2026, compared honestly on price and fit.",
