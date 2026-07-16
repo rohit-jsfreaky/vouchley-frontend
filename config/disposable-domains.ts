@@ -357,6 +357,212 @@ export const DISPOSABLE_DOMAINS: DisposableDomain[] = [
     aliases: ["hotmail.com", "live.com", "msn.com"],
     related: ["gmail-com", "proton-me", "yahoo-com", "icloud-com"],
   },
+
+  // ---------------------------------------------------------------------------
+  // Batch 2 (2026-07-16) — added from real search demand in GSC (binkmail,
+  // gmailnator queries) + the most-referenced active services not yet covered.
+  // ---------------------------------------------------------------------------
+  {
+    slug: "gmailnator-com",
+    domain: "gmailnator.com",
+    serviceName: "Gmailnator",
+    kind: "disposable",
+    description:
+      "Gmailnator is a temporary-email service whose hook is Gmail itself: it hands out disposable addresses that include pooled @gmail.com inboxes alongside its own domains. Because the address genuinely ends in gmail.com, it sails past naive filters that only block known disposable domains.",
+    typicalUse:
+      "Bypassing signup forms that block disposable domains but trust anything ending in @gmail.com. The inboxes are shared and publicly viewable, so users grab a confirmation email and move on.",
+    blockRationale:
+      "You can block Gmailnator's own domains outright, but the pooled Gmail addresses can't be caught by domain matching at all — they need alias normalization, velocity checks, and IP signals. Treat this service as the reason domain blocklists alone are not enough.",
+    related: ["mailinator-com", "emailondeck-com", "10minutemail-com", "tempmail-org"],
+    metaTitle: "What Is Gmailnator? Temp Gmail, Explained",
+    metaDescription:
+      "Gmailnator hands out disposable addresses including pooled real @gmail.com inboxes, which slip past domain blocklists. What it is and how to catch it at signup.",
+  },
+  {
+    slug: "binkmail-com",
+    domain: "binkmail.com",
+    serviceName: "Binkmail (Mailinator network)",
+    kind: "disposable",
+    description:
+      "Binkmail.com is one of the alternate domains of the Mailinator network. Any address @binkmail.com feeds into the same public, passwordless inbox system as Mailinator itself — the different domain exists largely to slip past blocklists that only list mailinator.com.",
+    typicalUse:
+      "Throwaway signups by users who found mailinator.com blocked on a form and reached for a lesser-known alias domain of the same service.",
+    blockRationale:
+      "Identical risk to Mailinator: public inboxes, zero intention of ongoing contact. Block it — and treat its existence as a reminder to use a maintained list that tracks Mailinator's rotating alias domains rather than a single hardcoded domain.",
+    related: ["mailinator-com", "sharklasers-com", "yopmail-com", "dispostable-com"],
+    metaTitle: "Is Binkmail a Disposable Email? (Mailinator Alias)",
+    metaDescription:
+      "Binkmail.com is an alias domain of the Mailinator network — same public throwaway inboxes, different name to dodge blocklists. Why and how to block it at signup.",
+  },
+  {
+    slug: "spam4-me",
+    domain: "spam4.me",
+    serviceName: "Spam4.me (YOPmail network)",
+    kind: "disposable",
+    description:
+      "Spam4.me is an alternate domain operated by the YOPmail network. Mail sent to an @spam4.me address lands in the same public, registration-free YOPmail inbox system, readable by anyone who knows the local part.",
+    typicalUse:
+      "Throwaway confirmations by users dodging forms that block yopmail.com but haven't caught the network's alias domains.",
+    blockRationale:
+      "Same public-inbox exposure as YOPmail: anything you send is world-readable and the user will never return. Block at signup along with the rest of the YOPmail alias set.",
+    related: ["yopmail-com", "mailinator-com", "binkmail-com", "guerrillamail-com"],
+  },
+  {
+    slug: "mail-tm",
+    domain: "mail.tm",
+    serviceName: "Mail.tm",
+    kind: "disposable",
+    description:
+      "Mail.tm is a disposable email service with a distinctly developer-facing twist: it exposes a free, documented REST API for creating temporary accounts and reading mail programmatically. That makes it a favorite building block for signup-automation scripts and bot frameworks.",
+    typicalUse:
+      "Automated account creation at scale — the API means a script can mint an inbox, register on your product, and fetch the confirmation link without a human touching a browser.",
+    blockRationale:
+      "Block at signup. The programmatic inbox API makes this one of the most automation-friendly disposable services, so addresses here are disproportionately likely to be bots rather than humans.",
+    related: ["mailsac-com", "dropmail-me", "tempmail-org", "guerrillamail-com"],
+  },
+  {
+    slug: "dropmail-me",
+    domain: "dropmail.me",
+    serviceName: "DropMail",
+    kind: "disposable",
+    description:
+      "DropMail.me issues a working disposable inbox the moment the page loads — no signup, no button press — and lets users switch between several alias domains operated by the same service. Inboxes are short-lived and vanish when the session ends.",
+    typicalUse:
+      "Instant throwaway confirmations. The zero-friction, address-on-page-load design attracts users who want an inbox for exactly one email.",
+    blockRationale:
+      "Pure throwaway usage with multiple rotating alias domains. Block the whole domain family at signup via a maintained list rather than chasing each alias by hand.",
+    related: ["10minutemail-com", "minuteinbox-com", "tempmail-org", "maildrop-cc"],
+  },
+  {
+    slug: "mailnesia-com",
+    domain: "mailnesia.com",
+    serviceName: "Mailnesia",
+    kind: "disposable",
+    description:
+      "Mailnesia is a public-inbox disposable service with a feature that makes it uniquely dangerous for signup fraud: it automatically clicks the links in incoming email. A confirmation email sent to a Mailnesia address activates itself — no human required.",
+    typicalUse:
+      "Fully hands-off fake signups: register with a Mailnesia address and the service itself completes your email-verification step by auto-visiting the confirmation link.",
+    blockRationale:
+      "Block unconditionally. The auto-click behavior defeats email confirmation as a bot check entirely, so a Mailnesia signup that looks 'verified' proves nothing about a human being present.",
+    related: ["mailinator-com", "yopmail-com", "mail-tm", "dispostable-com"],
+  },
+  {
+    slug: "minuteinbox-com",
+    domain: "minuteinbox.com",
+    serviceName: "MinuteInbox",
+    kind: "disposable",
+    description:
+      "MinuteInbox is a timer-based disposable inbox in the 10MinuteMail mold: visitors get an address with a countdown clock and can extend the timer if they need the inbox a little longer. When the clock runs out, the address is gone.",
+    typicalUse:
+      "One-time email confirmations where the user wants the inbox to disappear immediately afterward.",
+    blockRationale:
+      "The address is unreachable within minutes of signup, so there is no deliverability value and no ongoing user relationship. Block at signup.",
+    related: ["10minutemail-com", "dropmail-me", "tempmail-org", "guerrillamail-com"],
+  },
+  {
+    slug: "mohmal-com",
+    domain: "mohmal.com",
+    serviceName: "Mohmal",
+    kind: "disposable",
+    description:
+      "Mohmal ('neglected' in Arabic) is a disposable email service especially popular in Arabic-speaking markets, with an interface localized for the region. Inboxes are temporary and are deleted shortly after creation.",
+    typicalUse:
+      "Throwaway signups and confirmations, with usage concentrated in Middle East and North Africa traffic.",
+    blockRationale:
+      "Standard throwaway economics: the inbox is designed to disappear, so the signup has no lasting contact value. Block at signup — and note that regionally popular services like this are exactly what a US-centric blocklist tends to miss.",
+    related: ["tempmail-org", "yopmail-com", "10minutemail-com", "fakemail-net"],
+  },
+  {
+    slug: "mailsac-com",
+    domain: "mailsac.com",
+    serviceName: "Mailsac",
+    kind: "disposable",
+    description:
+      "Mailsac is a developer-oriented disposable email platform: public throwaway inboxes plus a full REST API and webhooks for reading mail programmatically. Engineering teams legitimately use it to test their own signup flows in CI — which is exactly what makes it potent for automating signups on someone else's product.",
+    typicalUse:
+      "Email-flow testing by developers, and automated account creation when pointed at third-party products. Public inboxes also serve ordinary throwaway signups.",
+    blockRationale:
+      "Block on production signup forms. If your own team uses Mailsac for end-to-end tests, allowlist it in test environments specifically rather than letting it through everywhere.",
+    related: ["mail-tm", "mailinator-com", "maildrop-cc", "inboxkitten-com"],
+  },
+  {
+    slug: "inboxkitten-com",
+    domain: "inboxkitten.com",
+    serviceName: "InboxKitten",
+    kind: "disposable",
+    description:
+      "InboxKitten is an open-source disposable inbox project — the code is public and the hosted instance offers free, registration-less throwaway inboxes. Because it's open source, the same software also runs on domains beyond the original.",
+    typicalUse:
+      "Throwaway confirmations, plus self-hosted clones used by more technical users to create disposable inboxes on domains no blocklist has seen.",
+    blockRationale:
+      "Block the known domain, but the open-source angle is the real lesson: static lists can't track self-hosted clones, which is why MX patterns, domain age, and behavioral signals have to carry part of the detection.",
+    related: ["mailsac-com", "mail-tm", "maildrop-cc", "dropmail-me"],
+  },
+  {
+    slug: "harakirimail-com",
+    domain: "harakirimail.com",
+    serviceName: "Harakiri Mail",
+    kind: "disposable",
+    description:
+      "Harakiri Mail is a disposable inbox service whose name describes its model: inboxes exist briefly and then self-destruct. Addresses work without registration and are intended for a single confirmation email.",
+    typicalUse:
+      "One-shot signups and download-gate confirmations where the user never intends to check the inbox again.",
+    blockRationale:
+      "Self-destructing inboxes mean guaranteed future bounces and zero user relationship. Block at signup.",
+    related: ["10minutemail-com", "minuteinbox-com", "dispostable-com", "fakemail-net"],
+  },
+  {
+    slug: "tempmailo-com",
+    domain: "tempmailo.com",
+    serviceName: "TempMailo",
+    kind: "disposable",
+    description:
+      "TempMailo is a disposable email service that auto-generates a temporary address on arrival and holds incoming mail for a short window before deleting it. It's one of the wave of interchangeable temp-mail sites that appeared after Temp-Mail popularized the format.",
+    typicalUse:
+      "Quick throwaway confirmations from users who searched 'temp mail' and clicked whichever service ranked that day.",
+    blockRationale:
+      "Standard disposable model with no lasting inbox. Block at signup — services in this long tail rotate in and out of popularity, which is why a daily-updated list matters more than any single domain.",
+    related: ["tempmail-org", "10minutemail-com", "mohmal-com", "dropmail-me"],
+  },
+  {
+    slug: "emailfake-com",
+    domain: "emailfake.com",
+    serviceName: "Email Fake",
+    kind: "disposable",
+    description:
+      "Email Fake is a disposable-address generator that lets users compose an address across a large, rotating catalog of domains — including obscure ones added specifically because blocklists haven't caught them yet. The generated inboxes are public and registration-free.",
+    typicalUse:
+      "Evading disposable-domain blocklists: when a form rejects one domain, the user picks another from the catalog until one passes.",
+    blockRationale:
+      "Block the core domain, but the rotating catalog is the real threat model — it's a live argument for combining a maintained feed with MX and domain-age checks instead of trusting any static list.",
+    related: ["gmailnator-com", "tempmail-org", "fakemail-net", "mintemail-com"],
+  },
+  {
+    slug: "33mail-com",
+    domain: "33mail.com",
+    serviceName: "33mail",
+    kind: "disposable",
+    description:
+      "33mail is a long-running email-aliasing service: users get unlimited addresses of the form anything@username.33mail.com, all forwarding to their real inbox, with per-alias blocking when one starts attracting spam. It's alias infrastructure rather than a throwaway inbox.",
+    typicalUse:
+      "Privacy-conscious users creating a unique address per service so they can trace and cut off whoever leaks or sells their email.",
+    blockRationale:
+      "More nuanced than pure throwaways — mail genuinely reaches a real person who wants it. Risk-tier rather than hard-block, and note the format: matching requires wildcarding *.33mail.com, since every user has their own subdomain.",
+    related: ["anonaddy-com", "simplelogin-com", "spamgourmet-com", "burnermail-io"],
+  },
+  {
+    slug: "burnermail-io",
+    domain: "burnermail.io",
+    serviceName: "Burner Mail",
+    kind: "disposable",
+    description:
+      "Burner Mail is a browser-extension-first email aliasing service: it generates a unique 'burner' address per website at the moment of signup and forwards mail to the user's real inbox, with one-click disabling of any burner that misbehaves.",
+    typicalUse:
+      "Privacy-focused signups where the user wants real, ongoing email delivery but refuses to expose their actual address to your database.",
+    blockRationale:
+      "Like other forwarding services, these are usually real users who do want your email. Risk-tier instead of hard-blocking unless your product has strict identity requirements — a burner address plus clean IP and normal behavior is generally a legitimate signup.",
+    related: ["anonaddy-com", "simplelogin-com", "33mail-com", "spamgourmet-com"],
+  },
 ];
 
 export function getDomain(slug: string): DisposableDomain | undefined {
