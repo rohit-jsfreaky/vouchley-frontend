@@ -1,6 +1,26 @@
 {
   "posts": [
     {
+      "slug": "best-ipqualityscore-alternatives-2026",
+      "title": "The Best IPQualityScore Alternatives for Signup Verification (2026)",
+      "excerpt": "IPQualityScore is powerful, but its $99/month floor and platform breadth are more than most teams need. Here are the best IPQualityScore alternatives for signup and IP verification in 2026, compared honestly on price and fit.",
+      "date": "2026-07-16T10:00:00.000Z",
+      "category": "Product",
+      "author": "Rohit Kashyap",
+      "image": "/blog/email-validation-vs-verification.jpg",
+      "tags": ["IPQualityScore", "alternatives", "comparison"],
+      "keywords": [
+        "ipqualityscore alternatives",
+        "ipqualityscore alternative",
+        "best ip reputation api",
+        "cheap ipqualityscore alternative",
+        "proxy detection api alternatives",
+        "fraud detection api alternatives"
+      ],
+      "readingTime": 9,
+      "featured": false
+    },
+    {
       "slug": "proxy-detection-for-saas",
       "title": "Proxy Detection for SaaS Signups: A Practical Build Guide",
       "excerpt": "Proxy-backed signups are how one attacker becomes a thousand fake accounts. Here's how to detect and score proxy traffic on a SaaS signup — the signals that matter, the code, the thresholds, and whether to build or buy.",
