@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { ComparisonPage } from "@/components/marketing/comparison/comparison-page";
 import { JsonLd } from "@/components/seo/json-ld";
 import { COMPARISONS, getComparison } from "@/config/comparisons";
-import { buildMetadata, faqJsonLd } from "@/lib/seo";
+import { SITE } from "@/config/site";
+import { breadcrumbJsonLd, buildMetadata, faqJsonLd } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -47,6 +48,13 @@ export default async function VsCompetitorPage({
   return (
     <>
       <JsonLd data={faqJsonLd(data.faqs)} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", url: SITE.url },
+          { name: "Compare", url: `${SITE.url}/pricing` },
+          { name: `Vouchley vs ${data.name}`, url: `${SITE.url}/vs/${data.slug}` },
+        ])}
+      />
       <ComparisonPage data={data} />
     </>
   );

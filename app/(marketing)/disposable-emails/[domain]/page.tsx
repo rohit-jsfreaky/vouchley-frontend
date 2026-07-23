@@ -7,7 +7,8 @@ import {
   DISPOSABLE_DOMAINS,
   getDomain,
 } from "@/config/disposable-domains";
-import { buildMetadata, faqJsonLd } from "@/lib/seo";
+import { SITE } from "@/config/site";
+import { breadcrumbJsonLd, buildMetadata, faqJsonLd } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -86,6 +87,16 @@ export default async function DisposableDomainDetailPage({
   return (
     <>
       <JsonLd data={faqJsonLd(faqs)} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", url: SITE.url },
+          { name: "Disposable emails", url: `${SITE.url}/disposable-emails` },
+          {
+            name: data.domain,
+            url: `${SITE.url}/disposable-emails/${data.slug}`,
+          },
+        ])}
+      />
       <DomainPage data={data} />
     </>
   );

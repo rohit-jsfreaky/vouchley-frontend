@@ -3,7 +3,9 @@ import type { Metadata } from "next";
 import { CompareTable } from "@/components/marketing/compare-table";
 import { PricingGrid } from "@/components/marketing/pricing/pricing-grid";
 import { PricingHeader } from "@/components/marketing/pricing/pricing-header";
-import { buildMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/json-ld";
+import { SITE } from "@/config/site";
+import { breadcrumbJsonLd, buildMetadata, softwareAppJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
   title: "Signup Verification API Pricing (From $19/mo)",
@@ -20,6 +22,13 @@ export const metadata: Metadata = buildMetadata({
 export default function PricingPage() {
   return (
     <>
+      <JsonLd data={softwareAppJsonLd()} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", url: SITE.url },
+          { name: "Pricing", url: `${SITE.url}/pricing` },
+        ])}
+      />
       <PricingHeader />
       <PricingGrid />
       <CompareTable />

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { JsonLd } from "@/components/seo/json-ld";
 import { buttonStyles } from "@/components/ui/button";
 import { DISPOSABLE_DOMAINS } from "@/config/disposable-domains";
-import { buildMetadata } from "@/lib/seo";
+import { SITE } from "@/config/site";
+import { breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
   title: "Disposable Email Domains: 2026 List to Block",
@@ -25,6 +27,12 @@ export default function DisposableEmailsIndexPage() {
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", url: SITE.url },
+          { name: "Disposable emails", url: `${SITE.url}/disposable-emails` },
+        ])}
+      />
       <section className="bg-canvas px-6 py-20 md:px-8">
         <div className="mx-auto max-w-4xl">
           <p className="mb-3 text-xs uppercase tracking-[0.18em] text-brand">

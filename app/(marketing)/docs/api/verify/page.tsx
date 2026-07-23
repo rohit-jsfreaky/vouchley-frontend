@@ -12,9 +12,11 @@ import {
 } from "@/components/docs/doc-typography";
 import { MobileTocFab } from "@/components/docs/mobile-toc-fab";
 import { DocsToc } from "@/components/docs/toc";
+import { JsonLd } from "@/components/seo/json-ld";
 import { CodeBlock } from "@/components/ui/code-block";
 import type { TocItem } from "@/config/docs";
 import { SITE } from "@/config/site";
+import { breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: `POST /v1/verify — ${SITE.name} Docs`,
@@ -32,6 +34,13 @@ const TOC: TocItem[] = [
 export default function VerifyApiPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", url: SITE.url },
+          { name: "Docs", url: `${SITE.url}/docs` },
+          { name: "POST /v1/verify", url: `${SITE.url}/docs/api/verify` },
+        ])}
+      />
       <article className="min-w-0 flex-1 py-12">
         <Breadcrumbs
           items={[

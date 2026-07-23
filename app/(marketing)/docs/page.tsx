@@ -10,9 +10,11 @@ import {
 } from "@/components/docs/doc-typography";
 import { MobileTocFab } from "@/components/docs/mobile-toc-fab";
 import { DocsToc } from "@/components/docs/toc";
+import { JsonLd } from "@/components/seo/json-ld";
 import { CodeBlock } from "@/components/ui/code-block";
 import type { TocItem } from "@/config/docs";
-import { buildMetadata } from "@/lib/seo";
+import { SITE } from "@/config/site";
+import { breadcrumbJsonLd, buildMetadata, howToJsonLd } from "@/lib/seo";
 
 // Keyword-first, brand added once by the title template (the old inline title
 // "Quickstart — Vouchley Docs" double-appended the brand: "… Docs — Vouchley").
@@ -39,6 +41,42 @@ const TOC: TocItem[] = [
 export default function DocsQuickstartPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", url: SITE.url },
+          { name: "Docs", url: `${SITE.url}/docs` },
+        ])}
+      />
+      <JsonLd
+        data={howToJsonLd({
+          name: "How to verify signups with the Vouchley API",
+          description:
+            "Integrate the Vouchley signup verification API in under five minutes — create a key, send one POST request, and act on the score.",
+          totalTime: "PT5M",
+          steps: [
+            {
+              name: "Create an API key",
+              text: "Sign in to the dashboard, open API Keys, and create a new key. Keys are prefixed vch_live_ (production) or vch_test_ (sandbox). Copy it into your server-side environment.",
+              url: `${SITE.url}/docs#create-key`,
+            },
+            {
+              name: "Make your first request",
+              text: "Send a POST /v1/verify with the email to score, plus optional name, company_name, and ip_address for richer signals.",
+              url: `${SITE.url}/docs#first-request`,
+            },
+            {
+              name: "Understand the response",
+              text: "Read the 0–100 score and the approve, review, or block recommendation, plus the full signal breakdown your team can audit.",
+              url: `${SITE.url}/docs#response`,
+            },
+            {
+              name: "Wire it into your signup flow",
+              text: "Call Vouchley inside your signup handler and branch on the recommendation: auto-approve, queue for manual review, or reject.",
+              url: `${SITE.url}/docs#wire-in`,
+            },
+          ],
+        })}
+      />
       <article className="min-w-0 flex-1 py-12">
         <DocH1>Quickstart</DocH1>
         <DocLead>
