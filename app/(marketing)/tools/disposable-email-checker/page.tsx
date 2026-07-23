@@ -4,7 +4,6 @@ import Link from "next/link";
 import { DisposableEmailChecker } from "@/components/tools/disposable-email-checker";
 import { JsonLd } from "@/components/seo/json-ld";
 import { SITE } from "@/config/site";
-import { DISPOSABLE_DOMAIN_COUNT } from "@/lib/disposable-list";
 import { breadcrumbJsonLd, buildMetadata, faqJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
@@ -88,8 +87,8 @@ export default function DisposableEmailCheckerPage() {
           </h1>
           <p className="mx-auto max-w-xl text-lg leading-relaxed text-ink-muted">
             Paste an email to see if it&apos;s disposable, temporary, or fake.
-            Checked against {DISPOSABLE_DOMAIN_COUNT.toLocaleString()}+ known
-            throwaway domains plus a live mail-server lookup. No signup, no cost.
+            Checked against 11,000+ known throwaway domains (refreshed daily)
+            plus a live mail-server lookup. No signup, no cost.
           </p>
         </div>
       </section>

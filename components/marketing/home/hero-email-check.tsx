@@ -4,6 +4,7 @@ import { ArrowRight, Loader2, ShieldCheck, ShieldX } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
+import { SITE } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 type Verdict = "approve" | "review" | "block";
@@ -23,8 +24,8 @@ const PILL: Record<Verdict, { label: string; className: string }> = {
 };
 
 /**
- * Compact hero verifier — a real check anyone can run without signing up. Uses
- * the free /api/tools/check-email endpoint (email + domain only, no credits),
+ * Compact hero verifier — a real check anyone can run without signing up. Calls
+ * the backend's public /v1/check endpoint (email + domain only, no credits),
  * then nudges to sign up for the full IP/VPN/bot verification.
  */
 export function HeroEmailCheck() {
@@ -40,7 +41,7 @@ export function HeroEmailCheck() {
     setError(null);
     setResult(null);
     try {
-      const res = await fetch("/api/tools/check-email", {
+      const res = await fetch(`${SITE.apiUrl}/v1/check`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email.trim() }),

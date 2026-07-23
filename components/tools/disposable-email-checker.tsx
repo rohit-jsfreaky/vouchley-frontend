@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SITE } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 type Verdict = "approve" | "review" | "block";
@@ -59,7 +60,7 @@ export function DisposableEmailChecker() {
     setError(null);
     setResult(null);
     try {
-      const res = await fetch("/api/tools/check-email", {
+      const res = await fetch(`${SITE.apiUrl}/v1/check`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email.trim() }),
