@@ -13,8 +13,10 @@ import type { NextRequest } from "next/server";
 import {
   FREE_PROVIDERS,
   ROLE_LOCAL_PARTS,
+  disposableByMx,
   lookupDisposable,
 } from "@/lib/disposable-list";
+import { remoteDisposable } from "@/lib/disposable-remote";
 
 export const runtime = "nodejs";
 
@@ -38,7 +40,7 @@ function rateLimited(ip: string): boolean {
 const EMAIL_RE =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 
-async function hasMx(domain: string): Promise<boolean> {
+async function resolveMxHosts(domain: string): Promise<string[]> {
   try {
     const records = await Promise.race([
       dns.promises.resolveMx(domain),
@@ -46,9 +48,9 @@ async function hasMx(domain: string): Promise<boolean> {
         setTimeout(() => reject(new Error("mx-timeout")), 3000),
       ),
     ]);
-    return Array.isArray(records) && records.length > 0;
+    return Array.isArray(records) ? records.map((r) => r.exchange) : [];
   } catch {
-    return false;
+    return [];
   }
 }
 
@@ -83,10 +85,24 @@ export async function POST(req: NextRequest) {
   }
 
   const [localPart, domain] = email.toLowerCase().split("@");
-  const { disposable, service } = lookupDisposable(domain);
   const freeProvider = FREE_PROVIDERS.has(domain);
   const roleBased = ROLE_LOCAL_PARTS.has(localPart);
-  const mxFound = await hasMx(domain);
+  const mxHosts = await resolveMxHosts(domain);
+  const mxFound = mxHosts.length > 0;
+
+  // Layer 1 — direct list lookup.
+  let { disposable, service } = lookupDisposable(domain);
+  // Layer 2 — mail-server fingerprint (a rotation domain whose MX is disposable).
+  if (!disposable && !freeProvider) {
+    const byMx = disposableByMx(mxHosts);
+    if (byMx.disposable) ({ disposable, service } = byMx);
+  }
+  // Layer 3 — free-API fallback for domains our list doesn't know yet
+  // (best-effort, cached, fails open). Skip for known free providers.
+  if (!disposable && !freeProvider && mxFound) {
+    const remote = await remoteDisposable(domain);
+    if (remote === true) disposable = true;
+  }
 
   let recommendation: "approve" | "review" | "block";
   let reason: string;

@@ -99,3 +99,24 @@ export function lookupDisposable(domain: string): {
   const d = domain.toLowerCase();
   return { disposable: disposableSet.has(d), service: serviceByDomain.get(d) ?? null };
 }
+
+/**
+ * Layer 2 — MX-host fingerprint. If a domain's mail server (or any parent of
+ * it) is itself a known disposable domain, the domain is disposable even if its
+ * own name is not on the list. Catches rotation domains that share a temp-mail
+ * mail backend.
+ */
+export function disposableByMx(mxHosts: string[]): {
+  disposable: boolean;
+  service: string | null;
+} {
+  for (const host of mxHosts) {
+    const labels = host.toLowerCase().replace(/\.$/, "").split(".");
+    for (let i = 0; i < labels.length - 1; i++) {
+      const candidate = labels.slice(i).join(".");
+      const r = lookupDisposable(candidate);
+      if (r.disposable) return r;
+    }
+  }
+  return { disposable: false, service: null };
+}

@@ -23,7 +23,7 @@ type CheckResult = {
 };
 
 const VERDICT_STYLE: Record<Verdict, { label: string; className: string; Icon: typeof CheckCircle2 }> = {
-  approve: { label: "Looks legit", className: "bg-accent-soft text-accent", Icon: CheckCircle2 },
+  approve: { label: "No red flags", className: "bg-accent-soft text-accent", Icon: CheckCircle2 },
   review: { label: "Review", className: "bg-warning-bg text-warning", Icon: AlertCircle },
   block: { label: "Block", className: "bg-danger-bg text-danger", Icon: ShieldX },
 };

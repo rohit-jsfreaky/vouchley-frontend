@@ -17,7 +17,7 @@ type CheckResult = {
 };
 
 const PILL: Record<Verdict, { label: string; className: string }> = {
-  approve: { label: "Looks legit", className: "bg-accent-soft text-accent" },
+  approve: { label: "No red flags", className: "bg-accent-soft text-accent" },
   review: { label: "Review", className: "bg-warning-bg text-warning" },
   block: { label: "Block", className: "bg-danger-bg text-danger" },
 };
