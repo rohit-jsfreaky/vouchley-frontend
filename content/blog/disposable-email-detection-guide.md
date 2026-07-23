@@ -191,7 +191,7 @@ If you have searched for temp mail that is not detected, here is what is actuall
 
 Three things catch the ones a static list misses:
 
-1. **A feed that updates daily.** New disposable domains appear at roughly 20–50 per week. Either subscribe to a maintained feed or use an API that maintains the list as a service.
+1. **A feed that updates daily.** New disposable domains appear at roughly 20–50 per week. Either subscribe to a maintained feed or use an API that maintains the list as a service. For the step-by-step API build, see [how to block temp mail with a disposable email API](/blog/disposable-email-api).
 2. **MX and domain-age checks.** Freshly-registered throwaway domains, and addresses whose MX record stops responding shortly after the confirmation email, are strong signals even when the domain is not yet on any list.
 3. **Behavioral corroboration.** A brand-new domain plus a datacenter IP plus a sub-second form submit is disposable-adjacent behavior regardless of whether the domain is catalogued yet.
 

@@ -1,6 +1,46 @@
 {
   "posts": [
     {
+      "slug": "vpn-detection-api-saas",
+      "title": "VPN Detection API for SaaS: A 2026 Implementation Guide",
+      "excerpt": "A VPN signup is not a fraud signal on its own — plenty of real, privacy-conscious users arrive over a VPN. Here's how to add a VPN detection API to your signup flow the right way: what it returns, VPN vs proxy vs datacenter vs Tor, scoring instead of blocking, and the false positives to plan for.",
+      "date": "2026-07-23T11:00:00.000Z",
+      "category": "Engineering",
+      "author": "Rohit Kashyap",
+      "image": "/blog/vpn-proxy-detection.jpg",
+      "tags": ["VPN detection", "IP intelligence", "API"],
+      "keywords": [
+        "VPN detection API",
+        "VPN detection API for SaaS",
+        "detect VPN signups",
+        "proxy detection API",
+        "IP reputation API",
+        "block VPN signups"
+      ],
+      "readingTime": 10,
+      "featured": false
+    },
+    {
+      "slug": "disposable-email-api",
+      "title": "Disposable Email API: How to Block Temp Mail in Your Stack",
+      "excerpt": "A static blocklist you downloaded six months ago already misses a quarter of active temp-mail providers. Here's how to block disposable email with an API instead — the response fields that matter, the one call to wire in, the edge cases, and build-vs-buy.",
+      "date": "2026-07-23T10:00:00.000Z",
+      "category": "Engineering",
+      "author": "Rohit Kashyap",
+      "image": "/blog/disposable-email-guide.jpg",
+      "tags": ["disposable email", "email validation", "API"],
+      "keywords": [
+        "disposable email API",
+        "block temp mail API",
+        "temporary email detection API",
+        "disposable email checker API",
+        "block disposable emails",
+        "temp mail checker"
+      ],
+      "readingTime": 10,
+      "featured": false
+    },
+    {
       "slug": "prevent-fake-signups-2026",
       "title": "How to Prevent Fake Signups in 2026: The Full Playbook",
       "excerpt": "Detecting fake signups is half the job. Preventing them is a system — layered defenses, the right block-vs-verify decision, registration-bot handling, and monitoring. Here's the full playbook, with a checklist you can ship this week.",

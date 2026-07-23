@@ -115,7 +115,7 @@ Under the hood, VPN/proxy detection is a mix of:
 3. **Commercial feeds** — companies like IPQualityScore, IPinfo, and Spur run active fingerprinting and honeypots to detect categories 1, 4, and 5. These are paid but affordable (often $20–$100/month for early-stage usage).
 4. **Behavioral corroboration** — even if you think an IP is clean, a signup with five other risk signals (disposable email, new domain, weird timing) is probably fraud regardless.
 
-You don't have to build this stack yourself. A signup verification API does all of it in a single call.
+You don't have to build this stack yourself. A signup verification API does all of it in a single call — see [how to add a VPN detection API to your signup flow](/blog/vpn-detection-api-saas) for the step-by-step build.
 
 ## Real-world integration
 
