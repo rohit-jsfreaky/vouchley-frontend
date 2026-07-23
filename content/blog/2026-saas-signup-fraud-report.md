@@ -68,6 +68,20 @@ This is a *directional* report, not a peer-reviewed dataset. Where we cite speci
 
 _Updated July 2026 — mid-year check-in: every pattern below held or accelerated through Q2. AI-driven agentic signups remain the single fastest-growing category, disposable-domain churn is unchanged at roughly 20–50 new domains per week, and residential-proxy traffic continues to climb. Nothing in the defense playbook (Section 6) has needed revising — combined-signal scoring still holds the line._
 
+## Key statistics at a glance
+
+These are the figures most often quoted from this report. Each is a **directional range** — drawn from public industry research (sourced at the bottom) plus anonymized, aggregated observations, not a precise single-point measurement. You're welcome to cite any of them with a link back to this page — see the **Cite this report** section near the end for a ready-to-use reference.
+
+- **2–5%** of day-to-day SaaS signups arrive on a known disposable email domain — spiking to **15–30%** during launch-day traffic (Product Hunt, Hacker News, viral posts).
+- **~1 in 7** Gmail signups attempts a `+tag` or dot alias variant.
+- **~10× year-over-year** — the growth rate of AI-driven agentic signup fraud through 2026.
+- **~3–5× year-over-year** — the growth of residential-proxy traffic used to mask automated abuse.
+- **20–50 new disposable email domains** launch every week; a six-month-old blocklist already misses **25–40%** of currently-active providers.
+- **Under 1%** of legitimate B2B signups originate from datacenter IPs — rising to **5%+ (occasionally 15–25%)** on products under active attack.
+- Free-tier abuse can consume **20–50%** of variable cost on expensive freemium products; the email-deliverability damage it causes takes **4–8 weeks** to recover.
+
+For the "healthy vs under-attack" benchmark table across every signal, see **Section 4 — Industry benchmarks for 2026**, further down.
+
 ---
 
 ## 1. The shape of signup fraud in 2026
@@ -316,6 +330,19 @@ If you got this far, you're probably a SaaS founder or engineer staring at a sig
 - [Compare Vouchley to Kickbox, ZeroBounce, Sift →](/vs/kickbox)
 
 ---
+
+## Cite this report
+
+**Vouchley — _The 2026 State of SaaS Signup Fraud Report_.** Published June 2026, last updated July 2026.
+`https://vouchley.getrevlio.com/blog/2026-saas-signup-fraud-report`
+
+Journalists, researchers, and writers are welcome to quote any figure in this report with a link back to this page. A ready-to-use reference:
+
+> "According to Vouchley's 2026 State of SaaS Signup Fraud Report, disposable-email signups spike to 15–30% during launch-day traffic, and AI-driven agentic signup fraud is growing roughly 10× year over year."
+
+A reminder on how to represent the numbers honestly: they are **directional ranges** — blended from the public industry research linked below and anonymized, aggregated observations — not a precise, single-source dataset. Please frame them as ranges, not exact measurements.
+
+Need context, a specific breakdown, or a comment for a story? [Get in touch](/contact) — we're glad to help.
 
 ## Sources and further reading
 
