@@ -4,7 +4,7 @@ excerpt: "A directional, evidence-based look at what's actually attacking SaaS s
 metaTitle: "2026 SaaS Signup Fraud Report: Data & Trends"
 metaDescription: "Fresh 2026 data on what attacks SaaS signups — disposable emails, VPN traffic, AI bots, alias abuse — with benchmarks from real verification telemetry."
 date: "2026-06-08T09:00:00.000Z"
-updatedAt: "2026-06-08T09:00:00.000Z"
+updatedAt: "2026-07-23T09:00:00.000Z"
 category: "Research"
 author: "Rohit Kashyap"
 image: "/blog/2026-saas-signup-fraud-report.jpg"
@@ -25,7 +25,6 @@ authorBio:
   bio: "Built Vouchley, a real-time signup verification API that scores email + IP + domain + bot signals in one call. Previously shipped MailValid (email validation) and Skill Arena (real-time esports platform handling thousands of concurrent users). Writes about SaaS fraud, signup infrastructure, and indie engineering."
   links:
     twitter: "https://x.com/vouchley"
-    github: "https://github.com/"
     website: "https://vouchley.getrevlio.com"
 faq:
   - question: "What is the most common form of SaaS signup fraud in 2026?"
@@ -66,6 +65,8 @@ This is a *directional* report, not a peer-reviewed dataset. Where we cite speci
 > 3. Gmail alias abuse (`+tag` and dots) is now present on ~1 in 7 Gmail signups
 > 4. Datacenter-IP signups concentrate on AWS, GCP, Hetzner, and DigitalOcean ASNs — under 1% of legitimate B2B traffic, 5%+ on attacked products
 > 5. VPN signups themselves are not block signals; **VPN plus rapid feature consumption** is the actual fraud fingerprint
+
+_Updated July 2026 — mid-year check-in: every pattern below held or accelerated through Q2. AI-driven agentic signups remain the single fastest-growing category, disposable-domain churn is unchanged at roughly 20–50 new domains per week, and residential-proxy traffic continues to climb. Nothing in the defense playbook (Section 6) has needed revising — combined-signal scoring still holds the line._
 
 ---
 

@@ -14,8 +14,19 @@ keywords:
   - "stop AI bot signups"
   - "AI fraud prevention SaaS"
   - "bot signup detection 2026"
+  - "agentic AI signup fraud"
 readingTime: 9
 featured: true
+updatedAt: "2026-07-23T09:00:00.000Z"
+faq:
+  - question: "What is agentic AI signup fraud?"
+    answer: "Agentic AI signup fraud is account creation driven by AI agents rather than fixed scripts. The agent reads your page like a screen reader, decides where to click from the visual layout, types with realistic per-key timing, moves the mouse along plausible curves, and pauses where a human would. Paired with residential proxies and cheap CAPTCHA solvers, it produces signups that pass the behavioral and CAPTCHA checks that stopped scripted bots a few years ago — at roughly $0.04 per account."
+  - question: "How do you detect AI bot signups?"
+    answer: "Not with any single check — agentic AI fakes CAPTCHA, typing cadence, and mouse movement well enough to pass them individually. Detection comes from combining signals that are expensive to fake together: IP and ASN reputation, email-domain age and quality, live-website/MX domain checks, and rapid post-signup feature consumption. Scored together, the combination flags the account even when every individual behavioral signal looks human."
+  - question: "Can AI bots get past reCAPTCHA and hCaptcha?"
+    answer: "Yes. CAPTCHA-solving services clear reCAPTCHA, hCaptcha, and Cloudflare Turnstile for about $0.001–0.003 per solve, so a CAPTCHA pass is no longer evidence of a human. Treat CAPTCHA as a small progressive-friction layer for suspicious signups, not as a bot gate."
+  - question: "Why are my existing bot defenses failing in 2026?"
+    answer: "Two things changed at once: the cost of a believable fake signup collapsed from $5–$10 to about $0.04, and agentic AI learned to mimic human behavior convincingly. Defenses that assume 'humans behave differently than bots' — mouse jitter, typing cadence, time-on-page — degrade fast against that. The defenses that still hold are IP reputation, cross-signal scoring, and asynchronous post-signup verification with limited-mode accounts."
 ---
 
 For a decade, bot signup defense was a solved problem. CAPTCHA blocked the lazy bots. Behavioral signals — typing cadence, mouse jitter, dwell time — caught the rest. Reasonable cost, reasonable accuracy, reasonable peace of mind.
@@ -160,6 +171,8 @@ If you haven't audited your signup defenses since 2024:
 Agentic AI made signup fraud 100× cheaper and behaviorally convincing. Old defenses (CAPTCHA, behavioral signals alone) no longer hold the line. The new pattern is layered: IP and ASN reputation, email stack, domain signals, behavioral heuristics weighted lower, and async post-signup verification with limited-mode accounts. No single layer is enough. All of them together still work — and will keep working in 2026.
 
 [Vouchley](/) bundles the synchronous IP, email, and domain layers into one API call, leaving you to wire async checks for your specific product. [Try it free](/signup) or [read the verify endpoint docs](/docs/api/verify).
+
+For the wider picture, see the [2026 State of SaaS Signup Fraud Report](/blog/2026-saas-signup-fraud-report) for the data, the [registration-bot and CAPTCHA breakdown](/blog/bot-signup-prevention) for why CAPTCHA alone fails, and the step-by-step [fake-signup prevention playbook](/blog/prevent-fake-signups-2026) for the block/verify/allow policy.
 
 ## Sources
 

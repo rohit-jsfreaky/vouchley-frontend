@@ -14,8 +14,20 @@ keywords:
   - "bot detection API"
   - "signup security"
   - "reCAPTCHA alternatives"
-readingTime: 10
+  - "registration bots"
+  - "registration bot detection"
+readingTime: 12
 featured: false
+updatedAt: "2026-07-23T09:00:00.000Z"
+faq:
+  - question: "What are registration bots?"
+    answer: "Registration bots are automated scripts or AI agents built specifically to create accounts on signup forms at scale. Unlike scrapers or login-stuffing bots, their whole job is passing your signup flow — solving or bypassing CAPTCHA, supplying plausible emails and names, and often routing through residential proxies so each account looks like a different real user. They exist to farm free-tier credits, harvest referral payouts, or seed accounts for later abuse."
+  - question: "How do I stop registration bots without hurting real users?"
+    answer: "Score every signup instead of challenging every user. Combine email quality (disposable + MX + role-based), IP reputation (datacenter / VPN / Tor + risk), and domain signals into a single 0–100 score, then only add friction (email OTP, hCaptcha) to low-confidence signups. Clean signups pass invisibly; registration bots fail the combined score even when they beat any single check. One call to a verification API returns that score at signup time."
+  - question: "Does CAPTCHA stop registration bots in 2026?"
+    answer: "No, not on its own. CAPTCHA-solving services clear reCAPTCHA, hCaptcha, and Turnstile for a fraction of a cent per solve at 95%+ success, so a CAPTCHA pass no longer proves a human. CAPTCHA still helps as a progressive, suspicious-only challenge — but as a standalone gate it stops only the laziest bots."
+  - question: "What is the cheapest way to reduce bot signups?"
+    answer: "Email + IP scoring on every signup is the highest-ROI first move. Disposable-email and datacenter-IP filtering alone typically kill 40–60% of low-effort bot signups in an afternoon of integration, with no client-side instrumentation. Add device fingerprinting (BotD) and behavioral signals later for the sophisticated long tail."
 ---
 
 If you're still relying on reCAPTCHA to keep bots out of your signup form, your data has bad news for you. Modern bot farms solve CAPTCHAs at industrial scale — roughly $1 per 1,000 solves, with 99%+ success rates on the trickiest versions.
@@ -47,6 +59,16 @@ The motivation is usually one of:
 5. **Scraping gated content** — docs, pricing, tutorials behind signup walls.
 
 Each has different economics, but the signup technique is similar: volume, from many different identities, fast.
+
+## Registration bots: the specific threat behind the traffic
+
+"Bot signups" and "registration bots" are the same problem from two angles. A registration bot is an automated client built for one job — getting through your signup form and creating a live account. It is not trying to scrape a page or brute-force a login. It wants an account it can use.
+
+That single-mindedness is what makes them hard. A registration bot only has to look human for the twenty seconds it takes to fill your form. Modern ones do that well: they clear the CAPTCHA through a solver API, arrive on a residential IP, submit a plausible name and a working email (often a Gmail alias or a fresh-domain address), and pace their keystrokes so behavioral checks stay quiet.
+
+The tell is almost never a single signal — it is the combination. A brand-new email domain **and** a datacenter or flagged-residential IP **and** a name that does not match the email local-part **and** a signup that immediately reaches for an expensive feature. No individual check fires with confidence; the score does. That is why registration-bot detection is a scoring problem, not a gate problem — the same layered approach the rest of this post describes, applied at the moment of account creation.
+
+If registration bots are your specific worry, pair this post with the [fake-signup prevention playbook](/blog/prevent-fake-signups-2026) for the block/verify/allow policy, and the [AI bot signups breakdown](/blog/ai-bot-signups-2026) for how agentic tools now fake the behavioral layer.
 
 ## What still works: a layered defense
 
