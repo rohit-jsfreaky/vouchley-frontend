@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
+import { HeroEmailCheck } from "@/components/marketing/home/hero-email-check";
 import { PlatformShowcase } from "@/components/marketing/home/platform-showcase";
 import { buttonStyles } from "@/components/ui/button";
 import { HERO } from "@/config/home";
@@ -128,7 +129,11 @@ export function Hero({ user }: { user: User | null }) {
           {HERO.subheadline}
         </p>
 
-        <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <div data-hero-cta>
+          <HeroEmailCheck />
+        </div>
+
+        <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
           {user ? (
             <>
               <Link

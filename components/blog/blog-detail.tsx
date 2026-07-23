@@ -5,6 +5,7 @@ import remarkGfm from "remark-gfm";
 import remarkHtml from "remark-html";
 import { remark } from "remark";
 
+import { BlogCta } from "@/components/blog/blog-cta";
 import type { BlogIndexEntry, BlogPost } from "@/lib/blog";
 
 // Brand icons inlined — lucide-react v1.x dropped Github / Linkedin / Twitter
@@ -127,12 +128,19 @@ export async function BlogDetail({ post, related }: Props) {
         </figure>
       )}
 
-      {/* Body */}
-      <div className="mx-auto max-w-3xl px-6 pb-12">
+      {/* Body + conversion CTA. Article stays centered (aligned with the FAQ
+          below); on wide screens the CTA floats in the right gutter as a sticky
+          sidebar, and on tablet/mobile it drops inline right after the article. */}
+      <div className="relative mx-auto max-w-3xl px-6 pb-12">
         <div
           className="blog-prose"
           dangerouslySetInnerHTML={{ __html: html }}
         />
+        <aside className="mt-12 xl:absolute xl:left-full xl:top-0 xl:ml-8 xl:mt-0 xl:w-[300px]">
+          <div className="xl:sticky xl:top-24">
+            <BlogCta />
+          </div>
+        </aside>
       </div>
 
       {/* FAQ block — emitted only when frontmatter declares one. The same
