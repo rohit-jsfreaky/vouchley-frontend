@@ -70,8 +70,9 @@ _Updated July 2026 — mid-year check-in: every pattern below held or accelerate
 
 ## Key statistics at a glance
 
-These are the figures most often quoted from this report. Each is a **directional range** — drawn from public industry research (sourced at the bottom) plus anonymized, aggregated observations, not a precise single-point measurement. You're welcome to cite any of them with a link back to this page — see the **Cite this report** section near the end for a ready-to-use reference.
+These are the figures most often quoted from this report. Except where marked *first-party Vouchley data*, each is a **directional range** — drawn from public industry research (sourced at the bottom) plus anonymized, aggregated observations, not a precise single-point measurement. You're welcome to cite any of them with a link back to this page — see the **Cite this report** section near the end for a ready-to-use reference.
 
+- **11,500+ disposable email domains** are actively tracked and blocked by Vouchley, refreshed daily — up from roughly 5,400 earlier in 2026, a pace consistent with the 20–50 new throwaway domains that surface each week. *(First-party Vouchley data, verifiable live at the [disposable email checker](/tools/disposable-email-checker).)*
 - **2–5%** of day-to-day SaaS signups arrive on a known disposable email domain — spiking to **15–30%** during launch-day traffic (Product Hunt, Hacker News, viral posts).
 - **~1 in 7** Gmail signups attempts a `+tag` or dot alias variant.
 - **~10× year-over-year** — the growth rate of AI-driven agentic signup fraud through 2026.
@@ -90,7 +91,7 @@ For the "healthy vs under-attack" benchmark table across every signal, see **Sec
 
 ### Disposable email abuse
 
-The most volumetric category. Across typical day-to-day Vouchley traffic, **2–5% of signups arrive on a known disposable email domain** (Mailinator, 10MinuteMail, Guerrilla Mail, YOPmail, Temp Mail, and roughly 5,000 others). On launch days — Product Hunt, Hacker News front-page, viral X posts — that ratio spikes to **15–30%** for a 24–48 hour window before returning to baseline.
+The most volumetric category. Across typical day-to-day Vouchley traffic, **2–5% of signups arrive on a known disposable email domain** (Mailinator, 10MinuteMail, Guerrilla Mail, YOPmail, Temp Mail, and the 11,500+ others Vouchley now tracks). On launch days — Product Hunt, Hacker News front-page, viral X posts — that ratio spikes to **15–30%** for a 24–48 hour window before returning to baseline.
 
 The cost: low per signup (the user is mostly just curious, not actively trying to drain you), but high in aggregate because disposable email is the dominant cause of email deliverability damage. Gmail and Outlook punish senders with high bounce rates and high spam-fold rates — and bouncing transactional mail to abandoned Mailinator inboxes is exactly that pattern.
 
