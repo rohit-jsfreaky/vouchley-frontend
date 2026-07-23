@@ -5,10 +5,18 @@ import { useCallback, useEffect, useState } from "react";
 import { BulkVerify } from "@/components/dashboard/verify/bulk-verify";
 import { SingleVerify } from "@/components/dashboard/verify/single-verify";
 import { PageHeader } from "@/components/dashboard/shell/page-header";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { fetchBillingOverview } from "@/lib/api-billing";
+import { cn } from "@/lib/utils";
+
+type Tab = "single" | "bulk";
+
+const TABS: { id: Tab; label: string }[] = [
+  { id: "single", label: "Single email" },
+  { id: "bulk", label: "Bulk list" },
+];
 
 export function VerifyClient() {
+  const [tab, setTab] = useState<Tab>("single");
   const [balance, setBalance] = useState<number | null>(null);
 
   const refreshBalance = useCallback(async () => {
@@ -41,20 +49,29 @@ export function VerifyClient() {
         }
       />
 
-      <Tabs defaultValue="single" className="w-full">
-        <TabsList className="mb-6">
-          <TabsTrigger value="single">Single email</TabsTrigger>
-          <TabsTrigger value="bulk">Bulk list</TabsTrigger>
-        </TabsList>
+      <div className="mb-6 inline-flex gap-1 rounded-lg border border-border bg-subtle/60 p-1">
+        {TABS.map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            onClick={() => setTab(t.id)}
+            className={cn(
+              "rounded-md px-4 py-1.5 text-sm font-medium transition-colors",
+              tab === t.id
+                ? "bg-canvas text-ink shadow-sm"
+                : "text-ink-muted hover:text-ink",
+            )}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
 
-        <TabsContent value="single">
-          <SingleVerify balance={balance} onSpent={refreshBalance} />
-        </TabsContent>
-
-        <TabsContent value="bulk">
-          <BulkVerify balance={balance} onBalanceChanged={refreshBalance} />
-        </TabsContent>
-      </Tabs>
+      {tab === "single" ? (
+        <SingleVerify balance={balance} onSpent={refreshBalance} />
+      ) : (
+        <BulkVerify balance={balance} onBalanceChanged={refreshBalance} />
+      )}
     </div>
   );
 }
