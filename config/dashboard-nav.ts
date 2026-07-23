@@ -7,6 +7,7 @@ import {
   Home,
   KeyRound,
   Settings,
+  ShieldCheck,
 } from "lucide-react";
 
 export interface DashboardNavItem {
@@ -18,6 +19,7 @@ export interface DashboardNavItem {
 
 export const DASHBOARD_NAV: DashboardNavItem[] = [
   { label: "Home", href: "/dashboard", icon: Home },
+  { label: "Verify", href: "/dashboard/verify", icon: ShieldCheck },
   { label: "API Keys", href: "/dashboard/keys", icon: KeyRound },
   { label: "Usage", href: "/dashboard/usage", icon: BarChart3 },
   { label: "Billing", href: "/dashboard/billing", icon: CreditCard },
@@ -31,6 +33,7 @@ export const DASHBOARD_NAV_FOOTER: DashboardNavItem[] = [
 
 export const DASHBOARD_BOTTOM_NAV: DashboardNavItem[] = [
   { label: "Home", href: "/dashboard", icon: Home },
+  { label: "Verify", href: "/dashboard/verify", icon: ShieldCheck },
   { label: "Keys", href: "/dashboard/keys", icon: KeyRound },
   { label: "Usage", href: "/dashboard/usage", icon: BarChart3 },
   { label: "Settings", href: "/dashboard/settings", icon: Settings },
